@@ -19,7 +19,7 @@ public class NGO2024 {
         
         try{
             idb = new InfDB("SDGSweden", "3306", "dbAdmin2024", "dbAdmin2024PW");
-            new Inloggning().setVisible(true);
+            new Inloggning(idb).setVisible(true);
         }catch (InfException ex){
             System.out.println(ex.getMessage());
         }
