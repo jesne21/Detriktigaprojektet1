@@ -13,7 +13,7 @@ import oru.inf.InfException;
 public class Inloggning extends javax.swing.JFrame {
 
     private InfDB idb;
-   
+
     
     /**
      * Creates new form Inloggning
@@ -37,9 +37,11 @@ public class Inloggning extends javax.swing.JFrame {
         lblEPost = new javax.swing.JLabel();
         lblLosenord = new javax.swing.JLabel();
         tfEpost = new javax.swing.JTextField();
-        tfLosenord = new javax.swing.JTextField();
         lblFelMeddelande = new javax.swing.JLabel();
         btnLoggaIn = new javax.swing.JButton();
+        tfLosenord = new javax.swing.JPasswordField();
+        visa = new javax.swing.JLabel();
+        göm = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,12 +55,6 @@ public class Inloggning extends javax.swing.JFrame {
             }
         });
 
-        tfLosenord.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfLosenordActionPerformed(evt);
-            }
-        });
-
         lblFelMeddelande.setForeground(new java.awt.Color(255, 0, 51));
         lblFelMeddelande.setText("Felaktig E-postadress eller Lösenord");
 
@@ -69,6 +65,25 @@ public class Inloggning extends javax.swing.JFrame {
             }
         });
 
+        tfLosenord.setText("jPasswordField1");
+
+        visa.setIcon(new javax.swing.ImageIcon("C:\\Utilities\\eye rätt.png")); // NOI18N
+        visa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                visaMousePressed(evt);
+            }
+        });
+
+        göm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/eye slash rätt.png"))); // NOI18N
+        göm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                gömMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                gömMouseReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,19 +91,27 @@ public class Inloggning extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblFelMeddelande)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblEPost)
                             .addComponent(lblLosenord))
-                        .addGap(34, 34, 34)
+                        .addGap(34, 34, 34))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnLoggaIn)
+                        .addGap(25, 25, 25)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfEpost, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                            .addComponent(tfLosenord)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(btnLoggaIn)))))
-                .addContainerGap(94, Short.MAX_VALUE))
+                            .addComponent(tfLosenord, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                            .addComponent(tfEpost))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(visa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(göm))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(lblFelMeddelande)))
+                .addContainerGap(249, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,23 +120,22 @@ public class Inloggning extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEPost)
                     .addComponent(tfEpost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblLosenord)
+                        .addComponent(tfLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(visa))
+                    .addComponent(göm))
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLosenord)
-                    .addComponent(tfLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(lblFelMeddelande)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLoggaIn)
-                .addContainerGap(112, Short.MAX_VALUE))
+                    .addComponent(lblFelMeddelande)
+                    .addComponent(btnLoggaIn))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tfLosenordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLosenordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfLosenordActionPerformed
 
     private void tfEpostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEpostActionPerformed
         // TODO add your handling code here:
@@ -157,6 +179,23 @@ public class Inloggning extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnLoggaInActionPerformed
 
+    private void visaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_visaMousePressed
+        
+        
+    }//GEN-LAST:event_visaMousePressed
+
+    private void gömMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gömMousePressed
+     göm.setVisible(true);
+     göm.setVisible(false);
+     tfLosenord.setEchoChar((char)0);   
+    }//GEN-LAST:event_gömMousePressed
+
+    private void gömMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gömMouseReleased
+       visa.setVisible(false);
+       göm.setVisible(true);
+       tfLosenord.setEchoChar('*'); 
+    }//GEN-LAST:event_gömMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -195,10 +234,12 @@ public class Inloggning extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLoggaIn;
+    private javax.swing.JLabel göm;
     private javax.swing.JLabel lblEPost;
     private javax.swing.JLabel lblFelMeddelande;
     private javax.swing.JLabel lblLosenord;
     private javax.swing.JTextField tfEpost;
-    private javax.swing.JTextField tfLosenord;
+    private javax.swing.JPasswordField tfLosenord;
+    private javax.swing.JLabel visa;
     // End of variables declaration//GEN-END:variables
 }
