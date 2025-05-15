@@ -6,6 +6,10 @@ package ngo2024;
 
 import oru.inf.InfDB;
 import oru.inf.InfException;
+import javax.swing.JOptionPane;
+
+
+
 
 /**
  *
@@ -37,12 +41,16 @@ public class Meny extends javax.swing.JFrame {
 
         jMenuItem4 = new javax.swing.JMenuItem();
         jPopupMenu1 = new javax.swing.JPopupMenu();
-        lblInloggadAnvandare = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuBar2 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
+        lblInloggadAnvandare = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mitemVisaEpost = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -51,23 +59,41 @@ public class Meny extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
 
         jMenuItem4.setText("jMenuItem4");
+
+        jMenu1.setText("File");
+        jMenuBar2.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar2.add(jMenu2);
+
+        jMenu7.setText("jMenu7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblInloggadAnvandare.setText("Namn på inloggad");
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jTextField1.setText("Välkommen");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jMenu3.setText("Profil");
 
-        jMenuItem1.setText("Visa Epost");
-        jMenu3.add(jMenuItem1);
+        mitemVisaEpost.setText("Visa Epost");
+        mitemVisaEpost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemVisaEpostActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mitemVisaEpost);
 
         jMenuItem2.setText("Återställ lösenord");
         jMenu3.add(jMenuItem2);
@@ -79,7 +105,7 @@ public class Meny extends javax.swing.JFrame {
 
         jMenu4.setText("Mina Projekt");
 
-        jMenuItem5.setText("jMenuItem5");
+        jMenuItem5.setText("Mina projekt");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -87,7 +113,7 @@ public class Meny extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem5);
 
-        jMenuItem6.setText("jMenuItem6");
+        jMenuItem6.setText("Samarbetspartner");
         jMenu4.add(jMenuItem6);
 
         jMenuBar1.add(jMenu4);
@@ -100,7 +126,25 @@ public class Meny extends javax.swing.JFrame {
         jMenuItem8.setText("Aktiva projekt");
         jMenu5.add(jMenuItem8);
 
+        jMenuItem10.setText("Sök Handläggare");
+        jMenu5.add(jMenuItem10);
+
         jMenuBar1.add(jMenu5);
+
+        jMenu6.setText("Hållbarhetsmål");
+
+        jMenuItem9.setText("Visa alla");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem9);
+
+        jMenuBar1.add(jMenu6);
+
+        jMenu8.setText("Övrigt");
+        jMenuBar1.add(jMenu8);
 
         setJMenuBar(jMenuBar1);
 
@@ -108,16 +152,29 @@ public class Meny extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(335, Short.MAX_VALUE)
-                .addComponent(lblInloggadAnvandare, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(lblInloggadAnvandare))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblInloggadAnvandare, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 254, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -126,6 +183,32 @@ public class Meny extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void mitemVisaEpostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemVisaEpostActionPerformed
+        try {
+        // Hämta e-post från databasen baserat på användarnamn
+        String sqlFraga = "SELECT epost FROM anstalld WHERE epost = '" + inloggadAnvandare + "'";
+        
+        String epost = idb.fetchSingle(sqlFraga);
+
+        if (epost != null) {
+            JOptionPane.showMessageDialog(null, "Din e-postadress är: " + epost);
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingen e-post hittades för användaren.");
+        }
+    } catch (InfException ex) {
+        JOptionPane.showMessageDialog(null, "Fel vid hämtning: " + ex.getMessage());
+    }
+  // TODO add your handling code here:
+    }//GEN-LAST:event_mitemVisaEpostActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,8 +251,12 @@ public class Meny extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -177,7 +264,12 @@ public class Meny extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblInloggadAnvandare;
+    private javax.swing.JMenuItem mitemVisaEpost;
     // End of variables declaration//GEN-END:variables
+
 }
