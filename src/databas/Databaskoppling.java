@@ -1,1 +1,0 @@
-//här gör vi databaskopplingen sen
