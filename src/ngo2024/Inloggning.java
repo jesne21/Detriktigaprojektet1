@@ -138,6 +138,7 @@ public class Inloggning extends javax.swing.JFrame {
         System.out.println(sqlFraga);
         String dbLosen = idb.fetchSingle(sqlFraga);
         if(losen.equals(dbLosen)){
+            new Meny(idb, ePost).setVisible(true);
             
         }
         else{
@@ -184,7 +185,7 @@ public class Inloggning extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLoggaIn;
     private javax.swing.JLabel lblEPost;
