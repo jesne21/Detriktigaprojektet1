@@ -124,11 +124,17 @@ public class Inloggning extends javax.swing.JFrame {
     String ePost = tfEpost.getText();
     String losen = tfLosenord.getText();
     
-    if (ePost.isEmpty()|| losen.isEmpty()){
+    if (Validering.textFaltArTomt(ePost)|| Validering.textFaltArTomt(losen)){
        lblFelMeddelande.setText("Du måste fylla i både E-postadress och Lösenord.");
        lblFelMeddelande.setVisible(true);
        return;
        // Det kommer upp en annan felmeddelande ruta som påminner användaren om att man inte kan lämna någon av rutorna blanka
+    }
+   
+    if (!Validering.arStarktLosenord(losen)){
+        lblFelMeddelande.setText("Lösenordet måste innehålla både bokstäver och siffror, minst 8 tecken.");
+        lblFelMeddelande.setVisible(true);
+        
     }
     
     
@@ -137,6 +143,7 @@ public class Inloggning extends javax.swing.JFrame {
         // Använd enkelfnutta för i helvete!! som i exemplet ovan
         System.out.println(sqlFraga);
         String dbLosen = idb.fetchSingle(sqlFraga);
+        
         if(losen.equals(dbLosen)){
             new Meny(idb, ePost).setVisible(true);
             
