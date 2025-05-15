@@ -13,7 +13,7 @@ import oru.inf.InfException;
 public class Inloggning extends javax.swing.JFrame {
 
     private InfDB idb;
-
+    private boolean redanTömt = false;
     
     /**
      * Creates new form Inloggning
@@ -34,38 +34,93 @@ public class Inloggning extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblEPost = new javax.swing.JLabel();
-        lblLosenord = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
         tfEpost = new javax.swing.JTextField();
-        lblFelMeddelande = new javax.swing.JLabel();
-        btnLoggaIn = new javax.swing.JButton();
         tfLosenord = new javax.swing.JPasswordField();
+        btnLoggaIn = new javax.swing.JButton();
+        lblFelMeddelande = new javax.swing.JLabel();
         visa = new javax.swing.JLabel();
         göm = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblStängner = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+
+        jLabel5.setText("jLabel5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
-        lblEPost.setText("E-postadress");
+        jPanel4.setBackground(new java.awt.Color(168, 213, 186));
 
-        lblLosenord.setText("Lösenord");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Globe icon.png"))); // NOI18N
+        jLabel4.setText("NGO Sweden");
 
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(71, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel5.setBackground(new java.awt.Color(0, 153, 153));
+
+        tfEpost.setBackground(new java.awt.Color(0, 153, 153));
+        tfEpost.setText("E-postadress");
+        tfEpost.setBorder(null);
+        tfEpost.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfEpostFocusGained(evt);
+            }
+        });
         tfEpost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfEpostActionPerformed(evt);
             }
         });
 
-        lblFelMeddelande.setForeground(new java.awt.Color(255, 0, 51));
-        lblFelMeddelande.setText("Felaktig E-postadress eller Lösenord");
+        tfLosenord.setBackground(new java.awt.Color(0, 153, 153));
+        tfLosenord.setText("Lösenord");
+        tfLosenord.setBorder(null);
+        tfLosenord.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfLosenordFocusGained(evt);
+            }
+        });
+        tfLosenord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfLosenordActionPerformed(evt);
+            }
+        });
 
+        btnLoggaIn.setBackground(new java.awt.Color(0, 153, 153));
         btnLoggaIn.setText("Logga in");
+        btnLoggaIn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 51)));
         btnLoggaIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoggaInActionPerformed(evt);
             }
         });
 
-        tfLosenord.setText("jPasswordField1");
+        lblFelMeddelande.setForeground(new java.awt.Color(255, 0, 51));
+        lblFelMeddelande.setText("Felaktig E-postadress eller Lösenord");
 
         visa.setIcon(new javax.swing.ImageIcon("C:\\Utilities\\eye rätt.png")); // NOI18N
         visa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -84,117 +139,203 @@ public class Inloggning extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Mail icon.png"))); // NOI18N
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Password icon.png"))); // NOI18N
+
+        lblStängner.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblStängner.setText("X");
+        lblStängner.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblStängnerMouseClicked(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(0, 153, 153));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setText("Glömt lösenord ?");
+        jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblStängner, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(tfLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(44, 44, 44)
+                                        .addComponent(visa)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(göm))
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGap(100, 100, 100)
+                                        .addComponent(jButton1))
+                                    .addComponent(btnLoggaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblFelMeddelande)))
+                        .addGap(0, 110, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblStängner, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(tfEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tfLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(visa)
+                    .addComponent(göm))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLoggaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblFelMeddelande)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(52, 52, 52))
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEPost)
-                            .addComponent(lblLosenord))
-                        .addGap(34, 34, 34))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnLoggaIn)
-                        .addGap(25, 25, 25)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfLosenord, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                            .addComponent(tfEpost))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(visa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(göm))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(lblFelMeddelande)))
-                .addContainerGap(249, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEPost)
-                    .addComponent(tfEpost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblLosenord)
-                        .addComponent(tfLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(visa))
-                    .addComponent(göm))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFelMeddelande)
-                    .addComponent(btnLoggaIn))
-                .addContainerGap(162, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void gömMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gömMouseReleased
+        visa.setVisible(false);
+        göm.setVisible(true);
+        tfLosenord.setEchoChar('*');
+    }//GEN-LAST:event_gömMouseReleased
+
+    private void gömMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gömMousePressed
+        göm.setVisible(true);
+        göm.setVisible(false);
+        tfLosenord.setEchoChar((char)0);
+    }//GEN-LAST:event_gömMousePressed
+
+    private void visaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_visaMousePressed
+
+    }//GEN-LAST:event_visaMousePressed
+
+    private void btnLoggaInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoggaInActionPerformed
+
+        String ePost = tfEpost.getText();
+        String losen = tfLosenord.getText();
+
+        if (Validering.textFaltArTomt(ePost)|| Validering.textFaltArTomt(losen)){
+            lblFelMeddelande.setText("Du måste fylla i både E-postadress och Lösenord.");
+            lblFelMeddelande.setVisible(true);
+            return;
+            // Det kommer upp en annan felmeddelande ruta som påminner användaren om att man inte kan lämna någon av rutorna blanka
+        }
+
+        if (!Validering.arStarktLosenord(losen)){
+            lblFelMeddelande.setText("Lösenordet måste innehålla både bokstäver och siffror, minst 8 tecken.");
+            lblFelMeddelande.setVisible(true);
+
+        }
+
+        try{
+            String sqlFraga = "SELECT losenord FROM anstalld WHERE epost = '" + ePost + "'";
+            // Använd enkelfnutta för i helvete!! som i exemplet ovan
+            System.out.println(sqlFraga);
+            String dbLosen = idb.fetchSingle(sqlFraga);
+
+            if(losen.equals(dbLosen)){
+                new Meny(idb, ePost).setVisible(true);
+
+            }
+            else{
+                lblFelMeddelande.setVisible(true);
+            }
+        }catch(InfException ex){
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_btnLoggaInActionPerformed
+
+    private void tfLosenordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLosenordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfLosenordActionPerformed
+
+    private void tfLosenordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLosenordFocusGained
+        if (!redanTömt) {
+            tfLosenord.setText(""); // Töm lösenordsfältet
+            redanTömt = true; // Nu kommer det inte tömmas en andra gång om man klickar igen
+        }
+    }//GEN-LAST:event_tfLosenordFocusGained
 
     private void tfEpostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEpostActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfEpostActionPerformed
 
-    private void btnLoggaInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoggaInActionPerformed
-    
-    String ePost = tfEpost.getText();
-    String losen = tfLosenord.getText();
-    
-    if (Validering.textFaltArTomt(ePost)|| Validering.textFaltArTomt(losen)){
-       lblFelMeddelande.setText("Du måste fylla i både E-postadress och Lösenord.");
-       lblFelMeddelande.setVisible(true);
-       return;
-       // Det kommer upp en annan felmeddelande ruta som påminner användaren om att man inte kan lämna någon av rutorna blanka
-    }
-   
-    if (!Validering.arStarktLosenord(losen)){
-        lblFelMeddelande.setText("Lösenordet måste innehålla både bokstäver och siffror, minst 8 tecken.");
-        lblFelMeddelande.setVisible(true);
-        
-    }
-    
-    
-    try{
-        String sqlFraga = "SELECT losenord FROM anstalld WHERE epost = '" + ePost + "'";
-        // Använd enkelfnutta för i helvete!! som i exemplet ovan
-        System.out.println(sqlFraga);
-        String dbLosen = idb.fetchSingle(sqlFraga);
-        
-        if(losen.equals(dbLosen)){
-            new Meny(idb, ePost).setVisible(true);
-            
-        }
-        else{
-            lblFelMeddelande.setVisible(true);
-        }
-    }catch(InfException ex){
-        System.out.println(ex.getMessage());
-    }
+    private void lblStängnerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblStängnerMouseClicked
+    System.exit(0);
+    }//GEN-LAST:event_lblStängnerMouseClicked
 
-    }//GEN-LAST:event_btnLoggaInActionPerformed
+    private void tfEpostFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfEpostFocusGained
+        tfEpost.setText("");
+    }//GEN-LAST:event_tfEpostFocusGained
 
-    private void visaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_visaMousePressed
-        
-        
-    }//GEN-LAST:event_visaMousePressed
-
-    private void gömMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gömMousePressed
-     göm.setVisible(true);
-     göm.setVisible(false);
-     tfLosenord.setEchoChar((char)0);   
-    }//GEN-LAST:event_gömMousePressed
-
-    private void gömMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gömMouseReleased
-       visa.setVisible(false);
-       göm.setVisible(true);
-       tfLosenord.setEchoChar('*'); 
-    }//GEN-LAST:event_gömMouseReleased
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,9 +376,18 @@ public class Inloggning extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLoggaIn;
     private javax.swing.JLabel göm;
-    private javax.swing.JLabel lblEPost;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblFelMeddelande;
-    private javax.swing.JLabel lblLosenord;
+    private javax.swing.JLabel lblStängner;
     private javax.swing.JTextField tfEpost;
     private javax.swing.JPasswordField tfLosenord;
     private javax.swing.JLabel visa;
