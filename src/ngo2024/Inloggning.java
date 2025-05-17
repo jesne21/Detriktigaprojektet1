@@ -235,7 +235,7 @@ public class Inloggning extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,7 +300,8 @@ public class Inloggning extends javax.swing.JFrame {
 
             if(losen.equals(dbLosen)){
                 new Meny(idb, ePost).setVisible(true);
-
+            this.dispose();
+            // stänger ned inloggningsrutan när användaren lyckats logga in
             }
             else{
                 lblFelMeddelande.setVisible(true);
