@@ -65,7 +65,7 @@ public class Inloggning extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(168, 213, 186));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Globe icon.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/GitHub/Detriktigaprojektet1/src/ngo2024/Bilder/globe_icon.png")); // NOI18N
         jLabel4.setText("NGO Sweden");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -127,7 +127,6 @@ public class Inloggning extends javax.swing.JFrame {
         lblFelMeddelande.setForeground(new java.awt.Color(255, 0, 51));
         lblFelMeddelande.setText("Felaktig E-postadress eller Lösenord");
 
-        visa.setIcon(new javax.swing.ImageIcon("C:\\Utilities\\eye rätt.png")); // NOI18N
         visa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 visaMousePressed(evt);
@@ -144,9 +143,9 @@ public class Inloggning extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/mail_icon.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/GitHub/Detriktigaprojektet1/src/ngo2024/Bilder/mail_icon.png")); // NOI18N
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/password_icon.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/GitHub/Detriktigaprojektet1/src/ngo2024/Bilder/password_icon.png")); // NOI18N
 
         lblStängner.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         lblStängner.setText("X");

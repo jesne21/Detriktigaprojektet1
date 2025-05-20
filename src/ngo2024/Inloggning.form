@@ -102,7 +102,7 @@
                   <Font name="Segoe UI" size="24" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/ngo2024/Globe icon.png"/>
+                  <Image iconType="2" name="/Users/kasperbergvall/Documents/GitHub/Detriktigaprojektet1/src/ngo2024/Bilder/globe_icon.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="NGO Sweden"/>
               </Properties>
@@ -256,11 +256,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="visa">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Utilities\eye r&#xe4;tt.png"/>
-                </Property>
-              </Properties>
               <Events>
                 <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="visaMousePressed"/>
               </Events>
@@ -283,14 +278,14 @@
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/ngo2024/Bilder/mail_icon.png"/>
+                  <Image iconType="2" name="/Users/kasperbergvall/Documents/GitHub/Detriktigaprojektet1/src/ngo2024/Bilder/mail_icon.png"/>
                 </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/ngo2024/Bilder/password_icon.png"/>
+                  <Image iconType="2" name="/Users/kasperbergvall/Documents/GitHub/Detriktigaprojektet1/src/ngo2024/Bilder/password_icon.png"/>
                 </Property>
               </Properties>
             </Component>

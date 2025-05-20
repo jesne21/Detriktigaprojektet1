@@ -5,6 +5,8 @@
 package ngo2024;
 
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import oru.inf.InfDB;
+import oru.inf.InfException;
 
 /**
  *
@@ -33,27 +35,146 @@ public class Menu2 extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jlabelingenfattigdom = new javax.swing.JLabel();
+        jlabelingenhunger = new javax.swing.JLabel();
+        jlabelgodhalsaochvalbefinnande = new javax.swing.JLabel();
+        jlabelgodutbildning = new javax.swing.JLabel();
+        jlabeljamstalldhet = new javax.swing.JLabel();
+        jlabelrentvattenochsanitet = new javax.swing.JLabel();
+        jlabelhallbarenergiforalla = new javax.swing.JLabel();
+        jlabelanstandigaarbetsvillkor = new javax.swing.JLabel();
+        jlabelhallbarindustri = new javax.swing.JLabel();
+        jlabelminskadojamlikhet = new javax.swing.JLabel();
+        jlabelhallbarastader = new javax.swing.JLabel();
+        jlabelhallbarkonsumtion = new javax.swing.JLabel();
+        jlabelbekampaklimatforandringar = new javax.swing.JLabel();
+        jlabelhavochmarinaresurser = new javax.swing.JLabel();
+        jlabelekosystemochbiologiskmangfald = new javax.swing.JLabel();
+        jlabelfredligaochinkluderandesamhallen = new javax.swing.JLabel();
+        jlabelgenomforandeochglobaltpartnerskap = new javax.swing.JLabel();
+        jlabelglobalamalenlogo = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(0, 204, 204));
+        setBackground(new java.awt.Color(153, 255, 153));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Meny 2");
+        jLabel1.setText("Hållbarhetsmål");
+
+        jlabelingenfattigdom.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Adobe Express - file.png")); // NOI18N
+
+        jlabelingenhunger.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project.png")); // NOI18N
+
+        jlabelgodhalsaochvalbefinnande.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia).png")); // NOI18N
+
+        jlabelgodutbildning.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 2).png")); // NOI18N
+
+        jlabeljamstalldhet.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 3).png")); // NOI18N
+
+        jlabelrentvattenochsanitet.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 4).png")); // NOI18N
+
+        jlabelhallbarenergiforalla.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 5).png")); // NOI18N
+
+        jlabelanstandigaarbetsvillkor.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 6).png")); // NOI18N
+
+        jlabelhallbarindustri.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 7).png")); // NOI18N
+
+        jlabelminskadojamlikhet.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 8).png")); // NOI18N
+
+        jlabelhallbarastader.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 9).png")); // NOI18N
+
+        jlabelhallbarkonsumtion.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 10).png")); // NOI18N
+
+        jlabelbekampaklimatforandringar.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 11).png")); // NOI18N
+
+        jlabelhavochmarinaresurser.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 12).png")); // NOI18N
+
+        jlabelekosystemochbiologiskmangfald.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 13).png")); // NOI18N
+
+        jlabelfredligaochinkluderandesamhallen.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 14).png")); // NOI18N
+
+        jlabelgenomforandeochglobaltpartnerskap.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 15).png")); // NOI18N
+
+        jlabelglobalamalenlogo.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 16).png")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(304, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(224, 224, 224))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(593, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(223, 223, 223))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlabelbekampaklimatforandringar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jlabelingenfattigdom)
+                                .addComponent(jlabelhallbarenergiforalla)))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlabelingenhunger)
+                            .addComponent(jlabelanstandigaarbetsvillkor)
+                            .addComponent(jlabelhavochmarinaresurser))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlabelgodhalsaochvalbefinnande)
+                            .addComponent(jlabelhallbarindustri)
+                            .addComponent(jlabelekosystemochbiologiskmangfald))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jlabelgodutbildning)
+                                .addGap(27, 27, 27)
+                                .addComponent(jlabeljamstalldhet))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlabelminskadojamlikhet)
+                                    .addComponent(jlabelfredligaochinkluderandesamhallen))
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jlabelgenomforandeochglobaltpartnerskap)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jlabelglobalamalenlogo))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jlabelhallbarastader)
+                                        .addGap(31, 31, 31)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jlabelrentvattenochsanitet)
+                                            .addComponent(jlabelhallbarkonsumtion))))))
+                        .addContainerGap(266, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(521, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlabelingenfattigdom)
+                    .addComponent(jlabelingenhunger)
+                    .addComponent(jlabelgodhalsaochvalbefinnande)
+                    .addComponent(jlabelgodutbildning)
+                    .addComponent(jlabeljamstalldhet)
+                    .addComponent(jlabelrentvattenochsanitet))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlabelhallbarenergiforalla)
+                    .addComponent(jlabelanstandigaarbetsvillkor)
+                    .addComponent(jlabelhallbarindustri)
+                    .addComponent(jlabelminskadojamlikhet)
+                    .addComponent(jlabelhallbarastader)
+                    .addComponent(jlabelhallbarkonsumtion))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlabelbekampaklimatforandringar)
+                    .addComponent(jlabelhavochmarinaresurser)
+                    .addComponent(jlabelekosystemochbiologiskmangfald)
+                    .addComponent(jlabelfredligaochinkluderandesamhallen)
+                    .addComponent(jlabelgenomforandeochglobaltpartnerskap)
+                    .addComponent(jlabelglobalamalenlogo))
+                .addContainerGap(558, Short.MAX_VALUE))
         );
 
         pack();
@@ -62,5 +183,23 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jlabelanstandigaarbetsvillkor;
+    private javax.swing.JLabel jlabelbekampaklimatforandringar;
+    private javax.swing.JLabel jlabelekosystemochbiologiskmangfald;
+    private javax.swing.JLabel jlabelfredligaochinkluderandesamhallen;
+    private javax.swing.JLabel jlabelgenomforandeochglobaltpartnerskap;
+    private javax.swing.JLabel jlabelglobalamalenlogo;
+    private javax.swing.JLabel jlabelgodhalsaochvalbefinnande;
+    private javax.swing.JLabel jlabelgodutbildning;
+    private javax.swing.JLabel jlabelhallbarastader;
+    private javax.swing.JLabel jlabelhallbarenergiforalla;
+    private javax.swing.JLabel jlabelhallbarindustri;
+    private javax.swing.JLabel jlabelhallbarkonsumtion;
+    private javax.swing.JLabel jlabelhavochmarinaresurser;
+    private javax.swing.JLabel jlabelingenfattigdom;
+    private javax.swing.JLabel jlabelingenhunger;
+    private javax.swing.JLabel jlabeljamstalldhet;
+    private javax.swing.JLabel jlabelminskadojamlikhet;
+    private javax.swing.JLabel jlabelrentvattenochsanitet;
     // End of variables declaration//GEN-END:variables
 }
