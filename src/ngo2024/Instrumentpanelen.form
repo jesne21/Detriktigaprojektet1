@@ -120,9 +120,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel1" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="jLabel3" min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -142,7 +142,7 @@
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/ngo2024/Bilder/exit icon 2.png"/>
+                  <Image iconType="3" name="/ngo2024/Bilder/exit_icon2.png"/>
                 </Property>
               </Properties>
               <Events>
@@ -163,7 +163,7 @@
                   <Font name="Segoe UI" size="26" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/ngo2024/Bilder/meny ikon.png"/>
+                  <Image iconType="3" name="/ngo2024/Bilder/meny_ikon.png"/>
                 </Property>
               </Properties>
             </Component>
@@ -271,7 +271,7 @@
                       <Font name="Segoe UI" size="14" style="1"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/ngo2024/Bilder/meny ikon.png"/>
+                      <Image iconType="3" name="/ngo2024/Bilder/meny_ikon.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Projekt"/>
                   </Properties>
@@ -316,7 +316,7 @@
                       <Font name="Segoe UI" size="14" style="1"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/ngo2024/Bilder/meny ikon.png"/>
+                      <Image iconType="3" name="/ngo2024/Bilder/meny_ikon.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Meny 2"/>
                   </Properties>
@@ -361,7 +361,7 @@
                       <Font name="Segoe UI" size="14" style="1"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/ngo2024/Bilder/meny ikon.png"/>
+                      <Image iconType="3" name="/ngo2024/Bilder/meny_ikon.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Meny 3"/>
                   </Properties>
@@ -406,7 +406,7 @@
                       <Font name="Segoe UI" size="14" style="1"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/ngo2024/Bilder/meny ikon.png"/>
+                      <Image iconType="3" name="/ngo2024/Bilder/meny_ikon.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Meny 5"/>
                   </Properties>
@@ -451,7 +451,7 @@
                       <Font name="Segoe UI" size="14" style="1"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/ngo2024/Bilder/meny ikon.png"/>
+                      <Image iconType="3" name="/ngo2024/Bilder/meny_ikon.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Meny 4"/>
                   </Properties>

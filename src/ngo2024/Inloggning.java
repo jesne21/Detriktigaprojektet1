@@ -144,9 +144,9 @@ public class Inloggning extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Mail icon.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/mail_icon.png"))); // NOI18N
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Password icon.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/password_icon.png"))); // NOI18N
 
         lblStängner.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         lblStängner.setText("X");

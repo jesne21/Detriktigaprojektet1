@@ -88,7 +88,7 @@ public class Instrumentpanelen extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 153, 102));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/exit icon 2.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/exit_icon2.png"))); // NOI18N
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
@@ -99,7 +99,7 @@ public class Instrumentpanelen extends javax.swing.JFrame {
         jLabel3.setText("Projekt Namn");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny ikon.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny_ikon.png"))); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Detaljer av menyn");
@@ -130,7 +130,7 @@ public class Instrumentpanelen extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
@@ -157,7 +157,7 @@ public class Instrumentpanelen extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny ikon.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny_ikon.png"))); // NOI18N
         jLabel2.setText("Projekt");
 
         javax.swing.GroupLayout Menu1Layout = new javax.swing.GroupLayout(Menu1);
@@ -188,7 +188,7 @@ public class Instrumentpanelen extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny ikon.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny_ikon.png"))); // NOI18N
         jLabel7.setText("Meny 2");
 
         javax.swing.GroupLayout Menu2Layout = new javax.swing.GroupLayout(Menu2);
@@ -219,7 +219,7 @@ public class Instrumentpanelen extends javax.swing.JFrame {
         });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny ikon.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny_ikon.png"))); // NOI18N
         jLabel8.setText("Meny 3");
 
         javax.swing.GroupLayout Menu3Layout = new javax.swing.GroupLayout(Menu3);
@@ -250,7 +250,7 @@ public class Instrumentpanelen extends javax.swing.JFrame {
         });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny ikon.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny_ikon.png"))); // NOI18N
         jLabel9.setText("Meny 5");
 
         javax.swing.GroupLayout Menu5Layout = new javax.swing.GroupLayout(Menu5);
@@ -281,7 +281,7 @@ public class Instrumentpanelen extends javax.swing.JFrame {
         });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny ikon.png"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny_ikon.png"))); // NOI18N
         jLabel10.setText("Meny 4");
 
         javax.swing.GroupLayout Menu4Layout = new javax.swing.GroupLayout(Menu4);
