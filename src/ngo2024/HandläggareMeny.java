@@ -21,8 +21,9 @@ public class HandläggareMeny extends javax.swing.JFrame {
     Color DefualtColor,ClickedColor;
     private InfDB idb;
     private String inloggadAnvandare;
+    private int anvandarID;
     
-    public HandläggareMeny(InfDB idb, String inloggadAnvandare) {
+    public HandläggareMeny(InfDB idb, int anvandarID, String inloggadAnvandare) {
         initComponents();
         DefualtColor = new Color(0,102,102);
         ClickedColor = new Color (255,153,102);  
@@ -35,6 +36,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
         Menu4.setBackground(DefualtColor);
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
+        this.anvandarID = anvandarID;
         lblInloggadAnvandare.setText(inloggadAnvandare);
         
         
@@ -488,7 +490,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
     }//GEN-LAST:event_Menu4MouseClicked
 
     private void Menu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu5MouseClicked
-        Menu5 menu5 = new Menu5();
+        Menu5 menu5 = new Menu5(idb, anvandarID);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menu5).setVisible(true);
 

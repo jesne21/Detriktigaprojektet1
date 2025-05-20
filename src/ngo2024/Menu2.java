@@ -12,79 +12,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 
-
-
 /**
  *
  * @author Filip
  */
 public class Menu2 extends javax.swing.JInternalFrame {
 
-    private InfDB idb;
+
     /**
      * Creates new form Menu1
      */
-    public Menu2(InfDB idb) {
+    public Menu2() {
         initComponents();
-        this.idb = idb;
-        skapaTestMal();
-        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
-        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
-        
+
     }
 
-    private void skapaTestMal() {
-    for (int hid = 1; hid <= 3; hid++) {
-        JPanel malPanel = new JPanel();
-        malPanel.setLayout(new BorderLayout());
-
-        // Bild
-        JLabel ikon = new JLabel();
-        ikon.setHorizontalAlignment(SwingConstants.CENTER);
-        String bildsökväg = "/ngo2024/Bilder/hallbarhetsmal" + hid + ".png";
-
-        URL bildURL = getClass().getResource(bildsökväg);
-        if (bildURL != null) {
-            ikon.setIcon(new ImageIcon(bildURL));
-        } else {
-            ikon.setText("[Bild saknas]");
-        }
-
-        // Knapp
-        JButton knapp = new JButton("Visa mer");
-        int finalHid = hid; // behövs pga lambda
-        knapp.addActionListener(e -> visaMalInfo(finalHid));
-
-        // Lägg till i målpanelen
-        malPanel.add(ikon, BorderLayout.CENTER);
-        malPanel.add(knapp, BorderLayout.SOUTH);
-
-        // Lägg till i huvudpanelen
-        panelMal.add(malPanel);
-    }
-
-    panelMal.revalidate();
-    panelMal.repaint();
-}
-
-    private void visaMalInfo(int hid) {
-    try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '" + hid + "'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '" + hid + "'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '" + hid + "'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '" + hid + "'");
-
-        String info = "Mål: " + namn + "\n"
-                    + "Målnummer: " + malnummer + "\n"
-                    + "Prioritet: " + prioritet + "\n\n"
-                    + "Beskrivning:\n" + beskrivning;
-
-        JOptionPane.showMessageDialog(this, info, "Information om Hållbarhetsmål", JOptionPane.INFORMATION_MESSAGE);
-    } catch (InfException ex) {
-        JOptionPane.showMessageDialog(this, "Fel vid hämtning: " + ex.getMessage());
-    }
-}
 
     
     /**
@@ -96,6 +41,7 @@ public class Menu2 extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jlabelingenfattigdom = new javax.swing.JLabel();
         jlabelingenhunger = new javax.swing.JLabel();
@@ -117,6 +63,21 @@ public class Menu2 extends javax.swing.JInternalFrame {
         jlabelglobalamalenlogo = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         panelMal = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setBackground(new java.awt.Color(153, 255, 153));
 
@@ -171,7 +132,15 @@ public class Menu2 extends javax.swing.JInternalFrame {
             }
         });
 
-        panelMal.setLayout(new java.awt.GridLayout());
+        panelMal.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabel2.setText("Namn");
+
+        jLabel3.setText("Målnummer");
+
+        jLabel4.setText("Beskrivning");
+
+        jLabel5.setText("Prioritet");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -228,8 +197,20 @@ public class Menu2 extends javax.swing.JInternalFrame {
                                         .addGap(31, 31, 31)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jlabelrentvattenochsanitet)
-                                            .addComponent(jlabelhallbarkonsumtion))))))))
-                .addContainerGap(653, Short.MAX_VALUE))
+                                            .addComponent(jlabelhallbarkonsumtion)))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(222, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,7 +244,15 @@ public class Menu2 extends javax.swing.JInternalFrame {
                     .addComponent(jlabelglobalamalenlogo))
                 .addGap(18, 18, 18)
                 .addComponent(panelMal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 546, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 49, Short.MAX_VALUE))
         );
 
         pack();
@@ -283,6 +272,11 @@ public class Menu2 extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jlabelanstandigaarbetsvillkor;
     private javax.swing.JLabel jlabelbekampaklimatforandringar;
     private javax.swing.JLabel jlabelekosystemochbiologiskmangfald;

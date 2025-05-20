@@ -308,19 +308,20 @@ public class Inloggning extends javax.swing.JFrame {
 
             if (anstallData!= null){
                 String dbLosen = anstallData.get("losenord");
-                String aid = anstallData.get("aid");
+                int anvandarID = Integer.parseInt(anstallData.get("aid")); // hämta id
                 
 
             if(losen.equals(dbLosen)){
                 // kolla om användaren finns i handläggare-tabellen
-                String handlaggarFraga = "Select aid From handlaggare Where aid = " + aid ;
+                String handlaggarFraga = "Select aid From handlaggare Where aid = " + anvandarID;
                 HashMap<String, String> handlaggarData = idb.fetchRow(handlaggarFraga);
+                
             
                 if (handlaggarData != null){
                 // Om personen är handläggare då skapas handlaggarmenyn
-                new HandläggareMeny(idb, ePost).setVisible(true);   
+                new HandläggareMeny(idb, anvandarID, ePost).setVisible(true);   
             } else {
-                    String adminFraga = "Select behorighetsniva From admin Where aid = " + aid;
+                    String adminFraga = "Select behorighetsniva From admin Where aid = " + anvandarID;
                     String behorighetsniva = idb.fetchSingle(adminFraga);
                     
                     if (behorighetsniva != null){
