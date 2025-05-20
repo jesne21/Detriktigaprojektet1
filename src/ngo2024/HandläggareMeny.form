@@ -405,7 +405,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/ngo2024/Bilder/meny_ikon.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Meny 5"/>
+                    <Property name="text" type="java.lang.String" value="Mina uppgifter"/>
                   </Properties>
                 </Component>
               </SubComponents>

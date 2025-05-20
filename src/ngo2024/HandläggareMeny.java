@@ -250,7 +250,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny_ikon.png"))); // NOI18N
-        jLabel9.setText("Meny 5");
+        jLabel9.setText("Mina uppgifter");
 
         javax.swing.GroupLayout Menu5Layout = new javax.swing.GroupLayout(Menu5);
         Menu5.setLayout(Menu5Layout);
