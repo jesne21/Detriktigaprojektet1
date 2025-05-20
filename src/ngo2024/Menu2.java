@@ -59,48 +59,48 @@ public class Menu2 extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Hållbarhetsmål");
 
-        jlabelingenfattigdom.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Adobe Express - file.png")); // NOI18N
+        jlabelingenfattigdom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal1.png"))); // NOI18N
 
-        jlabelingenhunger.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project.png")); // NOI18N
+        jlabelingenhunger.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal2.png"))); // NOI18N
 
-        jlabelgodhalsaochvalbefinnande.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia).png")); // NOI18N
+        jlabelgodhalsaochvalbefinnande.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal3.png"))); // NOI18N
 
-        jlabelgodutbildning.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 2).png")); // NOI18N
+        jlabelgodutbildning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal4.png"))); // NOI18N
 
-        jlabeljamstalldhet.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 3).png")); // NOI18N
+        jlabeljamstalldhet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal5.png"))); // NOI18N
 
-        jlabelrentvattenochsanitet.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 4).png")); // NOI18N
+        jlabelrentvattenochsanitet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal6.png"))); // NOI18N
 
-        jlabelhallbarenergiforalla.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 5).png")); // NOI18N
+        jlabelhallbarenergiforalla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal7.png"))); // NOI18N
 
-        jlabelanstandigaarbetsvillkor.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 6).png")); // NOI18N
+        jlabelanstandigaarbetsvillkor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal8.png"))); // NOI18N
 
-        jlabelhallbarindustri.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 7).png")); // NOI18N
+        jlabelhallbarindustri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal9.png"))); // NOI18N
 
-        jlabelminskadojamlikhet.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 8).png")); // NOI18N
+        jlabelminskadojamlikhet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal10.png"))); // NOI18N
 
-        jlabelhallbarastader.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 9).png")); // NOI18N
+        jlabelhallbarastader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal11.png"))); // NOI18N
 
-        jlabelhallbarkonsumtion.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 10).png")); // NOI18N
+        jlabelhallbarkonsumtion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal12.png"))); // NOI18N
 
-        jlabelbekampaklimatforandringar.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 11).png")); // NOI18N
+        jlabelbekampaklimatforandringar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal13.png"))); // NOI18N
 
-        jlabelhavochmarinaresurser.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 12).png")); // NOI18N
+        jlabelhavochmarinaresurser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal14.png"))); // NOI18N
 
-        jlabelekosystemochbiologiskmangfald.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 13).png")); // NOI18N
+        jlabelekosystemochbiologiskmangfald.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal15.png"))); // NOI18N
 
-        jlabelfredligaochinkluderandesamhallen.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 14).png")); // NOI18N
+        jlabelfredligaochinkluderandesamhallen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal17.png"))); // NOI18N
 
-        jlabelgenomforandeochglobaltpartnerskap.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 15).png")); // NOI18N
+        jlabelgenomforandeochglobaltpartnerskap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal17.png"))); // NOI18N
 
-        jlabelglobalamalenlogo.setIcon(new javax.swing.ImageIcon("/Users/kasperbergvall/Documents/Resize image project (kopia 16).png")); // NOI18N
+        jlabelglobalamalenlogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/globalamalenlogo.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(593, Short.MAX_VALUE)
+                .addContainerGap(579, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)

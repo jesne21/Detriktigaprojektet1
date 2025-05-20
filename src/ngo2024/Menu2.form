@@ -25,7 +25,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace pref="593" max="32767" attributes="0"/>
+              <EmptySpace pref="579" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel1" min="-2" pref="320" max="-2" attributes="0"/>
@@ -136,126 +136,126 @@
     <Component class="javax.swing.JLabel" name="jlabelingenfattigdom">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Adobe Express - file.png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal1.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelingenhunger">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project.png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal2.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelgodhalsaochvalbefinnande">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal3.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelgodutbildning">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 2).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal4.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabeljamstalldhet">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 3).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal5.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelrentvattenochsanitet">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 4).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal6.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelhallbarenergiforalla">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 5).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal7.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelanstandigaarbetsvillkor">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 6).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal8.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelhallbarindustri">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 7).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal9.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelminskadojamlikhet">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 8).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal10.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelhallbarastader">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 9).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal11.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelhallbarkonsumtion">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 10).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal12.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelbekampaklimatforandringar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 11).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal13.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelhavochmarinaresurser">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 12).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal14.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelekosystemochbiologiskmangfald">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 13).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal15.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelfredligaochinkluderandesamhallen">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 14).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal17.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelgenomforandeochglobaltpartnerskap">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 15).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal17.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelglobalamalenlogo">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/kasperbergvall/Documents/Resize image project (kopia 16).png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/globalamalenlogo.png"/>
         </Property>
       </Properties>
     </Component>
