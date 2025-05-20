@@ -4,6 +4,8 @@
  */
 package ngo2024;
 
+import java.util.HashMap;
+import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 /**
@@ -15,6 +17,7 @@ public class Inloggning extends javax.swing.JFrame {
     private InfDB idb;
     private boolean redanTömt = false;
     
+    
     /**
      * Creates new form Inloggning
      */
@@ -23,6 +26,8 @@ public class Inloggning extends javax.swing.JFrame {
         initComponents();
         lblFelMeddelande.setVisible(false);
         // för att dölja felmeddelande texten
+        tfLosenord.addActionListener(e -> btnLoggaIn.doClick());
+        // Gör så att när man klickar på enter körs alla metoder som att man klickar med musen på btnLoggaIN endast om användaren är i lösenordsfältet
     }
 
     /**
@@ -77,7 +82,7 @@ public class Inloggning extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(83, 83, 83)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(0, 153, 153));
@@ -222,7 +227,7 @@ public class Inloggning extends javax.swing.JFrame {
                 .addComponent(btnLoggaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblFelMeddelande)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(52, 52, 52))
         );
@@ -239,8 +244,10 @@ public class Inloggning extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -251,7 +258,9 @@ public class Inloggning extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -293,13 +302,48 @@ public class Inloggning extends javax.swing.JFrame {
         }
 
         try{
-            String sqlFraga = "SELECT losenord FROM anstalld WHERE epost = '" + ePost + "'";
+            String sqlFraga = "SELECT losenord, aid FROM anstalld WHERE epost = '" + ePost + "'";
             // Använd enkelfnutta för i helvete!! som i exemplet ovan
-            System.out.println(sqlFraga);
-            String dbLosen = idb.fetchSingle(sqlFraga);
+            HashMap<String, String> anstallData = idb.fetchRow(sqlFraga);
+
+            if (anstallData!= null){
+                String dbLosen = anstallData.get("losenord");
+                String aid = anstallData.get("aid");
+                
 
             if(losen.equals(dbLosen)){
-                new Meny(idb, ePost).setVisible(true);
+                // kolla om användaren finns i handläggare-tabellen
+                String handlaggarFraga = "Select aid From handlaggare Where aid = " + aid ;
+                HashMap<String, String> handlaggarData = idb.fetchRow(handlaggarFraga);
+            
+                if (handlaggarData != null){
+                // Om personen är handläggare då skapas handlaggarmenyn
+                new HandläggareMeny(idb, ePost).setVisible(true);   
+            } else {
+                    String adminFraga = "Select behorighetsniva From admin Where aid = " + aid;
+                    String behorighetsniva = idb.fetchSingle(adminFraga);
+                    
+                    if (behorighetsniva != null){
+                        switch (behorighetsniva){
+                        case "1":
+                        new AdminMeny(idb, ePost).setVisible(true);
+                        break;
+                        case "2":
+                        new SuperAdminMeny(idb, ePost).setVisible(true);
+                        break;
+                        default:
+                        JOptionPane.showMessageDialog(null, "Okänd behörighetsnivå: " + behorighetsniva);
+                    }
+                } else {       
+                    JOptionPane.showMessageDialog(null, "Ingen roll kopplad till användaren.");
+                        
+                    }
+                    
+                    
+                }
+                    
+            }    
+                
             this.dispose();
             // stänger ned inloggningsrutan när användaren lyckats logga in
             }
@@ -312,7 +356,10 @@ public class Inloggning extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoggaInActionPerformed
 
     private void tfLosenordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLosenordActionPerformed
-        // TODO add your handling code here:
+        
+        btnLoggaIn.doClick();
+        // gör så att man kan logga in genom att klicka på enter
+        
     }//GEN-LAST:event_tfLosenordActionPerformed
 
     private void tfLosenordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLosenordFocusGained
