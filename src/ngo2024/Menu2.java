@@ -7,6 +7,12 @@ package ngo2024;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import oru.inf.InfDB;
 import oru.inf.InfException;
+import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.net.URL;
+
+
 
 /**
  *
@@ -14,17 +20,73 @@ import oru.inf.InfException;
  */
 public class Menu2 extends javax.swing.JInternalFrame {
 
+    private InfDB idb;
     /**
      * Creates new form Menu1
      */
-    public Menu2() {
+    public Menu2(InfDB idb) {
         initComponents();
+        this.idb = idb;
+        skapaTestMal();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);
         
     }
 
+    private void skapaTestMal() {
+    for (int hid = 1; hid <= 3; hid++) {
+        JPanel malPanel = new JPanel();
+        malPanel.setLayout(new BorderLayout());
+
+        // Bild
+        JLabel ikon = new JLabel();
+        ikon.setHorizontalAlignment(SwingConstants.CENTER);
+        String bildsökväg = "/ngo2024/Bilder/hallbarhetsmal" + hid + ".png";
+
+        URL bildURL = getClass().getResource(bildsökväg);
+        if (bildURL != null) {
+            ikon.setIcon(new ImageIcon(bildURL));
+        } else {
+            ikon.setText("[Bild saknas]");
+        }
+
+        // Knapp
+        JButton knapp = new JButton("Visa mer");
+        int finalHid = hid; // behövs pga lambda
+        knapp.addActionListener(e -> visaMalInfo(finalHid));
+
+        // Lägg till i målpanelen
+        malPanel.add(ikon, BorderLayout.CENTER);
+        malPanel.add(knapp, BorderLayout.SOUTH);
+
+        // Lägg till i huvudpanelen
+        panelMal.add(malPanel);
+    }
+
+    panelMal.revalidate();
+    panelMal.repaint();
+}
+
+    private void visaMalInfo(int hid) {
+    try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '" + hid + "'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '" + hid + "'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '" + hid + "'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '" + hid + "'");
+
+        String info = "Mål: " + namn + "\n"
+                    + "Målnummer: " + malnummer + "\n"
+                    + "Prioritet: " + prioritet + "\n\n"
+                    + "Beskrivning:\n" + beskrivning;
+
+        JOptionPane.showMessageDialog(this, info, "Information om Hållbarhetsmål", JOptionPane.INFORMATION_MESSAGE);
+    } catch (InfException ex) {
+        JOptionPane.showMessageDialog(this, "Fel vid hämtning: " + ex.getMessage());
+    }
+}
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,6 +115,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
         jlabelfredligaochinkluderandesamhallen = new javax.swing.JLabel();
         jlabelgenomforandeochglobaltpartnerskap = new javax.swing.JLabel();
         jlabelglobalamalenlogo = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        panelMal = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(153, 255, 153));
 
@@ -60,6 +124,11 @@ public class Menu2 extends javax.swing.JInternalFrame {
         jLabel1.setText("Hållbarhetsmål");
 
         jlabelingenfattigdom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal1.png"))); // NOI18N
+        jlabelingenfattigdom.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelingenfattigdomMouseClicked(evt);
+            }
+        });
 
         jlabelingenhunger.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal2.png"))); // NOI18N
 
@@ -95,32 +164,49 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
         jlabelglobalamalenlogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/globalamalenlogo.png"))); // NOI18N
 
+        jButton1.setText("Visa Mer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        panelMal.setLayout(new java.awt.GridLayout());
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(579, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(223, 223, 223))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(334, 334, 334)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jlabelbekampaklimatforandringar)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jlabelingenfattigdom)
-                                .addComponent(jlabelhallbarenergiforalla)))
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlabelingenhunger)
-                            .addComponent(jlabelanstandigaarbetsvillkor)
-                            .addComponent(jlabelhavochmarinaresurser))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlabelgodhalsaochvalbefinnande)
-                            .addComponent(jlabelhallbarindustri)
-                            .addComponent(jlabelekosystemochbiologiskmangfald))
+                            .addComponent(panelMal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(192, 192, 192)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jlabelbekampaklimatforandringar)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jlabelingenfattigdom)
+                                                .addComponent(jlabelhallbarenergiforalla))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(177, 177, 177)
+                                        .addComponent(jButton1)))
+                                .addGap(13, 13, 13)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlabelingenhunger)
+                                    .addComponent(jlabelanstandigaarbetsvillkor)
+                                    .addComponent(jlabelhavochmarinaresurser))
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlabelgodhalsaochvalbefinnande)
+                                    .addComponent(jlabelhallbarindustri)
+                                    .addComponent(jlabelekosystemochbiologiskmangfald))))
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -142,13 +228,12 @@ public class Menu2 extends javax.swing.JInternalFrame {
                                         .addGap(31, 31, 31)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jlabelrentvattenochsanitet)
-                                            .addComponent(jlabelhallbarkonsumtion))))))
-                        .addContainerGap(266, Short.MAX_VALUE))))
+                                            .addComponent(jlabelhallbarkonsumtion))))))))
+                .addContainerGap(653, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +243,9 @@ public class Menu2 extends javax.swing.JInternalFrame {
                     .addComponent(jlabelgodutbildning)
                     .addComponent(jlabeljamstalldhet)
                     .addComponent(jlabelrentvattenochsanitet))
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlabelhallbarenergiforalla)
                     .addComponent(jlabelanstandigaarbetsvillkor)
@@ -174,14 +261,27 @@ public class Menu2 extends javax.swing.JInternalFrame {
                     .addComponent(jlabelfredligaochinkluderandesamhallen)
                     .addComponent(jlabelgenomforandeochglobaltpartnerskap)
                     .addComponent(jlabelglobalamalenlogo))
-                .addContainerGap(558, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(panelMal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 546, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jlabelingenfattigdomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelingenfattigdomMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlabelingenfattigdomMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jlabelanstandigaarbetsvillkor;
     private javax.swing.JLabel jlabelbekampaklimatforandringar;
@@ -201,5 +301,6 @@ public class Menu2 extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlabeljamstalldhet;
     private javax.swing.JLabel jlabelminskadojamlikhet;
     private javax.swing.JLabel jlabelrentvattenochsanitet;
+    private javax.swing.JPanel panelMal;
     // End of variables declaration//GEN-END:variables
 }
