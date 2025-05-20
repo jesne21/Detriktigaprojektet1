@@ -65,7 +65,7 @@ public class Inloggning extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(168, 213, 186));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Globe icon.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/globe_icon.png"))); // NOI18N
         jLabel4.setText("NGO Sweden");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
