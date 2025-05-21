@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package ngo2024;
 
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import ngo2024.Validering;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -68,9 +65,9 @@ public class Menu5 extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jbtnSparaAndringar = new javax.swing.JButton();
         tfTelefon = new javax.swing.JTextField();
-        tfLosenord = new javax.swing.JTextField();
+        tfBekraftaLosen = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        tfBekrafta = new javax.swing.JTextField();
+        tfNyttLosen = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         tfNamn = new javax.swing.JTextField();
@@ -190,6 +187,8 @@ public class Menu5 extends javax.swing.JInternalFrame {
         tfAdress = new javax.swing.JTextField();
         jLabel83 = new javax.swing.JLabel();
         tfEpost = new javax.swing.JTextField();
+        tfGammaltLosen = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
 
         jLabel3.setText("jLabel3");
 
@@ -212,6 +211,11 @@ public class Menu5 extends javax.swing.JInternalFrame {
         jbtnSparaAndringar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbtnSparaAndringar.setForeground(new java.awt.Color(255, 255, 255));
         jbtnSparaAndringar.setText("Spara Ändringar");
+        jbtnSparaAndringar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSparaAndringarActionPerformed(evt);
+            }
+        });
 
         tfTelefon.setBackground(new java.awt.Color(76, 72, 72));
         tfTelefon.setForeground(new java.awt.Color(204, 204, 204));
@@ -223,10 +227,10 @@ public class Menu5 extends javax.swing.JInternalFrame {
             }
         });
 
-        tfLosenord.setBackground(new java.awt.Color(76, 72, 72));
-        tfLosenord.setForeground(new java.awt.Color(204, 204, 204));
-        tfLosenord.setText("jTextField1");
-        tfLosenord.setBorder(null);
+        tfBekraftaLosen.setBackground(new java.awt.Color(76, 72, 72));
+        tfBekraftaLosen.setForeground(new java.awt.Color(204, 204, 204));
+        tfBekraftaLosen.setText("jTextField1");
+        tfBekraftaLosen.setBorder(null);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
@@ -237,14 +241,14 @@ public class Menu5 extends javax.swing.JInternalFrame {
             }
         });
 
-        tfBekrafta.setBackground(new java.awt.Color(76, 72, 72));
-        tfBekrafta.setForeground(new java.awt.Color(204, 204, 204));
-        tfBekrafta.setText("jTextField1");
-        tfBekrafta.setBorder(null);
+        tfNyttLosen.setBackground(new java.awt.Color(76, 72, 72));
+        tfNyttLosen.setForeground(new java.awt.Color(204, 204, 204));
+        tfNyttLosen.setText("jTextField1");
+        tfNyttLosen.setBorder(null);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel7.setText("Bekräfta");
+        jLabel7.setText("Bekräfta gammalt lösenord");
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel7MouseClicked(evt);
@@ -1699,31 +1703,52 @@ public class Menu5 extends javax.swing.JInternalFrame {
             }
         });
 
+        tfGammaltLosen.setBackground(new java.awt.Color(76, 72, 72));
+        tfGammaltLosen.setForeground(new java.awt.Color(204, 204, 204));
+        tfGammaltLosen.setText("jTextField1");
+        tfGammaltLosen.setBorder(null);
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel13.setText("Gammalt lösenord");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(294, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jblMinaUppgifter, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(234, 234, 234))
             .addGroup(layout.createSequentialGroup()
                 .addGap(94, 94, 94)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfBekrafta, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnSparaAndringar)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel82, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel83, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tfBekraftaLosen, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
+                        .addComponent(jbtnSparaAndringar)
+                        .addGap(270, 270, 270))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfNyttLosen, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel82, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel83, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfGammaltLosen, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel7))
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1768,16 +1793,24 @@ public class Menu5 extends javax.swing.JInternalFrame {
                         .addComponent(tfTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(tfLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57))
+                        .addGap(78, 78, 78))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfNyttLosen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5)
-                        .addComponent(tfBekrafta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbtnSparaAndringar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+                        .addComponent(tfGammaltLosen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addComponent(jbtnSparaAndringar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfBekraftaLosen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -2148,6 +2181,81 @@ public class Menu5 extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfEpostActionPerformed
 
+    private void jbtnSparaAndringarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSparaAndringarActionPerformed
+
+        String nyEpost = tfEpost.getText();
+        String nyAdress = tfAdress.getText();
+        String nyttTel = tfTelefon.getText();
+        String gammaltLosen = tfGammaltLosen.getText();
+        String nyttLosen = tfNyttLosen.getText();
+        String bekrLosen = tfBekraftaLosen.getText();
+
+
+        if (Validering.textFaltArTomt(nyEpost) || !Validering.arEpost(nyEpost)) {
+            JOptionPane.showMessageDialog(null, "Ogiltig e-postadress.");
+            return;
+        }
+
+        if (Validering.textFaltArTomt(nyAdress)) {
+            JOptionPane.showMessageDialog(null, "Adress får inte vara tom.");
+            return;
+        }
+
+        if (!Validering.arTelefonnummer(nyttTel)) {
+            JOptionPane.showMessageDialog(null, "Ogiltigt telefonnummer. Endast siffror, 7–15 tecken.");
+            return;
+        }
+
+        if (!nyttLosen.isEmpty() && !Validering.arStarktLosenord(nyttLosen)) {
+            JOptionPane.showMessageDialog(null, "Lösenordet måste innehålla minst 8 tecken, en bokstav och en siffra.");
+            return;
+        }
+
+
+        try {
+            // 1. Hämta nuvarande lösenord från databasen
+            String sql = "SELECT losenord FROM anstalld WHERE aid = " + anvandarID;
+            String dbLosen = idb.fetchSingle(sql);
+
+            // 2. Kolla om gamla lösenordet stämmer
+            if (!gammaltLosen.equals(dbLosen)) {
+                JOptionPane.showMessageDialog(null, "Nuvarande lösenord är fel.");
+                return;
+            }
+
+            // 3. Om nytt lösenord anges – kontrollera att det matchar bekräftelsen
+            if (!nyttLosen.isEmpty() || !bekrLosen.isEmpty()) {
+                if (!nyttLosen.equals(bekrLosen)) {
+                    JOptionPane.showMessageDialog(null, "Det nya lösenordet matchar inte bekräftelsen.");
+                    return;
+                }
+            } else {
+                nyttLosen = dbLosen; // inget nytt lösenord anges => behåll gamla
+            }
+
+            // 4. Uppdatera i databasen
+            String update = "UPDATE anstalld SET "
+                    + "epost = '" + nyEpost + "', "
+                    + "adress = '" + nyAdress + "', "
+                    + "telefon = '" + nyttTel + "', "
+                    + "losenord = '" + nyttLosen + "' "
+                    + "WHERE aid = " + anvandarID;
+
+            idb.update(update);
+            JOptionPane.showMessageDialog(null, "Ändringarna sparades!");
+
+        } catch (InfException ex) {
+            JOptionPane.showMessageDialog(null, "Fel vid uppdatering: " + ex.getMessage());
+        }
+    }
+
+
+    }//GEN-LAST:event_jbtnSparaAndringarActionPerformed
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel13MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
@@ -2167,6 +2275,7 @@ public class Menu5 extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -2272,10 +2381,11 @@ public class Menu5 extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jblMinaUppgifter;
     private javax.swing.JButton jbtnSparaAndringar;
     private javax.swing.JTextField tfAdress;
-    private javax.swing.JTextField tfBekrafta;
+    private javax.swing.JTextField tfBekraftaLosen;
     private javax.swing.JTextField tfEpost;
-    private javax.swing.JTextField tfLosenord;
+    private javax.swing.JTextField tfGammaltLosen;
     private javax.swing.JTextField tfNamn;
+    private javax.swing.JTextField tfNyttLosen;
     private javax.swing.JTextField tfTelefon;
     // End of variables declaration//GEN-END:variables
-}
+

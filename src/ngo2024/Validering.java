@@ -47,4 +47,14 @@ public class Validering {
         }
         return text.matches("\\d+");
     }
+    
+    // Kontroll av telefonnummer (måste vara 7–15 siffror)
+    public static boolean arTelefonnummer(String telefon) {
+        if (textFaltArTomt(telefon)) {
+            return false;
+        }
+        return telefon.matches("\\d{7,15}"); // tillåter 7 till 15 siffror
+    }
+
+    
 }
