@@ -53,7 +53,9 @@ public class Validering {
         if (textFaltArTomt(telefon)) {
             return false;
         }
-        return telefon.matches("\\d{7,15}"); // tillåter 7 till 15 siffror
+        // Räkna antalet siffror efter att ha tagit bort icke siffror
+        String baraSiffror = telefon.replaceAll("\\D", ""); // tar bort allt som inte är siffror
+        return baraSiffror.length() >= 7 && baraSiffror.length() <= 15;
     }
 
     
