@@ -155,18 +155,29 @@ System.out.println("Antal träffar: " + resultat.size());
 
     private void jButtonMinaProjektMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMinaProjektMouseClicked
 try {
-    String sql = "SELECT * FROM projekt WHERE projektchef = " + anvandarID;
-    var resultat = idb.fetchRows(sql);
-    
     txtResultatMinaProjekt.setText(""); //Rensar gamla resultat
     
-    for (HashMap<String, String> rad : resultat) {
-        String radText = "Projekt: " +rad.get("projektnamn") + "\n";
-        txtResultatMinaProjekt.append(radText);
+    String sql = """
+                 SELECT p.*
+                 FROM projekt p
+                 JOIN projekt_personal pp ON p.pid = pp.pid
+                 WHERE pp.aid = %d
+                 """.formatted(anvandarID);
+                 
+    var resultat = idb.fetchRows(sql);
+    
+    if (resultat.isEmpty()) {
+        txtResultatMinaProjekt.setText("Du är inte delaktig i några projekt.");
+    } else{
+        txtResultatMinaProjekt.append("Dina projekt: \n\n");
+        for (HashMap<String, String> rad : resultat) {
+            txtResultatMinaProjekt.append("Projekt: " + rad.get("projektnamn") + "\n");
+                txtResultatMinaProjekt.append("Start: " + rad.get("startdatum") + "\n");
+                txtResultatMinaProjekt.append("Status: " + rad.get("status") + "\n");
+                txtResultatMinaProjekt.append("--------------------------\n");
+    }   
     }
     
-    txtResultatMinaProjekt.append("\nAnvändarID: " + anvandarID + "\n");
-    txtResultatMinaProjekt.append("Antal träffar: " + resultat.size());
         
 } catch (InfException ex) {
     JOptionPane.showMessageDialog(null, "Kunde inte hämta projekt: " + ex.getMessage());
