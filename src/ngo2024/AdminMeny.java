@@ -21,6 +21,7 @@ public class AdminMeny extends javax.swing.JFrame {
     Color DefualtColor,ClickedColor;
     private InfDB idb;
     private String inloggadAnvandare;
+    private int anvandarID;
     
     public AdminMeny(InfDB idb, String inloggadAnvandare) {
         initComponents();
@@ -457,7 +458,7 @@ public class AdminMeny extends javax.swing.JFrame {
 
     private void Menu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu1MouseClicked
 
-        Menu1 menu1 = new Menu1();
+        Menu1 menu1 = new Menu1(idb, anvandarID);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menu1).setVisible(true);
 
@@ -465,7 +466,7 @@ public class AdminMeny extends javax.swing.JFrame {
 
     private void Menu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu2MouseClicked
 
-        Menu2 menu2 = new Menu2();
+        Menu2 menu2 = new Menu2(idb);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menu2).setVisible(true);
 
@@ -473,7 +474,7 @@ public class AdminMeny extends javax.swing.JFrame {
 
     private void Menu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu3MouseClicked
 
-        Menu3 menu3 = new Menu3();
+        Menu3 menu3 = new Menu3(idb);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menu3).setVisible(true);
     }//GEN-LAST:event_Menu3MouseClicked
@@ -488,7 +489,7 @@ public class AdminMeny extends javax.swing.JFrame {
     }//GEN-LAST:event_Menu4MouseClicked
 
     private void Menu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu5MouseClicked
-        Menu5 menu5 = new Menu5();
+        Menu5 menu5 = new Menu5(idb, anvandarID);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menu5).setVisible(true);
 
