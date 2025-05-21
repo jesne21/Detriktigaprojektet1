@@ -2247,7 +2247,7 @@ public class Menu5 extends javax.swing.JInternalFrame {
         } catch (InfException ex) {
             JOptionPane.showMessageDialog(null, "Fel vid uppdatering: " + ex.getMessage());
         }
-    }
+    
 
 
     }//GEN-LAST:event_jbtnSparaAndringarActionPerformed
@@ -2388,4 +2388,4 @@ public class Menu5 extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfNyttLosen;
     private javax.swing.JTextField tfTelefon;
     // End of variables declaration//GEN-END:variables
-
+}
