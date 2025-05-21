@@ -475,7 +475,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
 
     private void Menu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu3MouseClicked
 
-        Menu3 menu3 = new Menu3();
+        Menu3 menu3 = new Menu3(idb);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menu3).setVisible(true);
     }//GEN-LAST:event_Menu3MouseClicked
