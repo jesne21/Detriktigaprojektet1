@@ -459,7 +459,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
 
     private void Menu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu1MouseClicked
 
-        Menu1 menu1 = new Menu1();
+        Menu1 menu1 = new Menu1(idb, anvandarID);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menu1).setVisible(true);
 

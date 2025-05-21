@@ -6,17 +6,25 @@ package ngo2024;
 
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import oru.inf.InfDB;
+import oru.inf.InfException;
+import java.util.HashMap;
 
 /**
  *
- * @author Filip
+ * @author Jonas
  */
 public class Menu1 extends javax.swing.JInternalFrame {
+    
+    private InfDB idb;
+    private int anvandarID;
 
     /**
      * Creates new form Menu1
      */
-    public Menu1() {
+    public Menu1(InfDB idb, int anvandarID) {
+        this.idb = idb;
+        this.anvandarID = anvandarID;
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
@@ -100,7 +108,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
                     .addComponent(jButton2)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
-                .addContainerGap(490, Short.MAX_VALUE))
+                .addContainerGap(464, Short.MAX_VALUE))
         );
 
         pack();
@@ -115,7 +123,17 @@ public class Menu1 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButtonMinaProjektMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMinaProjektMouseClicked
-       // TODO add your handling code here:
+try {
+    String sql = "SELECT * FROM projekt WHERE projektchef = " + anvandarID;
+    System.out.println("SQL: " + sql);
+    //här kan man skriva ut till en JTextArea eller tabell
+    var resultat = idb.fetchRows(sql);
+    for (HashMap<String, String> rad : resultat) {
+        System.out.println(rad.get("projektnamn"));
+    }
+} catch (InfException ex) {
+    JOptionPane.showMessageDialog(null, "Kunde inte hämta projekt: " + ex.getMessage());
+}
     }//GEN-LAST:event_jButtonMinaProjektMouseClicked
 
 
