@@ -159,7 +159,7 @@
                                       <Component id="lblFelMeddelande" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="110" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -258,7 +258,7 @@
             <Component class="javax.swing.JLabel" name="visa">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Utilities\eye r&#xe4;tt.png"/>
+                  <Image iconType="3" name="/ngo2024/Bilder/eye r&#xe4;tt.png"/>
                 </Property>
               </Properties>
               <Events>
@@ -268,7 +268,7 @@
             <Component class="javax.swing.JLabel" name="g&#xf6;m">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/ngo2024/eye slash r&#xe4;tt.png"/>
+                  <Image iconType="3" name="/ngo2024/Bilder/eye slash r&#xe4;tt.png"/>
                 </Property>
               </Properties>
               <Events>

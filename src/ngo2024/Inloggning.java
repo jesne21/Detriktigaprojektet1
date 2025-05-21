@@ -127,14 +127,14 @@ public class Inloggning extends javax.swing.JFrame {
         lblFelMeddelande.setForeground(new java.awt.Color(255, 0, 51));
         lblFelMeddelande.setText("Felaktig E-postadress eller Lösenord");
 
-        visa.setIcon(new javax.swing.ImageIcon("C:\\Utilities\\eye rätt.png")); // NOI18N
+        visa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/eye rätt.png"))); // NOI18N
         visa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 visaMousePressed(evt);
             }
         });
 
-        göm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/eye slash rätt.png"))); // NOI18N
+        göm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/eye slash rätt.png"))); // NOI18N
         göm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 gömMousePressed(evt);
@@ -201,7 +201,7 @@ public class Inloggning extends javax.swing.JFrame {
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(lblFelMeddelande)))
-                        .addGap(0, 110, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
