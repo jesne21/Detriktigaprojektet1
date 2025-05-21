@@ -46,6 +46,9 @@ public class Menu1 extends javax.swing.JInternalFrame {
         jButtonMinaProjekt = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtResultatMinaProjekt = new javax.swing.JTextArea();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -79,13 +82,24 @@ public class Menu1 extends javax.swing.JInternalFrame {
         jButton5.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jButton5.setText("Sök projekt efter datum");
 
+        txtResultatMinaProjekt.setEditable(false);
+        txtResultatMinaProjekt.setColumns(20);
+        txtResultatMinaProjekt.setLineWrap(true);
+        txtResultatMinaProjekt.setRows(5);
+        txtResultatMinaProjekt.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(txtResultatMinaProjekt);
+
+        jScrollPane2.setViewportView(jScrollPane1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(65, 65, 65)
-                .addComponent(jButtonMinaProjekt)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonMinaProjekt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addGap(18, 18, 18)
@@ -95,7 +109,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
                         .addComponent(jButton4)
                         .addGap(18, 18, 18)
                         .addComponent(jButton5)))
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,14 +122,31 @@ public class Menu1 extends javax.swing.JInternalFrame {
                     .addComponent(jButton2)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
-                .addContainerGap(464, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(292, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonMinaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMinaProjektActionPerformed
-        // TODO add your handling code here:
+try {
+    //Testar hur det blir med ActionPerformed istället för mouseclick
+    String sql = "SELECT * FROM projekt WHERE projektchef = " + anvandarID;
+    System.out.println("SQL: " + sql);
+    //här kan man skriva ut till en JTextArea eller tabell
+    var resultat = idb.fetchRows(sql);
+    for (HashMap<String, String> rad : resultat) {
+        System.out.println(rad.get("projektnamn"));
+        
+        //felsökning nedan
+        System.out.println("AnvändarID: " + anvandarID);
+System.out.println("Antal träffar: " + resultat.size());
+    }
+} catch (InfException ex) {
+    JOptionPane.showMessageDialog(null, "Kunde inte hämta projekt: " + ex.getMessage());
+}  
     }//GEN-LAST:event_jButtonMinaProjektActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -125,12 +156,18 @@ public class Menu1 extends javax.swing.JInternalFrame {
     private void jButtonMinaProjektMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMinaProjektMouseClicked
 try {
     String sql = "SELECT * FROM projekt WHERE projektchef = " + anvandarID;
-    System.out.println("SQL: " + sql);
-    //här kan man skriva ut till en JTextArea eller tabell
     var resultat = idb.fetchRows(sql);
+    
+    txtResultatMinaProjekt.setText(""); //Rensar gamla resultat
+    
     for (HashMap<String, String> rad : resultat) {
-        System.out.println(rad.get("projektnamn"));
+        String radText = "Projekt: " +rad.get("projektnamn") + "\n";
+        txtResultatMinaProjekt.append(radText);
     }
+    
+    txtResultatMinaProjekt.append("\nAnvändarID: " + anvandarID + "\n");
+    txtResultatMinaProjekt.append("Antal träffar: " + resultat.size());
+        
 } catch (InfException ex) {
     JOptionPane.showMessageDialog(null, "Kunde inte hämta projekt: " + ex.getMessage());
 }
@@ -142,6 +179,9 @@ try {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButtonMinaProjekt;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl1;
+    private javax.swing.JTextArea txtResultatMinaProjekt;
     // End of variables declaration//GEN-END:variables
 }
