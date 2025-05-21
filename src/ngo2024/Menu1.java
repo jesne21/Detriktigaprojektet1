@@ -50,7 +50,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtResultatMinaProjekt = new javax.swing.JTextArea();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(153, 153, 255));
 
         lbl1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbl1.setText("Projekt");
@@ -83,6 +83,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
         jButton5.setText("Sök projekt efter datum");
 
         txtResultatMinaProjekt.setEditable(false);
+        txtResultatMinaProjekt.setBackground(new java.awt.Color(153, 153, 255));
         txtResultatMinaProjekt.setColumns(20);
         txtResultatMinaProjekt.setLineWrap(true);
         txtResultatMinaProjekt.setRows(5);
