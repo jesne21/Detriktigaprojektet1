@@ -157,12 +157,11 @@ System.out.println("Antal träffar: " + resultat.size());
 try {
     txtResultatMinaProjekt.setText(""); //Rensar gamla resultat
     
-    String sql = """
-                 SELECT p.*
-                 FROM projekt p
-                 JOIN projekt_personal pp ON p.pid = pp.pid
-                 WHERE pp.aid = %d
-                 """.formatted(anvandarID);
+    String sql = "SELECT p.* " +
+                 "FROM projekt p " +
+                 "JOIN projekt_personal pp ON p.pid = pp.pid " +
+                 "WHERE pp.aid = " + anvandarID + ";";
+                
                  
     var resultat = idb.fetchRows(sql);
     
