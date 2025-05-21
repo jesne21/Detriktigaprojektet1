@@ -41,6 +41,30 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jLabel2" min="-2" pref="92" max="-2" attributes="0"/>
+                  <Component id="jLabel5" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
+                  <Component id="jLabel3" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
+                  <Component id="jLabel4" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jTextFieldmalnamn" min="-2" pref="418" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane1" alignment="0" min="-2" pref="432" max="-2" attributes="0"/>
+                          <Component id="jTextFieldmalnummer" min="-2" pref="418" max="-2" attributes="0"/>
+                          <Component id="jTextFieldprioritet" alignment="0" min="-2" pref="418" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="245" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
@@ -48,26 +72,18 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="panelMal" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="jlabelbekampaklimatforandringar" min="-2" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                              <Component id="jlabelingenfattigdom" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jlabelhallbarenergiforalla" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
-                                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jlabelbekampaklimatforandringar" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                      <Component id="jlabelingenfattigdom" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jlabelhallbarenergiforalla" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jlabelingenhunger" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jlabelanstandigaarbetsvillkor" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -79,33 +95,33 @@
                                   <Component id="jlabelhallbarindustri" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jlabelekosystemochbiologiskmangfald" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jlabelgodutbildning" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="jlabeljamstalldhet" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jlabelminskadojamlikhet" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlabelfredligaochinkluderandesamhallen" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jlabelgenomforandeochglobaltpartnerskap" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="jlabelglobalamalenlogo" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jlabelgodutbildning" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Component id="jlabeljamstalldhet" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jlabelhallbarastader" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jlabelrentvattenochsanitet" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jlabelhallbarkonsumtion" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jlabelminskadojamlikhet" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jlabelfredligaochinkluderandesamhallen" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jlabelgenomforandeochglobaltpartnerskap" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="jlabelglobalamalenlogo" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jlabelhallbarastader" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jlabelrentvattenochsanitet" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jlabelhallbarkonsumtion" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
                                       </Group>
                                   </Group>
                               </Group>
@@ -113,23 +129,11 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" pref="92" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" pref="92" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
-                      <Component id="jLabel4" min="-2" pref="92" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
-                      <Component id="jLabel5" min="-2" pref="92" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="321" max="-2" attributes="0"/>
+                      <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="222" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -137,7 +141,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jLabel1" min="-2" pref="36" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+              <Component id="jTextField1" min="-2" pref="23" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jlabelingenfattigdom" min="-2" max="-2" attributes="0"/>
                   <Component id="jlabelingenhunger" min="-2" max="-2" attributes="0"/>
@@ -146,9 +152,7 @@
                   <Component id="jlabeljamstalldhet" min="-2" max="-2" attributes="0"/>
                   <Component id="jlabelrentvattenochsanitet" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="17" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jlabelhallbarenergiforalla" min="-2" max="-2" attributes="0"/>
                   <Component id="jlabelanstandigaarbetsvillkor" min="-2" max="-2" attributes="0"/>
@@ -169,14 +173,31 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="panelMal" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Component id="jLabel2" min="-2" pref="30" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jTextFieldmalnamn" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Component id="jLabel3" min="-2" pref="30" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Component id="jLabel4" min="-2" pref="30" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Component id="jLabel5" min="-2" pref="30" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="49" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="jTextFieldmalnummer" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jScrollPane1" min="-2" pref="48" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jTextFieldprioritet" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="0" pref="36" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -206,6 +227,9 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal2.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelingenhungerMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelgodhalsaochvalbefinnande">
       <Properties>
@@ -213,6 +237,9 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal3.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelgodhalsaochvalbefinnandeMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelgodutbildning">
       <Properties>
@@ -220,6 +247,9 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal4.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelgodutbildningMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabeljamstalldhet">
       <Properties>
@@ -227,6 +257,9 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal5.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabeljamstalldhetMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelrentvattenochsanitet">
       <Properties>
@@ -234,6 +267,9 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal6.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelrentvattenochsanitetMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelhallbarenergiforalla">
       <Properties>
@@ -241,6 +277,9 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal7.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelhallbarenergiforallaMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelanstandigaarbetsvillkor">
       <Properties>
@@ -248,6 +287,9 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal8.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelanstandigaarbetsvillkorMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelhallbarindustri">
       <Properties>
@@ -255,6 +297,9 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal9.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelhallbarindustriMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelminskadojamlikhet">
       <Properties>
@@ -262,6 +307,9 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal10.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelminskadojamlikhetMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelhallbarastader">
       <Properties>
@@ -269,6 +317,9 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal11.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelhallbarastaderMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelhallbarkonsumtion">
       <Properties>
@@ -276,6 +327,9 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal12.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelhallbarkonsumtionMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelbekampaklimatforandringar">
       <Properties>
@@ -283,6 +337,9 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal13.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelbekampaklimatforandringarMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelhavochmarinaresurser">
       <Properties>
@@ -290,6 +347,9 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal14.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelhavochmarinaresurserMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelekosystemochbiologiskmangfald">
       <Properties>
@@ -297,13 +357,19 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal15.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelekosystemochbiologiskmangfaldMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelfredligaochinkluderandesamhallen">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal17.png"/>
+          <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal16.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelfredligaochinkluderandesamhallenMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelgenomforandeochglobaltpartnerskap">
       <Properties>
@@ -311,6 +377,9 @@
           <Image iconType="3" name="/ngo2024/Bilder/hallbarhetsmal17.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabelgenomforandeochglobaltpartnerskapMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlabelglobalamalenlogo">
       <Properties>
@@ -318,14 +387,6 @@
           <Image iconType="3" name="/ngo2024/Bilder/globalamalenlogo.png"/>
         </Property>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Visa Mer"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="panelMal">
 
@@ -354,5 +415,49 @@
         <Property name="text" type="java.lang.String" value="Prioritet"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JTextField" name="jTextField1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tryck p&#xe5; ett m&#xe5;l f&#xf6;r att visa mer"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldmalnamn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jTextField2"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldmalnummer">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jTextField2"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldmalnummerActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldprioritet">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jTextField2"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextAreabeskrivning">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="lineWrap" type="boolean" value="true"/>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="wrapStyleWord" type="boolean" value="true"/>
+            <Property name="autoscrolls" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

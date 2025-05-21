@@ -7,10 +7,7 @@ package ngo2024;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import oru.inf.InfDB;
 import oru.inf.InfException;
-import javax.swing.JPanel;
-import javax.swing.*;
-import java.awt.*;
-import java.net.URL;
+
 
 /**
  *
@@ -18,12 +15,14 @@ import java.net.URL;
  */
 public class Menu2 extends javax.swing.JInternalFrame {
 
+        private InfDB idb;
 
     /**
      * Creates new form Menu1
      */
-    public Menu2() {
+    public Menu2(InfDB idb) {
         initComponents();
+        this.idb = idb;
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
@@ -61,12 +60,17 @@ public class Menu2 extends javax.swing.JInternalFrame {
         jlabelfredligaochinkluderandesamhallen = new javax.swing.JLabel();
         jlabelgenomforandeochglobaltpartnerskap = new javax.swing.JLabel();
         jlabelglobalamalenlogo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         panelMal = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextFieldmalnamn = new javax.swing.JTextField();
+        jTextFieldmalnummer = new javax.swing.JTextField();
+        jTextFieldprioritet = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreabeskrivning = new javax.swing.JTextArea();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,45 +96,118 @@ public class Menu2 extends javax.swing.JInternalFrame {
         });
 
         jlabelingenhunger.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal2.png"))); // NOI18N
-
-        jlabelgodhalsaochvalbefinnande.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal3.png"))); // NOI18N
-
-        jlabelgodutbildning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal4.png"))); // NOI18N
-
-        jlabeljamstalldhet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal5.png"))); // NOI18N
-
-        jlabelrentvattenochsanitet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal6.png"))); // NOI18N
-
-        jlabelhallbarenergiforalla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal7.png"))); // NOI18N
-
-        jlabelanstandigaarbetsvillkor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal8.png"))); // NOI18N
-
-        jlabelhallbarindustri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal9.png"))); // NOI18N
-
-        jlabelminskadojamlikhet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal10.png"))); // NOI18N
-
-        jlabelhallbarastader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal11.png"))); // NOI18N
-
-        jlabelhallbarkonsumtion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal12.png"))); // NOI18N
-
-        jlabelbekampaklimatforandringar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal13.png"))); // NOI18N
-
-        jlabelhavochmarinaresurser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal14.png"))); // NOI18N
-
-        jlabelekosystemochbiologiskmangfald.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal15.png"))); // NOI18N
-
-        jlabelfredligaochinkluderandesamhallen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal17.png"))); // NOI18N
-
-        jlabelgenomforandeochglobaltpartnerskap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal17.png"))); // NOI18N
-
-        jlabelglobalamalenlogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/globalamalenlogo.png"))); // NOI18N
-
-        jButton1.setText("Visa Mer");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jlabelingenhunger.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelingenhungerMouseClicked(evt);
             }
         });
+
+        jlabelgodhalsaochvalbefinnande.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal3.png"))); // NOI18N
+        jlabelgodhalsaochvalbefinnande.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelgodhalsaochvalbefinnandeMouseClicked(evt);
+            }
+        });
+
+        jlabelgodutbildning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal4.png"))); // NOI18N
+        jlabelgodutbildning.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelgodutbildningMouseClicked(evt);
+            }
+        });
+
+        jlabeljamstalldhet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal5.png"))); // NOI18N
+        jlabeljamstalldhet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabeljamstalldhetMouseClicked(evt);
+            }
+        });
+
+        jlabelrentvattenochsanitet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal6.png"))); // NOI18N
+        jlabelrentvattenochsanitet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelrentvattenochsanitetMouseClicked(evt);
+            }
+        });
+
+        jlabelhallbarenergiforalla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal7.png"))); // NOI18N
+        jlabelhallbarenergiforalla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelhallbarenergiforallaMouseClicked(evt);
+            }
+        });
+
+        jlabelanstandigaarbetsvillkor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal8.png"))); // NOI18N
+        jlabelanstandigaarbetsvillkor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelanstandigaarbetsvillkorMouseClicked(evt);
+            }
+        });
+
+        jlabelhallbarindustri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal9.png"))); // NOI18N
+        jlabelhallbarindustri.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelhallbarindustriMouseClicked(evt);
+            }
+        });
+
+        jlabelminskadojamlikhet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal10.png"))); // NOI18N
+        jlabelminskadojamlikhet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelminskadojamlikhetMouseClicked(evt);
+            }
+        });
+
+        jlabelhallbarastader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal11.png"))); // NOI18N
+        jlabelhallbarastader.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelhallbarastaderMouseClicked(evt);
+            }
+        });
+
+        jlabelhallbarkonsumtion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal12.png"))); // NOI18N
+        jlabelhallbarkonsumtion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelhallbarkonsumtionMouseClicked(evt);
+            }
+        });
+
+        jlabelbekampaklimatforandringar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal13.png"))); // NOI18N
+        jlabelbekampaklimatforandringar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelbekampaklimatforandringarMouseClicked(evt);
+            }
+        });
+
+        jlabelhavochmarinaresurser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal14.png"))); // NOI18N
+        jlabelhavochmarinaresurser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelhavochmarinaresurserMouseClicked(evt);
+            }
+        });
+
+        jlabelekosystemochbiologiskmangfald.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal15.png"))); // NOI18N
+        jlabelekosystemochbiologiskmangfald.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelekosystemochbiologiskmangfaldMouseClicked(evt);
+            }
+        });
+
+        jlabelfredligaochinkluderandesamhallen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal16.png"))); // NOI18N
+        jlabelfredligaochinkluderandesamhallen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelfredligaochinkluderandesamhallenMouseClicked(evt);
+            }
+        });
+
+        jlabelgenomforandeochglobaltpartnerskap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/hallbarhetsmal17.png"))); // NOI18N
+        jlabelgenomforandeochglobaltpartnerskap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelgenomforandeochglobaltpartnerskapMouseClicked(evt);
+            }
+        });
+
+        jlabelglobalamalenlogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/globalamalenlogo.png"))); // NOI18N
 
         panelMal.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -142,31 +219,69 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Prioritet");
 
+        jTextField1.setText("Tryck på ett mål för att visa mer");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jTextFieldmalnamn.setText("jTextField2");
+
+        jTextFieldmalnummer.setText("jTextField2");
+        jTextFieldmalnummer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldmalnummerActionPerformed(evt);
+            }
+        });
+
+        jTextFieldprioritet.setText("jTextField2");
+
+        jTextAreabeskrivning.setColumns(20);
+        jTextAreabeskrivning.setLineWrap(true);
+        jTextAreabeskrivning.setRows(5);
+        jTextAreabeskrivning.setWrapStyleWord(true);
+        jTextAreabeskrivning.setAutoscrolls(false);
+        jScrollPane1.setViewportView(jTextAreabeskrivning);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(116, 116, 116)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextFieldmalnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldmalnummer, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldprioritet, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(245, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(334, 334, 334)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(192, 192, 192)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(panelMal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(192, 192, 192)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jlabelbekampaklimatforandringar)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jlabelingenfattigdom)
-                                                .addComponent(jlabelhallbarenergiforalla))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(177, 177, 177)
-                                        .addComponent(jButton1)))
-                                .addGap(13, 13, 13)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jlabelbekampaklimatforandringar)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jlabelingenfattigdom)
+                                        .addComponent(jlabelhallbarenergiforalla)))
+                                .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlabelingenhunger)
                                     .addComponent(jlabelanstandigaarbetsvillkor)
@@ -175,48 +290,41 @@ public class Menu2 extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlabelgodhalsaochvalbefinnande)
                                     .addComponent(jlabelhallbarindustri)
-                                    .addComponent(jlabelekosystemochbiologiskmangfald))))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jlabelgodutbildning)
-                                .addGap(27, 27, 27)
-                                .addComponent(jlabeljamstalldhet))
-                            .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jlabelekosystemochbiologiskmangfald))
+                                .addGap(26, 26, 26)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlabelminskadojamlikhet)
-                                    .addComponent(jlabelfredligaochinkluderandesamhallen))
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jlabelgenomforandeochglobaltpartnerskap)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jlabelglobalamalenlogo))
+                                        .addComponent(jlabelgodutbildning)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(jlabeljamstalldhet))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jlabelhallbarastader)
-                                        .addGap(31, 31, 31)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jlabelrentvattenochsanitet)
-                                            .addComponent(jlabelhallbarkonsumtion)))))))
+                                            .addComponent(jlabelminskadojamlikhet)
+                                            .addComponent(jlabelfredligaochinkluderandesamhallen))
+                                        .addGap(27, 27, 27)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jlabelgenomforandeochglobaltpartnerskap)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jlabelglobalamalenlogo))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jlabelhallbarastader)
+                                                .addGap(31, 31, 31)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jlabelrentvattenochsanitet)
+                                                    .addComponent(jlabelhallbarkonsumtion)))))))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(222, Short.MAX_VALUE))
+                        .addGap(321, 321, 321)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(2, 2, 2)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlabelingenfattigdom)
                     .addComponent(jlabelingenhunger)
@@ -224,9 +332,7 @@ public class Menu2 extends javax.swing.JInternalFrame {
                     .addComponent(jlabelgodutbildning)
                     .addComponent(jlabeljamstalldhet)
                     .addComponent(jlabelrentvattenochsanitet))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlabelhallbarenergiforalla)
                     .addComponent(jlabelanstandigaarbetsvillkor)
@@ -245,38 +351,343 @@ public class Menu2 extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(panelMal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldmalnamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 49, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldmalnummer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldprioritet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 36, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jlabelingenfattigdomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelingenfattigdomMouseClicked
-        // TODO add your handling code here:
+                  try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '1'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '1'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '1'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '1'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }      
     }//GEN-LAST:event_jlabelingenfattigdomMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextFieldmalnummerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldmalnummerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldmalnummerActionPerformed
+
+    private void jlabelingenhungerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelingenhungerMouseClicked
+                              try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '2'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '2'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '2'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '2'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelingenhungerMouseClicked
+
+    private void jlabelgodhalsaochvalbefinnandeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelgodhalsaochvalbefinnandeMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '3'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '3'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '3'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '3'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelgodhalsaochvalbefinnandeMouseClicked
+
+    private void jlabelgodutbildningMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelgodutbildningMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '4'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '4'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '4'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '4'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelgodutbildningMouseClicked
+
+    private void jlabeljamstalldhetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabeljamstalldhetMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '5'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '5'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '5'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '5'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabeljamstalldhetMouseClicked
+
+    private void jlabelrentvattenochsanitetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelrentvattenochsanitetMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '6'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '6'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '6'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '6'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelrentvattenochsanitetMouseClicked
+
+    private void jlabelhallbarenergiforallaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhallbarenergiforallaMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '7'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '7'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '7'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '7'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelhallbarenergiforallaMouseClicked
+
+    private void jlabelanstandigaarbetsvillkorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelanstandigaarbetsvillkorMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '8'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '8'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '8'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '8'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelanstandigaarbetsvillkorMouseClicked
+
+    private void jlabelhallbarindustriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhallbarindustriMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '9'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '9'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '9'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '9'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelhallbarindustriMouseClicked
+
+    private void jlabelminskadojamlikhetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelminskadojamlikhetMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '10'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '10'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '10'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '10'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelminskadojamlikhetMouseClicked
+
+    private void jlabelhallbarastaderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhallbarastaderMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '11'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '11'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '11'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '11'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelhallbarastaderMouseClicked
+
+    private void jlabelhallbarkonsumtionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhallbarkonsumtionMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '12'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '12'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '12'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '12'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelhallbarkonsumtionMouseClicked
+
+    private void jlabelbekampaklimatforandringarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelbekampaklimatforandringarMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '13'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '13'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '13'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '13'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelbekampaklimatforandringarMouseClicked
+
+    private void jlabelhavochmarinaresurserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhavochmarinaresurserMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '14'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '14'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '14'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '14'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelhavochmarinaresurserMouseClicked
+
+    private void jlabelekosystemochbiologiskmangfaldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelekosystemochbiologiskmangfaldMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '15'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '15'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '15'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '15'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelekosystemochbiologiskmangfaldMouseClicked
+
+    private void jlabelfredligaochinkluderandesamhallenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelfredligaochinkluderandesamhallenMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '16'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '16'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '16'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '16'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelfredligaochinkluderandesamhallenMouseClicked
+
+    private void jlabelgenomforandeochglobaltpartnerskapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelgenomforandeochglobaltpartnerskapMouseClicked
+                          try {
+        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '17'");
+        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '17'");
+        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '17'");
+        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '17'");
+
+        jTextFieldmalnamn.setText(namn);
+        jTextFieldmalnummer.setText(malnummer);
+        jTextAreabeskrivning.setText(beskrivning);
+        jTextFieldprioritet.setText(prioritet);
+
+    } catch (InfException ex) {
+        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_jlabelgenomforandeochglobaltpartnerskapMouseClicked
 
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreabeskrivning;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldmalnamn;
+    private javax.swing.JTextField jTextFieldmalnummer;
+    private javax.swing.JTextField jTextFieldprioritet;
     private javax.swing.JLabel jlabelanstandigaarbetsvillkor;
     private javax.swing.JLabel jlabelbekampaklimatforandringar;
     private javax.swing.JLabel jlabelekosystemochbiologiskmangfald;
