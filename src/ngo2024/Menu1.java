@@ -9,7 +9,13 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import java.util.HashMap;
+import java.util.Properties;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
+import org.jdatepicker.impl.DateComponentFormatter;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 /**
  *
@@ -30,9 +36,22 @@ public class Menu1 extends javax.swing.JInternalFrame {
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);
+        JFrame fönster = new JFrame("Datumväljare");
+        fönster.setSize(300,200);
+        fönster.setLayout(null);
+        UtilDateModel modell = new UtilDateModel();
+        Properties p = new Properties();
+        p.put("text.today", "Idag");
+        p.put("text.month", "Månad");
+        p.put("text.year", "År");
         
+        JDatePanelImpl datePanel = new JDatePanelImpl(modell, p);
+        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateComponentFormatter());
         
+        datePicker.setBounds(80,80,200,30);
+        fönster.add(datePicker);
         
+        fönster.setVisible(true);
         
     }
 
@@ -46,8 +65,8 @@ public class Menu1 extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         lbl1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButtonMinaProjekt = new javax.swing.JButton();
+        btnAvdelningensProjekt = new javax.swing.JButton();
+        btnMinaProjekt = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -55,30 +74,35 @@ public class Menu1 extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setBackground(new java.awt.Color(153, 153, 255));
+        setBackground(new java.awt.Color(153, 255, 204));
         setPreferredSize(new java.awt.Dimension(860, 610));
 
         lbl1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lbl1.setText("Mina projekt");
 
-        jButton2.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jButton2.setText("Avdelningens projekt");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAvdelningensProjekt.setBackground(new java.awt.Color(153, 255, 204));
+        btnAvdelningensProjekt.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
+        btnAvdelningensProjekt.setText("Avdelningens projekt");
+        btnAvdelningensProjekt.setBorder(null);
+        btnAvdelningensProjekt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAvdelningensProjektActionPerformed(evt);
             }
         });
 
-        jButtonMinaProjekt.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jButtonMinaProjekt.setText("Mina projekt");
-        jButtonMinaProjekt.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnMinaProjekt.setBackground(new java.awt.Color(153, 255, 204));
+        btnMinaProjekt.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
+        btnMinaProjekt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/projekt_ikon.gif"))); // NOI18N
+        btnMinaProjekt.setText("Mina projekt");
+        btnMinaProjekt.setBorder(null);
+        btnMinaProjekt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonMinaProjektMouseClicked(evt);
+                btnMinaProjektMouseClicked(evt);
             }
         });
-        jButtonMinaProjekt.addActionListener(new java.awt.event.ActionListener() {
+        btnMinaProjekt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonMinaProjektActionPerformed(evt);
+                btnMinaProjektActionPerformed(evt);
             }
         });
 
@@ -99,13 +123,13 @@ public class Menu1 extends javax.swing.JInternalFrame {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Projektnamn", "Status", "Startdatum", "Slutdatum"
+                "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum"
             }
         ));
         jTable1.setGridColor(new java.awt.Color(0, 0, 0));
@@ -119,53 +143,50 @@ public class Menu1 extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(77, 77, 77)
-                        .addComponent(jButton4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton5)
-                        .addGap(94, 94, 94))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(261, 261, 261))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(162, 162, 162)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(140, 140, 140))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton4)
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton5))
+                    .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(4, 4, 4)
                 .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonMinaProjekt)
-                    .addComponent(jButton2)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(56, 56, 56)
+                        .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(311, 311, 311)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonMinaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMinaProjektActionPerformed
+    private void btnMinaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinaProjektActionPerformed
 try {
     //Testar hur det blir med ActionPerformed istället för mouseclick
     String sql = "SELECT * FROM projekt WHERE projektchef = " + anvandarID;
@@ -182,13 +203,13 @@ System.out.println("Antal träffar: " + resultat.size());
 } catch (InfException ex) {
     JOptionPane.showMessageDialog(null, "Kunde inte hämta projekt: " + ex.getMessage());
 }  
-    }//GEN-LAST:event_jButtonMinaProjektActionPerformed
+    }//GEN-LAST:event_btnMinaProjektActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnAvdelningensProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvdelningensProjektActionPerformed
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnAvdelningensProjektActionPerformed
 
-    private void jButtonMinaProjektMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMinaProjektMouseClicked
+    private void btnMinaProjektMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinaProjektMouseClicked
 try {
     txtResultatMinaProjekt.setText(""); //Rensar gamla resultat
     
@@ -216,14 +237,14 @@ try {
 } catch (InfException ex) {
     JOptionPane.showMessageDialog(null, "Kunde inte hämta projekt: " + ex.getMessage());
 }
-    }//GEN-LAST:event_jButtonMinaProjektMouseClicked
+    }//GEN-LAST:event_btnMinaProjektMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAvdelningensProjekt;
+    private javax.swing.JButton btnMinaProjekt;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButtonMinaProjekt;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
