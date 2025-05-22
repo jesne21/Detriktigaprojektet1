@@ -4,18 +4,16 @@
  */
 package ngo2024;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import java.util.HashMap;
-import java.util.Properties;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
-import org.jdatepicker.impl.DateComponentFormatter;
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
+
 
 /**
  *
@@ -36,22 +34,11 @@ public class Menu1 extends javax.swing.JInternalFrame {
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);
-        JFrame fönster = new JFrame("Datumväljare");
-        fönster.setSize(300,200);
-        fönster.setLayout(null);
-        UtilDateModel modell = new UtilDateModel();
-        Properties p = new Properties();
-        p.put("text.today", "Idag");
-        p.put("text.month", "Månad");
-        p.put("text.year", "År");
         
-        JDatePanelImpl datePanel = new JDatePanelImpl(modell, p);
-        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateComponentFormatter());
+        visaMinaProjekt(); // kör direkt 
+        highlightKnapp(btnMinaProjekt); // Gör "mina projekt" knappen aktiv
         
-        datePicker.setBounds(80,80,200,30);
-        fönster.add(datePicker);
         
-        fönster.setVisible(true);
         
     }
 
@@ -69,10 +56,8 @@ public class Menu1 extends javax.swing.JInternalFrame {
         btnMinaProjekt = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtResultatMinaProjekt = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblProjekt = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(153, 255, 204));
         setPreferredSize(new java.awt.Dimension(860, 610));
@@ -112,16 +97,8 @@ public class Menu1 extends javax.swing.JInternalFrame {
         jButton5.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jButton5.setText("Sök projekt efter datum");
 
-        txtResultatMinaProjekt.setEditable(false);
-        txtResultatMinaProjekt.setBackground(new java.awt.Color(153, 153, 255));
-        txtResultatMinaProjekt.setColumns(20);
-        txtResultatMinaProjekt.setLineWrap(true);
-        txtResultatMinaProjekt.setRows(5);
-        txtResultatMinaProjekt.setWrapStyleWord(true);
-        jScrollPane1.setViewportView(txtResultatMinaProjekt);
-
-        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblProjekt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tblProjekt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -132,12 +109,12 @@ public class Menu1 extends javax.swing.JInternalFrame {
                 "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum"
             }
         ));
-        jTable1.setGridColor(new java.awt.Color(0, 0, 0));
-        jTable1.setRowHeight(25);
-        jTable1.setRowMargin(1);
-        jTable1.setShowGrid(false);
-        jTable1.setShowHorizontalLines(true);
-        jScrollPane4.setViewportView(jTable1);
+        tblProjekt.setGridColor(new java.awt.Color(0, 0, 0));
+        tblProjekt.setRowHeight(25);
+        tblProjekt.setRowMargin(1);
+        tblProjekt.setShowGrid(false);
+        tblProjekt.setShowHorizontalLines(true);
+        jScrollPane4.setViewportView(tblProjekt);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,9 +122,6 @@ public class Menu1 extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
@@ -158,85 +132,149 @@ public class Menu1 extends javax.swing.JInternalFrame {
                         .addComponent(jButton5))
                     .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(311, 311, 311)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnMinaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinaProjektActionPerformed
-try {
-    //Testar hur det blir med ActionPerformed istället för mouseclick
-    String sql = "SELECT * FROM projekt WHERE projektchef = " + anvandarID;
-    System.out.println("SQL: " + sql);
-    //här kan man skriva ut till en JTextArea eller tabell
-    var resultat = idb.fetchRows(sql);
-    for (HashMap<String, String> rad : resultat) {
-        System.out.println(rad.get("projektnamn"));
-        
-        //felsökning nedan
-        System.out.println("AnvändarID: " + anvandarID);
-System.out.println("Antal träffar: " + resultat.size());
+    private void visaMinaProjekt() {
+        try {
+            // 1. Skapa SQL-frågan med tydliga JOINs
+            String sql = "SELECT pr.projektnamn, pa.namn AS partner, l.namn AS land, "
+                    + "pr.status, pr.startdatum, pr.slutdatum "
+                    + "FROM projekt pr "
+                    + "JOIN ans_proj ap ON pr.pid = ap.projekt_id "
+                    + "JOIN projekt_partner pp ON pr.pid = pp.pid "
+                    + "JOIN partner pa ON pp.partner_pid = pa.pid "
+                    + "JOIN land l ON pr.land = l.lid "
+                    + "WHERE ap.anvandarID = '" + anvandarID + "'";
+
+            // 2. Debug: skriv ut SQL-frågan
+            System.out.println("SQL som körs:\n" + sql);
+
+            // 3. Hämta data
+            ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
+            System.out.println("Antal rader: " + resultat.size());
+
+            // 4. Bygg tabellmodell
+            DefaultTableModel modell = new DefaultTableModel();
+            modell.setColumnIdentifiers(new Object[]{
+                "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
+            });
+
+            for (HashMap<String, String> rad : resultat) {
+                modell.addRow(new Object[]{
+                    rad.get("projektnamn"),
+                    rad.get("partner"),
+                    rad.get("land"),
+                    rad.get("status"),
+                    rad.get("startdatum"),
+                    rad.get("slutdatum")
+                });
+            }
+
+            // 5. Visa i JTable
+            tblProjekt.setModel(modell);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Kunde inte hämta mina projekt:\n" + e.getMessage());
+        }
     }
-} catch (InfException ex) {
-    JOptionPane.showMessageDialog(null, "Kunde inte hämta projekt: " + ex.getMessage());
-}  
+
+    
+    private void visaAvdelningensProjekt() {
+        try {
+            // 1. Hämta handläggarens avdelning
+            String avdSql = "SELECT avdelning FROM anstalld WHERE anvandarID = '" + anvandarID + "'";
+            String avdelning = idb.fetchSingle(avdSql);
+
+            // 2. Hämta projekt där projektchefens avdelning är samma som inloggad användares avdelning
+            String sql = "SELECT pr.projektnamn, pa.namn AS partner, l.namn AS land, "
+                    + "pr.status, pr.startdatum, pr.slutdatum "
+                    + "FROM projekt pr "
+                    + "JOIN anstalld a ON pr.projektchef = a.anvandarID "
+                    + "JOIN partner pa ON pa.pid = ( "
+                    + "    SELECT partner_pid FROM projekt_partner WHERE pid = pr.pid LIMIT 1 "
+                    + ") "
+                    + "JOIN land l ON pr.land = l.lid "
+                    + "WHERE a.avdelning = '" + avdelning + "'";
+
+            ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
+
+            // 3. Lägg in i tabellen
+            DefaultTableModel modell = new DefaultTableModel();
+            modell.setColumnIdentifiers(new Object[]{
+                "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
+            });
+
+            for (HashMap<String, String> rad : resultat) {
+                modell.addRow(new Object[]{
+                    rad.get("projektnamn"),
+                    rad.get("partner"),
+                    rad.get("land"),
+                    rad.get("status"),
+                    rad.get("startdatum"),
+                    rad.get("slutdatum")
+                });
+            }
+
+            tblProjekt.setModel(modell);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Kunde inte hämta avdelningens projekt:\n" + e.getMessage());
+        }
+    }
+
+
+    
+    private void highlightKnapp(JButton aktivKnapp) {
+        // Återställ båda knappar
+        btnMinaProjekt.setBackground(null);
+        btnAvdelningensProjekt.setBackground(null);
+
+        // Markera vald
+        aktivKnapp.setBackground(new java.awt.Color(200, 230, 255)); // ljusblå
+    }
+
+
+    
+    
+    private void btnMinaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinaProjektActionPerformed
+
+        visaMinaProjekt();
+        highlightKnapp(btnMinaProjekt);
+        
     }//GEN-LAST:event_btnMinaProjektActionPerformed
 
     private void btnAvdelningensProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvdelningensProjektActionPerformed
-
+     
+        visaAvdelningensProjekt();
+        highlightKnapp(btnAvdelningensProjekt);
+        
     }//GEN-LAST:event_btnAvdelningensProjektActionPerformed
 
     private void btnMinaProjektMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinaProjektMouseClicked
-try {
-    txtResultatMinaProjekt.setText(""); //Rensar gamla resultat
-    
-    String sql = "SELECT p.* " +
-                 "FROM projekt p " +
-                 "JOIN projekt_personal pp ON p.pid = pp.pid " +
-                 "WHERE pp.aid = " + anvandarID + ";";
-                
-                 
-    var resultat = idb.fetchRows(sql);
-    
-    if (resultat.isEmpty()) {
-        txtResultatMinaProjekt.setText("Du är inte delaktig i några projekt.");
-    } else{
-        txtResultatMinaProjekt.append("Dina projekt: \n\n");
-        for (HashMap<String, String> rad : resultat) {
-            txtResultatMinaProjekt.append("Projekt: " + rad.get("projektnamn") + "\n");
-                txtResultatMinaProjekt.append("Start: " + rad.get("startdatum") + "\n");
-                txtResultatMinaProjekt.append("Status: " + rad.get("status") + "\n");
-                txtResultatMinaProjekt.append("--------------------------\n");
-    }   
-    }
-    
-        
-} catch (InfException ex) {
-    JOptionPane.showMessageDialog(null, "Kunde inte hämta projekt: " + ex.getMessage());
-}
+
     }//GEN-LAST:event_btnMinaProjektMouseClicked
 
 
@@ -245,10 +283,8 @@ try {
     private javax.swing.JButton btnMinaProjekt;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl1;
-    private javax.swing.JTextArea txtResultatMinaProjekt;
+    private javax.swing.JTable tblProjekt;
     // End of variables declaration//GEN-END:variables
 }
