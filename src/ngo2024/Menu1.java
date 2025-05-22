@@ -32,7 +32,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
         ui.setNorthPane(null);
         String[] kolumner = {"Projekt", "Status", "Startdatum", "Slutdatum"};
         DefaultTableModel modell = new DefaultTableModel(kolumner, 0);
-        jTable3.setModel(modell);
+        jTable1.setModel(modell);
         
     }
 
