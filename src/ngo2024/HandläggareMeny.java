@@ -59,6 +59,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         MenyNamn = new javax.swing.JLabel();
+        lblInloggadAnvandare = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         Menu1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -70,7 +71,6 @@ public class HandläggareMeny extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         Menu4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        lblInloggadAnvandare = new javax.swing.JLabel();
         jDesktopPanel = new javax.swing.JDesktopPane();
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -108,6 +108,8 @@ public class HandläggareMeny extends javax.swing.JFrame {
         MenyNamn.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
         MenyNamn.setText("Meny 1");
 
+        lblInloggadAnvandare.setText("Namn");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -115,6 +117,8 @@ public class HandläggareMeny extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(359, 359, 359)
+                .addComponent(lblInloggadAnvandare, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(22, 22, 22))
@@ -133,7 +137,9 @@ public class HandläggareMeny extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblInloggadAnvandare, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -190,7 +196,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny_ikon.png"))); // NOI18N
-        jLabel7.setText("Meny 2");
+        jLabel7.setText("Hållbarhetsmål");
 
         javax.swing.GroupLayout Menu2Layout = new javax.swing.GroupLayout(Menu2);
         Menu2.setLayout(Menu2Layout);
@@ -221,7 +227,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/meny_ikon.png"))); // NOI18N
-        jLabel8.setText("Meny 3");
+        jLabel8.setText("Min avdelning");
 
         javax.swing.GroupLayout Menu3Layout = new javax.swing.GroupLayout(Menu3);
         Menu3.setLayout(Menu3Layout);
@@ -302,8 +308,6 @@ public class HandläggareMeny extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lblInloggadAnvandare.setText("label 1");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -315,8 +319,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
                     .addComponent(Menu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Menu3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Menu5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Menu4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblInloggadAnvandare, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Menu4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -332,9 +335,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
                 .addComponent(Menu4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Menu5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
-                .addComponent(lblInloggadAnvandare, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
 
         jDesktopPanel.setBackground(new java.awt.Color(0, 0, 0));

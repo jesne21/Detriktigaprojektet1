@@ -26,7 +26,10 @@ public class Menu2 extends javax.swing.JInternalFrame {
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
-
+        tfNamn.setText("");
+        tfMålnummer.setText("");
+        tfBeskrivning.setText("");
+        tfPrioritet.setText("");
     }
 
 
@@ -61,16 +64,16 @@ public class Menu2 extends javax.swing.JInternalFrame {
         jlabelgenomforandeochglobaltpartnerskap = new javax.swing.JLabel();
         jlabelglobalamalenlogo = new javax.swing.JLabel();
         panelMal = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblNamn = new javax.swing.JLabel();
+        lblMålnummer = new javax.swing.JLabel();
+        lblBeskrivning = new javax.swing.JLabel();
+        lblPrioritet = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextFieldmalnamn = new javax.swing.JTextField();
-        jTextFieldmalnummer = new javax.swing.JTextField();
-        jTextFieldprioritet = new javax.swing.JTextField();
+        tfNamn = new javax.swing.JTextField();
+        tfMålnummer = new javax.swing.JTextField();
+        tfPrioritet = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreabeskrivning = new javax.swing.JTextArea();
+        tfBeskrivning = new javax.swing.JTextArea();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -211,13 +214,13 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
         panelMal.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel2.setText("Namn");
+        lblNamn.setText("Namn");
 
-        jLabel3.setText("Målnummer");
+        lblMålnummer.setText("Målnummer");
 
-        jLabel4.setText("Beskrivning");
+        lblBeskrivning.setText("Beskrivning");
 
-        jLabel5.setText("Prioritet");
+        lblPrioritet.setText("Prioritet");
 
         jTextField1.setText("Tryck på ett mål för att visa mer");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -226,23 +229,24 @@ public class Menu2 extends javax.swing.JInternalFrame {
             }
         });
 
-        jTextFieldmalnamn.setText("jTextField2");
-
-        jTextFieldmalnummer.setText("jTextField2");
-        jTextFieldmalnummer.addActionListener(new java.awt.event.ActionListener() {
+        tfNamn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldmalnummerActionPerformed(evt);
+                tfNamnActionPerformed(evt);
             }
         });
 
-        jTextFieldprioritet.setText("jTextField2");
+        tfMålnummer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfMålnummerActionPerformed(evt);
+            }
+        });
 
-        jTextAreabeskrivning.setColumns(20);
-        jTextAreabeskrivning.setLineWrap(true);
-        jTextAreabeskrivning.setRows(5);
-        jTextAreabeskrivning.setWrapStyleWord(true);
-        jTextAreabeskrivning.setAutoscrolls(false);
-        jScrollPane1.setViewportView(jTextAreabeskrivning);
+        tfBeskrivning.setColumns(20);
+        tfBeskrivning.setLineWrap(true);
+        tfBeskrivning.setRows(5);
+        tfBeskrivning.setWrapStyleWord(true);
+        tfBeskrivning.setAutoscrolls(false);
+        jScrollPane1.setViewportView(tfBeskrivning);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -251,20 +255,20 @@ public class Menu2 extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(116, 116, 116)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPrioritet, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMålnummer, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextFieldmalnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldmalnummer, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldprioritet, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfMålnummer, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfPrioritet, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(245, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,23 +356,23 @@ public class Menu2 extends javax.swing.JInternalFrame {
                 .addComponent(panelMal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldmalnamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldmalnummer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblMålnummer, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfMålnummer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(24, 24, 24)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldprioritet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPrioritet, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfPrioritet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 36, Short.MAX_VALUE))
         );
 
@@ -376,318 +380,314 @@ public class Menu2 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jlabelingenfattigdomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelingenfattigdomMouseClicked
-                  try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '1'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '1'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '1'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '1'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '1'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '1'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '1'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '1'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }      
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelingenfattigdomMouseClicked
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jTextFieldmalnummerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldmalnummerActionPerformed
+    private void tfMålnummerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMålnummerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldmalnummerActionPerformed
+    }//GEN-LAST:event_tfMålnummerActionPerformed
 
     private void jlabelingenhungerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelingenhungerMouseClicked
-                              try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '2'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '2'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '2'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '2'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '2'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '2'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '2'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '2'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelingenhungerMouseClicked
 
     private void jlabelgodhalsaochvalbefinnandeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelgodhalsaochvalbefinnandeMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '3'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '3'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '3'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '3'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '3'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '3'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '3'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '3'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelgodhalsaochvalbefinnandeMouseClicked
 
     private void jlabelgodutbildningMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelgodutbildningMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '4'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '4'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '4'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '4'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '4'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '4'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '4'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '4'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelgodutbildningMouseClicked
 
     private void jlabeljamstalldhetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabeljamstalldhetMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '5'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '5'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '5'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '5'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '5'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '5'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '5'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '5'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabeljamstalldhetMouseClicked
 
     private void jlabelrentvattenochsanitetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelrentvattenochsanitetMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '6'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '6'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '6'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '6'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '6'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '6'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '6'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '6'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelrentvattenochsanitetMouseClicked
 
     private void jlabelhallbarenergiforallaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhallbarenergiforallaMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '7'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '7'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '7'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '7'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '7'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '7'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '7'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '7'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelhallbarenergiforallaMouseClicked
 
     private void jlabelanstandigaarbetsvillkorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelanstandigaarbetsvillkorMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '8'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '8'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '8'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '8'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '8'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '8'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '8'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '8'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelanstandigaarbetsvillkorMouseClicked
 
     private void jlabelhallbarindustriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhallbarindustriMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '9'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '9'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '9'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '9'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '9'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '9'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '9'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '9'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelhallbarindustriMouseClicked
 
     private void jlabelminskadojamlikhetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelminskadojamlikhetMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '10'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '10'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '10'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '10'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '10'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '10'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '10'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '10'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelminskadojamlikhetMouseClicked
 
     private void jlabelhallbarastaderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhallbarastaderMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '11'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '11'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '11'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '11'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '11'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '11'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '11'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '11'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelhallbarastaderMouseClicked
 
     private void jlabelhallbarkonsumtionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhallbarkonsumtionMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '12'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '12'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '12'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '12'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '12'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '12'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '12'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '12'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelhallbarkonsumtionMouseClicked
 
     private void jlabelbekampaklimatforandringarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelbekampaklimatforandringarMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '13'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '13'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '13'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '13'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '13'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '13'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '13'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '13'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelbekampaklimatforandringarMouseClicked
 
     private void jlabelhavochmarinaresurserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhavochmarinaresurserMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '14'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '14'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '14'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '14'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '14'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '14'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '14'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '14'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelhavochmarinaresurserMouseClicked
 
     private void jlabelekosystemochbiologiskmangfaldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelekosystemochbiologiskmangfaldMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '15'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '15'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '15'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '15'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '15'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '15'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '15'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '15'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelekosystemochbiologiskmangfaldMouseClicked
 
     private void jlabelfredligaochinkluderandesamhallenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelfredligaochinkluderandesamhallenMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '16'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '16'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '16'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '16'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '16'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '16'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '16'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '16'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelfredligaochinkluderandesamhallenMouseClicked
 
     private void jlabelgenomforandeochglobaltpartnerskapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelgenomforandeochglobaltpartnerskapMouseClicked
-                          try {
-        String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '17'");
-        String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '17'");
-        String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '17'");
-        String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '17'");
+        try {
+            String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '17'");
+            String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '17'");
+            String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '17'");
+            String prioritet = idb.fetchSingle("SELECT prioritet FROM hallbarhetsmal WHERE hid = '17'");
 
-        jTextFieldmalnamn.setText(namn);
-        jTextFieldmalnummer.setText(malnummer);
-        jTextAreabeskrivning.setText(beskrivning);
-        jTextFieldprioritet.setText(prioritet);
+            tfNamn.setText(namn);
+            tfMålnummer.setText(malnummer);
+            tfBeskrivning.setText(beskrivning);
+            tfPrioritet.setText(prioritet);
 
-    } catch (InfException ex) {
-        System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
-    }
+        } catch (InfException ex) {
+            System.out.println("Fel vid hämtning av mål: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jlabelgenomforandeochglobaltpartnerskapMouseClicked
+
+    private void tfNamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNamnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNamnActionPerformed
 
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextAreabeskrivning;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextFieldmalnamn;
-    private javax.swing.JTextField jTextFieldmalnummer;
-    private javax.swing.JTextField jTextFieldprioritet;
     private javax.swing.JLabel jlabelanstandigaarbetsvillkor;
     private javax.swing.JLabel jlabelbekampaklimatforandringar;
     private javax.swing.JLabel jlabelekosystemochbiologiskmangfald;
@@ -706,6 +706,14 @@ public class Menu2 extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlabeljamstalldhet;
     private javax.swing.JLabel jlabelminskadojamlikhet;
     private javax.swing.JLabel jlabelrentvattenochsanitet;
+    private javax.swing.JLabel lblBeskrivning;
+    private javax.swing.JLabel lblMålnummer;
+    private javax.swing.JLabel lblNamn;
+    private javax.swing.JLabel lblPrioritet;
     private javax.swing.JPanel panelMal;
+    private javax.swing.JTextArea tfBeskrivning;
+    private javax.swing.JTextField tfMålnummer;
+    private javax.swing.JTextField tfNamn;
+    private javax.swing.JTextField tfPrioritet;
     // End of variables declaration//GEN-END:variables
 }

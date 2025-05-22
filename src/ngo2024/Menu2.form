@@ -44,22 +44,22 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jLabel2" min="-2" pref="92" max="-2" attributes="0"/>
-                  <Component id="jLabel5" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
-                  <Component id="jLabel3" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
-                  <Component id="jLabel4" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
+                  <Component id="lblNamn" min="-2" pref="92" max="-2" attributes="0"/>
+                  <Component id="lblPrioritet" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
+                  <Component id="lblMålnummer" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
+                  <Component id="lblBeskrivning" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jTextFieldmalnamn" min="-2" pref="418" max="-2" attributes="0"/>
+                      <Component id="tfNamn" min="-2" pref="418" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane1" alignment="0" min="-2" pref="432" max="-2" attributes="0"/>
-                          <Component id="jTextFieldmalnummer" min="-2" pref="418" max="-2" attributes="0"/>
-                          <Component id="jTextFieldprioritet" alignment="0" min="-2" pref="418" max="-2" attributes="0"/>
+                          <Component id="tfMålnummer" min="-2" pref="418" max="-2" attributes="0"/>
+                          <Component id="tfPrioritet" alignment="0" min="-2" pref="418" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="245" max="32767" attributes="0"/>
                   </Group>
@@ -174,18 +174,18 @@
               <Component id="panelMal" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="jTextFieldmalnamn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblNamn" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="tfNamn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jTextFieldmalnummer" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblMålnummer" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="tfMålnummer" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="jLabel4" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="lblBeskrivning" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -194,8 +194,8 @@
                   </Group>
               </Group>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="jTextFieldprioritet" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPrioritet" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="tfPrioritet" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="0" pref="36" max="32767" attributes="0"/>
           </Group>
@@ -395,22 +395,22 @@
         <Property name="rows" type="int" value="1"/>
       </Layout>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="lblNamn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Namn"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="lblM&#xe5;lnummer">
       <Properties>
         <Property name="text" type="java.lang.String" value="M&#xe5;lnummer"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="lblBeskrivning">
       <Properties>
         <Property name="text" type="java.lang.String" value="Beskrivning"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
+    <Component class="javax.swing.JLabel" name="lblPrioritet">
       <Properties>
         <Property name="text" type="java.lang.String" value="Prioritet"/>
       </Properties>
@@ -423,23 +423,17 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldmalnamn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField2"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldmalnummer">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField2"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="tfNamn">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldmalnummerActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfNamnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldprioritet">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField2"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="tfM&#xe5;lnummer">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfM&#xe5;lnummerActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfPrioritet">
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -448,7 +442,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="jTextAreabeskrivning">
+        <Component class="javax.swing.JTextArea" name="tfBeskrivning">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="lineWrap" type="boolean" value="true"/>
