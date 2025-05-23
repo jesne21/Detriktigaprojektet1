@@ -10,6 +10,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import java.util.HashMap;
+import java.util.HashSet;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
@@ -41,6 +42,130 @@ public class Menu1 extends javax.swing.JInternalFrame {
         
         
     }
+    
+    private void visaMinaProjekt() {
+        try {
+            // 1. Skapa SQL-frågan
+            String sql
+                    = "SELECT pr.projektnamn, "
+                    + "  (SELECT pa.namn "
+                    + "   FROM projekt_partner pp "
+                    + "   JOIN partner pa ON pp.partner_pid = pa.pid "
+                    + "   WHERE pp.pid = pr.pid "
+                    + "   LIMIT 1) AS partner, "
+                    + "  l.namn AS land, "
+                    + "  pr.status, pr.startdatum, pr.slutdatum "
+                    + "FROM projekt pr "
+                    + "JOIN ans_proj ap ON pr.pid = ap.pid "
+                    + "JOIN land l ON pr.land = l.lid "
+                    + "WHERE ap.aid = '" + anvandarID + "';";
+
+            // 2. Hämta resultat
+            ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
+
+            // 3. Bygg tabellmodell
+            DefaultTableModel modell = new DefaultTableModel();
+            modell.setColumnIdentifiers(new Object[]{
+                "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
+            });
+
+            for (HashMap<String, String> rad : resultat) {
+                modell.addRow(new Object[]{
+                    rad.get("projektnamn"),
+                    rad.get("partner"),
+                    rad.get("land"),
+                    rad.get("status"),
+                    rad.get("startdatum"),
+                    rad.get("slutdatum")
+                });
+            }
+
+            // 4. Sätt modellen till tabellen
+            tblProjekt.setModel(modell);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Kunde inte hämta mina projekt:\n" + e.getMessage());
+        }
+    }
+
+
+
+
+
+     private void visaAvdelningensProjekt() {
+        try {
+            // 1. Hämta handläggarens avdelning
+            String avdSql = "SELECT avdelning FROM anstalld WHERE aid = '" + anvandarID + "'";
+            String avdelning = idb.fetchSingle(avdSql);
+
+            // 2. Skapa SQL-fråga för att hämta projekt där någon från avdelningen deltar
+            String sql
+                    = "SELECT pr.pid, pr.projektnamn, "
+                    + "       (SELECT pa.namn FROM projekt_partner pp "
+                    + "        JOIN partner pa ON pp.partner_pid = pa.pid "
+                    + "        WHERE pp.pid = pr.pid LIMIT 1) AS partner, "
+                    + "       l.namn AS land, "
+                    + "       pr.status, pr.startdatum, pr.slutdatum "
+                    + "FROM projekt pr "
+                    + "JOIN ans_proj ap ON pr.pid = ap.pid "
+                    + "JOIN anstalld a ON ap.aid = a.aid "
+                    + "LEFT JOIN projekt_partner pp ON pr.pid = pp.pid "
+                    + "LEFT JOIN partner pa ON pp.partner_pid = pa.pid "
+                    + "JOIN land l ON pr.land = l.lid "
+                    + "WHERE a.avdelning = '" + avdelning + "'";
+
+            // 3. Hämta resultat
+            ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
+            System.out.println("Antal rader (inkl. ev. dubbletter): " + resultat.size());
+
+            // 4. Undvik att visa samma projekt flera gånger
+            HashSet<String> visadeProjekt = new HashSet<>();
+
+            // 5. Skapa tabellmodell
+            DefaultTableModel modell = new DefaultTableModel();
+            modell.setColumnIdentifiers(new Object[]{
+                "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
+            });
+
+            // 6. Lägg till rader
+            for (HashMap<String, String> rad : resultat) {
+                String pid = rad.get("pid");
+                if (!visadeProjekt.contains(pid)) {
+                    visadeProjekt.add(pid);
+                    modell.addRow(new Object[]{
+                        rad.get("projektnamn"),
+                        rad.get("partner"),
+                        rad.get("land"),
+                        rad.get("status"),
+                        rad.get("startdatum"),
+                        rad.get("slutdatum")
+                    });
+                }
+            }
+
+            // 7. Visa modellen i tabellen
+            tblProjekt.setModel(modell);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Kunde inte hämta avdelningens projekt:\n" + e.getMessage());
+        }
+    }
+
+
+
+
+
+    
+    private void highlightKnapp(JButton aktivKnapp) {
+        // Återställ båda knappar
+        btnMinaProjekt.setBackground(null);
+        btnAvdelningensProjekt.setBackground(null);
+
+        // Markera vald
+        aktivKnapp.setBackground(new java.awt.Color(200, 230, 255)); // ljusblå
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,6 +192,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
 
         btnAvdelningensProjekt.setBackground(new java.awt.Color(153, 255, 204));
         btnAvdelningensProjekt.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
+        btnAvdelningensProjekt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/projekt_ikon.gif"))); // NOI18N
         btnAvdelningensProjekt.setText("Avdelningens projekt");
         btnAvdelningensProjekt.setBorder(null);
         btnAvdelningensProjekt.addActionListener(new java.awt.event.ActionListener() {
@@ -122,29 +248,36 @@ public class Menu1 extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                    .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton5))
-                    .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(102, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(301, 301, 301)
+                                .addComponent(jButton5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton4)
+                                    .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 167, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
+                        .addGap(92, 92, 92)
                         .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -156,109 +289,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void visaMinaProjekt() {
-        try {
-            // 1. Skapa SQL-frågan med tydliga JOINs
-            String sql = "SELECT pr.projektnamn, pa.namn AS partner, l.namn AS land, "
-                    + "pr.status, pr.startdatum, pr.slutdatum "
-                    + "FROM projekt pr "
-                    + "JOIN ans_proj ap ON pr.pid = ap.projekt_id "
-                    + "JOIN projekt_partner pp ON pr.pid = pp.pid "
-                    + "JOIN partner pa ON pp.partner_pid = pa.pid "
-                    + "JOIN land l ON pr.land = l.lid "
-                    + "WHERE ap.anvandarID = '" + anvandarID + "'";
-
-            // 2. Debug: skriv ut SQL-frågan
-            System.out.println("SQL som körs:\n" + sql);
-
-            // 3. Hämta data
-            ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
-            System.out.println("Antal rader: " + resultat.size());
-
-            // 4. Bygg tabellmodell
-            DefaultTableModel modell = new DefaultTableModel();
-            modell.setColumnIdentifiers(new Object[]{
-                "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
-            });
-
-            for (HashMap<String, String> rad : resultat) {
-                modell.addRow(new Object[]{
-                    rad.get("projektnamn"),
-                    rad.get("partner"),
-                    rad.get("land"),
-                    rad.get("status"),
-                    rad.get("startdatum"),
-                    rad.get("slutdatum")
-                });
-            }
-
-            // 5. Visa i JTable
-            tblProjekt.setModel(modell);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Kunde inte hämta mina projekt:\n" + e.getMessage());
-        }
-    }
-
-    
-    private void visaAvdelningensProjekt() {
-        try {
-            // 1. Hämta handläggarens avdelning
-            String avdSql = "SELECT avdelning FROM anstalld WHERE anvandarID = '" + anvandarID + "'";
-            String avdelning = idb.fetchSingle(avdSql);
-
-            // 2. Hämta projekt där projektchefens avdelning är samma som inloggad användares avdelning
-            String sql = "SELECT pr.projektnamn, pa.namn AS partner, l.namn AS land, "
-                    + "pr.status, pr.startdatum, pr.slutdatum "
-                    + "FROM projekt pr "
-                    + "JOIN anstalld a ON pr.projektchef = a.anvandarID "
-                    + "JOIN partner pa ON pa.pid = ( "
-                    + "    SELECT partner_pid FROM projekt_partner WHERE pid = pr.pid LIMIT 1 "
-                    + ") "
-                    + "JOIN land l ON pr.land = l.lid "
-                    + "WHERE a.avdelning = '" + avdelning + "'";
-
-            ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
-
-            // 3. Lägg in i tabellen
-            DefaultTableModel modell = new DefaultTableModel();
-            modell.setColumnIdentifiers(new Object[]{
-                "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
-            });
-
-            for (HashMap<String, String> rad : resultat) {
-                modell.addRow(new Object[]{
-                    rad.get("projektnamn"),
-                    rad.get("partner"),
-                    rad.get("land"),
-                    rad.get("status"),
-                    rad.get("startdatum"),
-                    rad.get("slutdatum")
-                });
-            }
-
-            tblProjekt.setModel(modell);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Kunde inte hämta avdelningens projekt:\n" + e.getMessage());
-        }
-    }
-
-
-    
-    private void highlightKnapp(JButton aktivKnapp) {
-        // Återställ båda knappar
-        btnMinaProjekt.setBackground(null);
-        btnAvdelningensProjekt.setBackground(null);
-
-        // Markera vald
-        aktivKnapp.setBackground(new java.awt.Color(200, 230, 255)); // ljusblå
-    }
-
-
-    
-    
+  
     private void btnMinaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinaProjektActionPerformed
 
         visaMinaProjekt();
