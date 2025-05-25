@@ -4,7 +4,9 @@
  */
 package ngo2024;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import oru.inf.InfDB;
@@ -165,6 +167,55 @@ public class Menu1 extends javax.swing.JInternalFrame {
         aktivKnapp.setBackground(new java.awt.Color(200, 230, 255)); // ljusblå
     }
     
+    private void sokProjektEfterDatum() {
+        try {
+            Date valtDatum = dcStartdatum.getDate();
+
+            if (valtDatum == null) {
+                JOptionPane.showMessageDialog(null, "Välj ett datum först.");
+                return;
+            }
+
+            // Konvertera till rätt SQL-format
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String datumStr = sdf.format(valtDatum);
+
+            // SQL-fråga: visa alla projekt där valt datum är mellan start och slut
+            String sql
+                    = "SELECT pr.projektnamn, pa.namn AS partner, l.namn AS land, "
+                    + "pr.status, pr.startdatum, pr.slutdatum "
+                    + "FROM projekt pr "
+                    + "LEFT JOIN projekt_partner pp ON pr.pid = pp.pid "
+                    + "LEFT JOIN partner pa ON pp.partner_pid = pa.pid "
+                    + "JOIN land l ON pr.land = l.lid "
+                    + "WHERE '" + datumStr + "' BETWEEN pr.startdatum AND pr.slutdatum;";
+
+            ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
+
+            DefaultTableModel modell = new DefaultTableModel();
+            modell.setColumnIdentifiers(new Object[]{
+                "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
+            });
+
+            for (HashMap<String, String> rad : resultat) {
+                modell.addRow(new Object[]{
+                    rad.get("projektnamn"),
+                    rad.get("partner"),
+                    rad.get("land"),
+                    rad.get("status"),
+                    rad.get("startdatum"),
+                    rad.get("slutdatum")
+                });
+            }
+
+            tblProjekt.setModel(modell);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Kunde inte hämta projekt:\n" + e.getMessage());
+        }
+    }
+
+    
     
 
     /**
@@ -176,13 +227,16 @@ public class Menu1 extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         lbl1 = new javax.swing.JLabel();
         btnAvdelningensProjekt = new javax.swing.JButton();
         btnMinaProjekt = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnVisaPartners = new javax.swing.JButton();
+        btnSokDatum = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblProjekt = new javax.swing.JTable();
+        dcStartdatum = new com.toedter.calendar.JDateChooser();
+        dcSlutdatum = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(153, 255, 204));
         setPreferredSize(new java.awt.Dimension(860, 610));
@@ -217,22 +271,32 @@ public class Menu1 extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jButton4.setText("Visa partners i mina projekt");
+        btnVisaPartners.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        btnVisaPartners.setText("Visa alla partners");
+        btnVisaPartners.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVisaPartnersActionPerformed(evt);
+            }
+        });
 
-        jButton5.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jButton5.setText("Sök projekt efter datum");
+        btnSokDatum.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        btnSokDatum.setText("Sök projekt efter datum");
+        btnSokDatum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSokDatumActionPerformed(evt);
+            }
+        });
 
         tblProjekt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblProjekt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum"
+                "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
             }
         ));
         tblProjekt.setGridColor(new java.awt.Color(0, 0, 0));
@@ -250,41 +314,48 @@ public class Menu1 extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(301, 301, 301)
-                                .addComponent(jButton5))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
+                            .addComponent(jScrollPane4)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnVisaPartners, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSokDatum)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton4)
-                                    .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 167, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4)))
-                .addContainerGap())
+                                    .addComponent(dcStartdatum, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dcSlutdatum, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(135, 135, 135)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(92, 92, 92)
                         .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(dcStartdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnVisaPartners)
+                                .addComponent(btnSokDatum))
+                            .addComponent(dcSlutdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
@@ -308,12 +379,65 @@ public class Menu1 extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnMinaProjektMouseClicked
 
+    private void btnVisaPartnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisaPartnersActionPerformed
+
+   
+        int rad = tblProjekt.getSelectedRow();
+
+        if (rad == -1) {
+            JOptionPane.showMessageDialog(null, "Välj ett projekt först.");
+            return;
+        }
+
+        String projektNamn = tblProjekt.getValueAt(rad, 0).toString();
+
+        try {
+            String pidSql = "SELECT pid FROM projekt WHERE projektnamn = '" + projektNamn + "'";
+            String pid = idb.fetchSingle(pidSql);
+
+            String sql
+                    = "SELECT pa.namn FROM projekt_partner pp "
+                    + "JOIN partner pa ON pp.partner_pid = pa.pid "
+                    + "WHERE pp.pid = '" + pid + "'";
+
+            ArrayList<HashMap<String, String>> partners = idb.fetchRows(sql);
+
+            StringBuilder sb = new StringBuilder("Partners i projektet \"" + projektNamn + "\":\n\n");
+            for (HashMap<String, String> partner : partners) {
+                sb.append("- ").append(partner.get("namn")).append("\n");
+            }
+
+            if (partners.isEmpty()) {
+                sb.append("Inga partners registrerade för detta projekt.");
+            }
+
+            JOptionPane.showMessageDialog(null, sb.toString(), "Projektpartners", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (InfException ex) {
+            JOptionPane.showMessageDialog(null, "Kunde inte hämta partners:\n" + ex.getMessage());
+        }
+
+
+
+
+    }//GEN-LAST:event_btnVisaPartnersActionPerformed
+
+    private void btnSokDatumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSokDatumActionPerformed
+
+    sokProjektEfterDatum();
+    // använder metoden sokProjektEfterDatum när man klickar på knappen btnSokDatum
+        
+    }//GEN-LAST:event_btnSokDatumActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAvdelningensProjekt;
     private javax.swing.JButton btnMinaProjekt;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnSokDatum;
+    private javax.swing.JButton btnVisaPartners;
+    private com.toedter.calendar.JDateChooser dcSlutdatum;
+    private com.toedter.calendar.JDateChooser dcStartdatum;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lbl1;
     private javax.swing.JTable tblProjekt;
