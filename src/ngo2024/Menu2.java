@@ -16,21 +16,49 @@ import oru.inf.InfException;
 public class Menu2 extends javax.swing.JInternalFrame {
 
         private InfDB idb;
+        private int anvandarID;
+        private String aktuellHID;
+        private String originalNamn;
+        private String originalMalnummer;
+        private String originalBeskrivning;
+        private String originalPrioritet;
+
+
 
     /**
      * Creates new form Menu1
      */
-    public Menu2(InfDB idb) {
+    public Menu2(InfDB idb, int anvandarID) {
         initComponents();
         this.idb = idb;
+        this.anvandarID = anvandarID;
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
+        kontrolleraRollOchVisaRedigering();
         tfNamn.setText("");
         tfMålnummer.setText("");
         tfBeskrivning.setText("");
         tfPrioritet.setText("");
     }
+
+    private void kontrolleraRollOchVisaRedigering() {
+    try {
+        String sql = "SELECT * FROM handlaggare WHERE aid = " + anvandarID;
+        var resultat = idb.fetchRow(sql);
+
+        if (resultat != null) {
+            // Användaren är en handläggare
+            jpRedigeringsruta.setVisible(true);
+        } else {
+            // Användaren är inte handläggare
+            jpRedigeringsruta.setVisible(false);
+        }
+    } catch (InfException e) {
+        System.err.println("Kunde inte hämta rollinformation: " + e.getMessage());
+        jpRedigeringsruta.setVisible(false);
+    }
+}
 
 
     
@@ -74,6 +102,11 @@ public class Menu2 extends javax.swing.JInternalFrame {
         tfPrioritet = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tfBeskrivning = new javax.swing.JTextArea();
+        jpRedigeringsruta = new javax.swing.JPanel();
+        btnRedigera = new javax.swing.JButton();
+        btnSpara = new javax.swing.JButton();
+        btnAvbryt = new javax.swing.JButton();
+        lblredigeraInfo = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -248,6 +281,59 @@ public class Menu2 extends javax.swing.JInternalFrame {
         tfBeskrivning.setAutoscrolls(false);
         jScrollPane1.setViewportView(tfBeskrivning);
 
+        btnRedigera.setText("Redigera");
+        btnRedigera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRedigeraActionPerformed(evt);
+            }
+        });
+
+        btnSpara.setText("Spara");
+        btnSpara.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSparaActionPerformed(evt);
+            }
+        });
+
+        btnAvbryt.setText("Avbryt");
+        btnAvbryt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAvbrytActionPerformed(evt);
+            }
+        });
+
+        lblredigeraInfo.setText("Info");
+
+        javax.swing.GroupLayout jpRedigeringsrutaLayout = new javax.swing.GroupLayout(jpRedigeringsruta);
+        jpRedigeringsruta.setLayout(jpRedigeringsrutaLayout);
+        jpRedigeringsrutaLayout.setHorizontalGroup(
+            jpRedigeringsrutaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRedigeringsrutaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpRedigeringsrutaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblredigeraInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAvbryt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpRedigeringsrutaLayout.createSequentialGroup()
+                        .addGroup(jpRedigeringsrutaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnRedigera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSpara, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jpRedigeringsrutaLayout.setVerticalGroup(
+            jpRedigeringsrutaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpRedigeringsrutaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnRedigera)
+                .addGap(18, 18, 18)
+                .addComponent(btnSpara)
+                .addGap(18, 18, 18)
+                .addComponent(btnAvbryt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblredigeraInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(58, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -276,51 +362,54 @@ public class Menu2 extends javax.swing.JInternalFrame {
                         .addGap(334, 334, 334)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(192, 192, 192)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(panelMal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jlabelbekampaklimatforandringar)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jlabelingenfattigdom)
-                                        .addComponent(jlabelhallbarenergiforalla)))
-                                .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlabelingenhunger)
-                                    .addComponent(jlabelanstandigaarbetsvillkor)
-                                    .addComponent(jlabelhavochmarinaresurser))
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlabelgodhalsaochvalbefinnande)
-                                    .addComponent(jlabelhallbarindustri)
-                                    .addComponent(jlabelekosystemochbiologiskmangfald))
-                                .addGap(26, 26, 26)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jlabelgodutbildning)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(jlabeljamstalldhet))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jlabelminskadojamlikhet)
-                                            .addComponent(jlabelfredligaochinkluderandesamhallen))
-                                        .addGap(27, 27, 27)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jlabelgenomforandeochglobaltpartnerskap)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jlabelglobalamalenlogo))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jlabelhallbarastader)
-                                                .addGap(31, 31, 31)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jlabelrentvattenochsanitet)
-                                                    .addComponent(jlabelhallbarkonsumtion)))))))))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(321, 321, 321)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(192, 192, 192)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelMal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlabelbekampaklimatforandringar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jlabelingenfattigdom)
+                                .addComponent(jlabelhallbarenergiforalla)))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlabelingenhunger)
+                            .addComponent(jlabelanstandigaarbetsvillkor)
+                            .addComponent(jlabelhavochmarinaresurser))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlabelgodhalsaochvalbefinnande)
+                            .addComponent(jlabelhallbarindustri)
+                            .addComponent(jlabelekosystemochbiologiskmangfald))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jlabelgodutbildning)
+                                .addGap(27, 27, 27)
+                                .addComponent(jlabeljamstalldhet))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlabelminskadojamlikhet)
+                                    .addComponent(jlabelfredligaochinkluderandesamhallen))
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jlabelgenomforandeochglobaltpartnerskap)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jlabelglobalamalenlogo))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jlabelhallbarastader)
+                                        .addGap(31, 31, 31)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jlabelrentvattenochsanitet)
+                                            .addComponent(jlabelhallbarkonsumtion))))))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpRedigeringsruta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,28 +419,31 @@ public class Menu2 extends javax.swing.JInternalFrame {
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlabelingenfattigdom)
-                    .addComponent(jlabelingenhunger)
-                    .addComponent(jlabelgodhalsaochvalbefinnande)
-                    .addComponent(jlabelgodutbildning)
-                    .addComponent(jlabeljamstalldhet)
-                    .addComponent(jlabelrentvattenochsanitet))
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlabelhallbarenergiforalla)
-                    .addComponent(jlabelanstandigaarbetsvillkor)
-                    .addComponent(jlabelhallbarindustri)
-                    .addComponent(jlabelminskadojamlikhet)
-                    .addComponent(jlabelhallbarastader)
-                    .addComponent(jlabelhallbarkonsumtion))
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlabelbekampaklimatforandringar)
-                    .addComponent(jlabelhavochmarinaresurser)
-                    .addComponent(jlabelekosystemochbiologiskmangfald)
-                    .addComponent(jlabelfredligaochinkluderandesamhallen)
-                    .addComponent(jlabelgenomforandeochglobaltpartnerskap)
-                    .addComponent(jlabelglobalamalenlogo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlabelingenfattigdom)
+                            .addComponent(jlabelingenhunger)
+                            .addComponent(jlabelgodhalsaochvalbefinnande)
+                            .addComponent(jlabelgodutbildning)
+                            .addComponent(jlabeljamstalldhet)
+                            .addComponent(jlabelrentvattenochsanitet))
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlabelhallbarenergiforalla)
+                            .addComponent(jlabelanstandigaarbetsvillkor)
+                            .addComponent(jlabelhallbarindustri)
+                            .addComponent(jlabelminskadojamlikhet)
+                            .addComponent(jlabelhallbarastader)
+                            .addComponent(jlabelhallbarkonsumtion))
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlabelbekampaklimatforandringar)
+                            .addComponent(jlabelhavochmarinaresurser)
+                            .addComponent(jlabelekosystemochbiologiskmangfald)
+                            .addComponent(jlabelfredligaochinkluderandesamhallen)
+                            .addComponent(jlabelgenomforandeochglobaltpartnerskap)
+                            .addComponent(jlabelglobalamalenlogo)))
+                    .addComponent(jpRedigeringsruta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(panelMal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
@@ -381,6 +473,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelingenfattigdomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelingenfattigdomMouseClicked
         try {
+            aktuellHID = "1"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '1'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '1'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '1'");
@@ -406,6 +500,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelingenhungerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelingenhungerMouseClicked
         try {
+            aktuellHID = "2"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '2'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '2'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '2'");
@@ -423,6 +519,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelgodhalsaochvalbefinnandeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelgodhalsaochvalbefinnandeMouseClicked
         try {
+            aktuellHID = "3"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+            
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '3'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '3'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '3'");
@@ -440,6 +538,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelgodutbildningMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelgodutbildningMouseClicked
         try {
+            aktuellHID = "4"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '4'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '4'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '4'");
@@ -457,6 +557,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabeljamstalldhetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabeljamstalldhetMouseClicked
         try {
+            aktuellHID = "5"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+            
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '5'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '5'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '5'");
@@ -474,6 +576,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelrentvattenochsanitetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelrentvattenochsanitetMouseClicked
         try {
+            aktuellHID = "6"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '6'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '6'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '6'");
@@ -491,6 +595,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelhallbarenergiforallaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhallbarenergiforallaMouseClicked
         try {
+            aktuellHID = "7"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '7'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '7'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '7'");
@@ -508,6 +614,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelanstandigaarbetsvillkorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelanstandigaarbetsvillkorMouseClicked
         try {
+            aktuellHID = "8"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+        
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '8'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '8'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '8'");
@@ -525,6 +633,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelhallbarindustriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhallbarindustriMouseClicked
         try {
+            aktuellHID = "9"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '9'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '9'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '9'");
@@ -542,6 +652,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelminskadojamlikhetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelminskadojamlikhetMouseClicked
         try {
+            aktuellHID = "10"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+            
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '10'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '10'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '10'");
@@ -559,6 +671,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelhallbarastaderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhallbarastaderMouseClicked
         try {
+            aktuellHID = "11"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '11'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '11'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '11'");
@@ -576,6 +690,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelhallbarkonsumtionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhallbarkonsumtionMouseClicked
         try {
+            aktuellHID = "12"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '12'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '12'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '12'");
@@ -593,6 +709,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelbekampaklimatforandringarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelbekampaklimatforandringarMouseClicked
         try {
+            aktuellHID = "13"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '13'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '13'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '13'");
@@ -610,6 +728,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelhavochmarinaresurserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelhavochmarinaresurserMouseClicked
         try {
+            aktuellHID = "14"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '14'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '14'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '14'");
@@ -627,6 +747,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelekosystemochbiologiskmangfaldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelekosystemochbiologiskmangfaldMouseClicked
         try {
+            aktuellHID = "15"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '15'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '15'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '15'");
@@ -644,6 +766,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelfredligaochinkluderandesamhallenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelfredligaochinkluderandesamhallenMouseClicked
         try {
+            aktuellHID = "16"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '16'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '16'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '16'");
@@ -661,6 +785,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void jlabelgenomforandeochglobaltpartnerskapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelgenomforandeochglobaltpartnerskapMouseClicked
         try {
+            aktuellHID = "17"; //För att definiera platsen åt hållbarhetsHID för eventuell redigering av admin
+
             String namn = idb.fetchSingle("SELECT namn FROM hallbarhetsmal WHERE hid = '17'");
             String malnummer = idb.fetchSingle("SELECT malnummer FROM hallbarhetsmal WHERE hid = '17'");
             String beskrivning = idb.fetchSingle("SELECT beskrivning FROM hallbarhetsmal WHERE hid = '17'");
@@ -680,10 +806,87 @@ public class Menu2 extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNamnActionPerformed
 
+    private void btnRedigeraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedigeraActionPerformed
+        // Förifyll med nuvarande värden
+    String nuvarandeNamn = tfNamn.getText();
+    String nuvarandeMalnummer = tfMålnummer.getText();
+    String nuvarandeBeskrivning = tfBeskrivning.getText();
+    String nuvarandePrioritet = tfPrioritet.getText();
+    
+    // Spara ursprungliga värden ifall man väljer att trycka Avbryt
+    originalNamn = tfNamn.getText();
+    originalMalnummer = tfMålnummer.getText();
+    originalBeskrivning = tfBeskrivning.getText();
+    originalPrioritet = tfPrioritet.getText();
+
+
+    // Skapa inputfält för dialogen
+    javax.swing.JTextField fNamn = new javax.swing.JTextField(nuvarandeNamn);
+    javax.swing.JTextField fMalnummer = new javax.swing.JTextField(nuvarandeMalnummer);
+    javax.swing.JTextField fBeskrivning = new javax.swing.JTextField(nuvarandeBeskrivning);
+    javax.swing.JTextField fPrioritet = new javax.swing.JTextField(nuvarandePrioritet);
+
+    Object[] meddelande = {
+        "Namn:", fNamn,
+        "Målnummer:", fMalnummer,
+        "Beskrivning:", fBeskrivning,
+        "Prioritet:", fPrioritet
+    };
+
+    int val = javax.swing.JOptionPane.showConfirmDialog(null, meddelande, "Redigera hållbarhetsmål", javax.swing.JOptionPane.OK_CANCEL_OPTION);
+
+    if (val == javax.swing.JOptionPane.OK_OPTION) {
+        // Sätt nya värden i textfälten
+        tfNamn.setText(fNamn.getText());
+        tfMålnummer.setText(fMalnummer.getText());
+        tfBeskrivning.setText(fBeskrivning.getText());
+        tfPrioritet.setText(fPrioritet.getText());
+    }        
+    }//GEN-LAST:event_btnRedigeraActionPerformed
+
+    private void btnSparaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaActionPerformed
+            if (aktuellHID == null) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Inget hållbarhetsmål är valt.");
+        return;
+    }
+
+    try {
+        String namn = tfNamn.getText().trim();
+        String malnummer = tfMålnummer.getText().trim();
+        String beskrivning = tfBeskrivning.getText().trim();
+        String prioritet = tfPrioritet.getText().trim();
+
+        String sql = "UPDATE hallbarhetsmal SET " +
+                     "namn = '" + namn + "', " +
+                     "malnummer = '" + malnummer + "', " +
+                     "beskrivning = '" + beskrivning + "', " +
+                     "prioritet = '" + prioritet + "' " +
+                     "WHERE hid = '" + aktuellHID + "'";
+
+        idb.update(sql);
+
+        javax.swing.JOptionPane.showMessageDialog(this, "Målet har uppdaterats!");
+    } catch (InfException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Fel vid uppdatering: " + e.getMessage());
+    }
+    }//GEN-LAST:event_btnSparaActionPerformed
+
+    private void btnAvbrytActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvbrytActionPerformed
+        tfNamn.setText(originalNamn);
+        tfMålnummer.setText(originalMalnummer);
+        tfBeskrivning.setText(originalBeskrivning);
+        tfPrioritet.setText(originalPrioritet);
+    
+        lblredigeraInfo.setText("Ändringar har ångrats.");        
+    }//GEN-LAST:event_btnAvbrytActionPerformed
+
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAvbryt;
+    private javax.swing.JButton btnRedigera;
+    private javax.swing.JButton btnSpara;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -706,10 +909,12 @@ public class Menu2 extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlabeljamstalldhet;
     private javax.swing.JLabel jlabelminskadojamlikhet;
     private javax.swing.JLabel jlabelrentvattenochsanitet;
+    private javax.swing.JPanel jpRedigeringsruta;
     private javax.swing.JLabel lblBeskrivning;
     private javax.swing.JLabel lblMålnummer;
     private javax.swing.JLabel lblNamn;
     private javax.swing.JLabel lblPrioritet;
+    private javax.swing.JLabel lblredigeraInfo;
     private javax.swing.JPanel panelMal;
     private javax.swing.JTextArea tfBeskrivning;
     private javax.swing.JTextField tfMålnummer;
@@ -717,3 +922,5 @@ public class Menu2 extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfPrioritet;
     // End of variables declaration//GEN-END:variables
 }
+
+

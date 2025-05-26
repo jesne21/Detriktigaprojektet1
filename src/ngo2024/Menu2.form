@@ -72,68 +72,71 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="321" max="-2" attributes="0"/>
+                      <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="panelMal" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="panelMal" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jlabelbekampaklimatforandringar" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Component id="jlabelingenfattigdom" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jlabelhallbarenergiforalla" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="jlabelbekampaklimatforandringar" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                              <Component id="jlabelingenfattigdom" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlabelhallbarenergiforalla" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jlabelingenhunger" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelanstandigaarbetsvillkor" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelhavochmarinaresurser" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jlabelgodhalsaochvalbefinnande" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelhallbarindustri" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelekosystemochbiologiskmangfald" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jlabelgodutbildning" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="jlabeljamstalldhet" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jlabelingenhunger" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlabelanstandigaarbetsvillkor" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlabelhavochmarinaresurser" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlabelminskadojamlikhet" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlabelfredligaochinkluderandesamhallen" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jlabelgodhalsaochvalbefinnande" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlabelhallbarindustri" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlabelekosystemochbiologiskmangfald" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jlabelgodutbildning" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                      <Component id="jlabeljamstalldhet" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jlabelgenomforandeochglobaltpartnerskap" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="jlabelglobalamalenlogo" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jlabelhallbarastader" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jlabelminskadojamlikhet" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jlabelfredligaochinkluderandesamhallen" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jlabelgenomforandeochglobaltpartnerskap" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="jlabelglobalamalenlogo" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jlabelhallbarastader" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jlabelrentvattenochsanitet" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jlabelhallbarkonsumtion" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
+                                          <Component id="jlabelrentvattenochsanitet" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jlabelhallbarkonsumtion" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="321" max="-2" attributes="0"/>
-                      <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
-                  </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="jpRedigeringsruta" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -145,30 +148,35 @@
               <Component id="jTextField1" min="-2" pref="23" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jlabelingenfattigdom" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabelingenhunger" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabelgodhalsaochvalbefinnande" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabelgodutbildning" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabeljamstalldhet" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabelrentvattenochsanitet" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jlabelhallbarenergiforalla" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabelanstandigaarbetsvillkor" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabelhallbarindustri" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabelminskadojamlikhet" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabelhallbarastader" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabelhallbarkonsumtion" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jlabelbekampaklimatforandringar" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabelhavochmarinaresurser" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabelekosystemochbiologiskmangfald" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabelfredligaochinkluderandesamhallen" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabelgenomforandeochglobaltpartnerskap" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlabelglobalamalenlogo" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jlabelingenfattigdom" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelingenhunger" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelgodhalsaochvalbefinnande" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelgodutbildning" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabeljamstalldhet" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelrentvattenochsanitet" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jlabelhallbarenergiforalla" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelanstandigaarbetsvillkor" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelhallbarindustri" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelminskadojamlikhet" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelhallbarastader" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelhallbarkonsumtion" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jlabelbekampaklimatforandringar" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelhavochmarinaresurser" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelekosystemochbiologiskmangfald" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelfredligaochinkluderandesamhallen" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelgenomforandeochglobaltpartnerskap" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlabelglobalamalenlogo" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="jpRedigeringsruta" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="panelMal" min="-2" max="-2" attributes="0"/>
@@ -449,6 +457,76 @@
             <Property name="rows" type="int" value="5"/>
             <Property name="wrapStyleWord" type="boolean" value="true"/>
             <Property name="autoscrolls" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jpRedigeringsruta">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="lblredigeraInfo" max="32767" attributes="0"/>
+                      <Component id="btnAvbryt" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btnRedigera" max="32767" attributes="0"/>
+                              <Component id="btnSpara" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnRedigera" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="btnSpara" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="btnAvbryt" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lblredigeraInfo" min="-2" pref="45" max="-2" attributes="0"/>
+                  <EmptySpace pref="58" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="btnRedigera">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Redigera"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRedigeraActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnSpara">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Spara"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSparaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnAvbryt">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Avbryt"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAvbrytActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblredigeraInfo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Info"/>
           </Properties>
         </Component>
       </SubComponents>
