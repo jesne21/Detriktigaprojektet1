@@ -1,6 +1,7 @@
 package ngo2024;
 
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import oru.inf.InfDB;
 
 /**
  *
@@ -8,14 +9,15 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  */
 public class Menu4 extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Menu1
-     */
-    public Menu4() {
+    
+    
+    
+    public Menu4(InfDB idb, int anvandarID, String roll) {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);
+        
         
     }
 

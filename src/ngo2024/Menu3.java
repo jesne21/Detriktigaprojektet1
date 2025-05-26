@@ -22,7 +22,7 @@ public class Menu3 extends javax.swing.JInternalFrame {
     /**
      * Creates new form Menu1
      */
-    public Menu3(InfDB idb, int anvandarID) {
+    public Menu3(InfDB idb, int anvandarID, String roll) {
         initComponents();
         this.idb = idb;
         this.anvandarID = anvandarID;

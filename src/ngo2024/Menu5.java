@@ -20,7 +20,7 @@ public class Menu5 extends javax.swing.JInternalFrame {
     /**
      * Creates new form Menu1
      */
-    public Menu5(InfDB idb, int anvandarID) {
+    public Menu5(InfDB idb, int anvandarID, String roll) {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();

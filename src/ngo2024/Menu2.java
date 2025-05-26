@@ -28,7 +28,7 @@ public class Menu2 extends javax.swing.JInternalFrame {
     /**
      * Creates new form Menu1
      */
-    public Menu2(InfDB idb, int anvandarID) {
+    public Menu2(InfDB idb, int anvandarID, String roll) {
         initComponents();
         this.idb = idb;
         this.anvandarID = anvandarID;

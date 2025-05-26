@@ -22,6 +22,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
     private InfDB idb;
     private String inloggadAnvandare;
     private int anvandarID;
+    private String roll;
     
     public HandläggareMeny(InfDB idb, int anvandarID, String inloggadAnvandare, String roll) {
         initComponents();
@@ -38,7 +39,8 @@ public class HandläggareMeny extends javax.swing.JFrame {
         this.inloggadAnvandare = inloggadAnvandare;
         this.anvandarID = anvandarID;
         lblInloggadAnvandare.setText(inloggadAnvandare);
-        
+        this.roll = roll;
+
         
     }
 
@@ -460,7 +462,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
 
     private void Menu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu1MouseClicked
 
-        Menu1 menu1 = new Menu1(idb, anvandarID);
+        Menu1 menu1 = new Menu1(idb, anvandarID, roll);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menu1).setVisible(true);
 
@@ -468,7 +470,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
 
     private void Menu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu2MouseClicked
 
-        Menu2 menu2 = new Menu2(idb, anvandarID);
+        Menu2 menu2 = new Menu2(idb, anvandarID, roll);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menu2).setVisible(true);
 
@@ -476,14 +478,14 @@ public class HandläggareMeny extends javax.swing.JFrame {
 
     private void Menu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu3MouseClicked
 
-        Menu3 menu3 = new Menu3(idb, anvandarID);
+        Menu3 menu3 = new Menu3(idb, anvandarID, roll);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menu3).setVisible(true);
     }//GEN-LAST:event_Menu3MouseClicked
 
     private void Menu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu4MouseClicked
 
-        Menu4 menu4 = new Menu4();
+        Menu4 menu4 = new Menu4(idb, anvandarID, roll);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menu4).setVisible(true);
 
@@ -491,7 +493,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
     }//GEN-LAST:event_Menu4MouseClicked
 
     private void Menu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu5MouseClicked
-        Menu5 menu5 = new Menu5(idb, anvandarID);
+        Menu5 menu5 = new Menu5(idb, anvandarID, roll);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menu5).setVisible(true);
 
