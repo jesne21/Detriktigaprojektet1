@@ -8,6 +8,9 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 
+#Ignorerar Jonas lokala lib filer
+lib/
+
 # Class Files #
 *.class 
 # .class files kan behövas ta bort om vissa filer inte kan ses. Emanuel 2025-05-15 #
