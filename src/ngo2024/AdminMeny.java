@@ -466,7 +466,7 @@ public class AdminMeny extends javax.swing.JFrame {
 
     private void Menu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu2MouseClicked
 
-        Menu2 menu2 = new Menu2(idb);
+        Menu2 menu2 = new Menu2(idb,anvandarID);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menu2).setVisible(true);
 

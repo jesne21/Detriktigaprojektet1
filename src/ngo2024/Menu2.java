@@ -44,7 +44,7 @@ public class Menu2 extends javax.swing.JInternalFrame {
 
     private void kontrolleraRollOchVisaRedigering() {
     try {
-        String sql = "SELECT * FROM handlaggare WHERE aid = " + anvandarID;
+        String sql = "SELECT * FROM admin WHERE aid = " + anvandarID;
         var resultat = idb.fetchRow(sql);
 
         if (resultat != null) {
