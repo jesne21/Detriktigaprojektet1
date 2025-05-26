@@ -328,9 +328,9 @@ public class Inloggning extends javax.swing.JFrame {
                     String behorighetsniva = idb.fetchSingle(adminFraga);
                     if (behorighetsniva != null) {
                         if (behorighetsniva.equals("1")) {
-                            roll = "admin";
+                            roll = "projektledare";
                         } else if (behorighetsniva.equals("2")) {
-                            roll = "superadmin";
+                            roll = "admin";
                         }
                     }
 

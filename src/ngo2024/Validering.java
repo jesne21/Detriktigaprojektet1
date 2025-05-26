@@ -29,7 +29,7 @@ public class Validering {
         if (textFaltArTomt(losenord)) {
             return false;
         }
-        return losenord.length() >= 8 && losenord.matches(".*[A-Za-z].*") && losenord.matches(".*\\d.*");
+        return losenord.length() >= 8 && losenord.matches(".*[A-Za-z].*");
     }
 
     // Kontroll av bara bokstäver (t.ex. namn)

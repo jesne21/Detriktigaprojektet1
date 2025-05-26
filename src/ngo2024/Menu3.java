@@ -18,7 +18,8 @@ public class Menu3 extends javax.swing.JInternalFrame {
 
      private InfDB idb;
      private int anvandarID;
-    
+     private String roll;
+     
     /**
      * Creates new form Menu1
      */
@@ -30,7 +31,7 @@ public class Menu3 extends javax.swing.JInternalFrame {
         BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);
         visaPersonalLista();
-
+        this.roll = roll;
         
     }
     

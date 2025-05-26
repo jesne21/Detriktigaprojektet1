@@ -16,6 +16,7 @@ public class Menu5 extends javax.swing.JInternalFrame {
 
      private InfDB idb;
      private int anvandarID;
+     private String roll;
      // hämta aid från databasen
     /**
      * Creates new form Menu1
@@ -34,6 +35,7 @@ public class Menu5 extends javax.swing.JInternalFrame {
         fyllAnvandarInfo(); // ladda info vid start
         lblStatus.setText(""); 
         lblStatus.setVisible(false); // gömmer status labeln som kommer om något ändrats eller lyckades ändrats
+        this.roll = roll;
         
         ui.setNorthPane(null);
         

@@ -22,6 +22,7 @@ public class Menu2 extends javax.swing.JInternalFrame {
         private String originalMalnummer;
         private String originalBeskrivning;
         private String originalPrioritet;
+        private String roll;
 
 
 
@@ -35,30 +36,22 @@ public class Menu2 extends javax.swing.JInternalFrame {
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
-        kontrolleraRollOchVisaRedigering();
+        
         tfNamn.setText("");
         tfMålnummer.setText("");
         tfBeskrivning.setText("");
         tfPrioritet.setText("");
+        this.roll = roll;
+        jpRedigeringsruta.setVisible(RollValidering.ärAdmin(roll));
     }
 
-    private void kontrolleraRollOchVisaRedigering() {
-    try {
-        String sql = "SELECT * FROM admin WHERE aid = " + anvandarID;
-        var resultat = idb.fetchRow(sql);
+    
+    
+        
 
-        if (resultat != null) {
-            // Användaren är en handläggare
-            jpRedigeringsruta.setVisible(true);
-        } else {
-            // Användaren är inte handläggare
-            jpRedigeringsruta.setVisible(false);
-        }
-    } catch (InfException e) {
-        System.err.println("Kunde inte hämta rollinformation: " + e.getMessage());
-        jpRedigeringsruta.setVisible(false);
-    }
-}
+        
+    
+
 
 
     

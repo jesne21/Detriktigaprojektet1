@@ -26,6 +26,8 @@ public class Menu1 extends javax.swing.JInternalFrame {
     
     private InfDB idb;
     private int anvandarID;
+    private String roll;
+    private boolean redigeringsläge = false;
 
     /**
      * Creates new form Menu1
@@ -37,6 +39,9 @@ public class Menu1 extends javax.swing.JInternalFrame {
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);
+        this.roll = roll;
+        btnStatistik.setVisible(RollValidering.ärProjektledare(roll));
+        btnRedigeraUppgifter.setVisible(RollValidering.ärProjektledare(roll));
         
         visaMinaProjekt(); // kör direkt 
         highlightKnapp(btnMinaProjekt); // Gör "mina projekt" knappen aktiv
@@ -247,6 +252,28 @@ public class Menu1 extends javax.swing.JInternalFrame {
         }
     }
 
+    private String getProjektID(String projektnamn) {
+        try {
+            String sql = "SELECT pid FROM projekt WHERE projektnamn = '" + projektnamn + "'";
+            return idb.fetchSingle(sql);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Kunde inte hämta projekt-ID:\n" + e.getMessage());
+            return null;
+        }
+    }
+    
+    private boolean anvandarÄrProjektchef(String pid) {
+        try {
+            String sql = "SELECT projektchef FROM projekt WHERE pid = '" + pid + "'";
+            String chefID = idb.fetchSingle(sql);
+            return chefID != null && chefID.equals(String.valueOf(anvandarID));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Kunde inte kontrollera projektchef:\n" + e.getMessage());
+            return false;
+        }
+    }
+
+
 
 
     
@@ -276,6 +303,8 @@ public class Menu1 extends javax.swing.JInternalFrame {
         jDateChooserSlut = new com.toedter.calendar.JDateChooser();
         lbl2 = new javax.swing.JLabel();
         lbl3 = new javax.swing.JLabel();
+        btnStatistik = new javax.swing.JButton();
+        btnRedigeraUppgifter = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -362,15 +391,45 @@ public class Menu1 extends javax.swing.JInternalFrame {
         lbl3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl3.setText("Slutdatum:");
 
+        btnStatistik.setBackground(new java.awt.Color(153, 255, 204));
+        btnStatistik.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
+        btnStatistik.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/projekt_ikon.gif"))); // NOI18N
+        btnStatistik.setText("Statistik");
+        btnStatistik.setBorder(null);
+        btnStatistik.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStatistikActionPerformed(evt);
+            }
+        });
+
+        btnRedigeraUppgifter.setBackground(new java.awt.Color(153, 255, 204));
+        btnRedigeraUppgifter.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
+        btnRedigeraUppgifter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ngo2024/Bilder/projekt_ikon.gif"))); // NOI18N
+        btnRedigeraUppgifter.setText("Redigera uppgifter");
+        btnRedigeraUppgifter.setBorder(null);
+        btnRedigeraUppgifter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRedigeraUppgifterActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnStatistik, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnRedigeraUppgifter, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -398,39 +457,43 @@ public class Menu1 extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSokDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(195, 195, 195))))
-                    .addComponent(jScrollPane4)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jDateChooserSlut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jDateChooserStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(4, 4, 4)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnVisaPartners)
-                            .addComponent(btnSokDatum))
+                        .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jDateChooserSlut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDateChooserStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(4, 4, 4)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVisaPartners)
+                    .addComponent(btnSokDatum))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(92, 92, 92)
+                .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnStatistik, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnRedigeraUppgifter, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81))
         );
 
         pack();
@@ -503,11 +566,45 @@ public class Menu1 extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnSokDatumActionPerformed
 
+    private void btnStatistikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatistikActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnStatistikActionPerformed
+
+    private void btnRedigeraUppgifterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedigeraUppgifterActionPerformed
+   
+        
+        int rad = tblProjekt.getSelectedRow();
+        if (rad == -1) {
+            JOptionPane.showMessageDialog(null, "Välj ett projekt att redigera.");
+            return;
+        }
+
+        String projektnamn = tblProjekt.getValueAt(rad, 0).toString(); // antag att kolumn 0 = projektnamn
+
+        // Hämta projektets ID (du kan ha dolt det i en osynlig kolumn eller hämta från DB)
+        String pid = getProjektID(projektnamn);
+
+        if (!anvandarÄrProjektchef(pid)) {
+            JOptionPane.showMessageDialog(null, "Du är inte projektchef för detta projekt.");
+            return;
+        }
+
+        RedigeraProjektDialog dialog = new RedigeraProjektDialog(idb, pid, anvandarID, roll);
+        dialog.setVisible(true);
+
+
+        
+        
+       
+    }//GEN-LAST:event_btnRedigeraUppgifterActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAvdelningensProjekt;
     private javax.swing.JButton btnMinaProjekt;
+    private javax.swing.JButton btnRedigeraUppgifter;
     private javax.swing.JButton btnSokDatum;
+    private javax.swing.JButton btnStatistik;
     private javax.swing.JButton btnVisaPartners;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooserSlut;
