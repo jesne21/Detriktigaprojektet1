@@ -167,53 +167,89 @@ public class Menu1 extends javax.swing.JInternalFrame {
         aktivKnapp.setBackground(new java.awt.Color(200, 230, 255)); // ljusblå
     }
     
-    private void sokProjektEfterDatum() {
+    private void visaProjektInomDatum() {
         try {
-            Date valtDatum = dcStartdatum.getDate();
+            Date startDatum = jDateChooserStart.getDate();
+            Date slutDatum = jDateChooserSlut.getDate();
 
-            if (valtDatum == null) {
-                JOptionPane.showMessageDialog(null, "Välj ett datum först.");
+            if (startDatum == null || slutDatum == null) {
+                JOptionPane.showMessageDialog(null, "Välj både start- och slutdatum.");
                 return;
             }
 
-            // Konvertera till rätt SQL-format
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String datumStr = sdf.format(valtDatum);
+            String startStr = sdf.format(startDatum);
+            String slutStr = sdf.format(slutDatum);
 
-            // SQL-fråga: visa alla projekt där valt datum är mellan start och slut
-            String sql
-                    = "SELECT pr.projektnamn, pa.namn AS partner, l.namn AS land, "
-                    + "pr.status, pr.startdatum, pr.slutdatum "
-                    + "FROM projekt pr "
-                    + "LEFT JOIN projekt_partner pp ON pr.pid = pp.pid "
-                    + "LEFT JOIN partner pa ON pp.partner_pid = pa.pid "
-                    + "JOIN land l ON pr.land = l.lid "
-                    + "WHERE '" + datumStr + "' BETWEEN pr.startdatum AND pr.slutdatum;";
+            // Hämta handläggarens avdelning
+            String avdelningSql = "SELECT avdelning FROM anstalld WHERE aid = '" + anvandarID + "'";
+            String avdelning = idb.fetchSingle(avdelningSql);
+
+            boolean minaProjektAktiv = btnMinaProjekt.getBackground() != null;
+
+            String sql;
+            if (minaProjektAktiv) {
+                sql
+                        = "SELECT pr.pid AS pid, pr.projektnamn, "
+                        + "  (SELECT pa.namn FROM projekt_partner pp "
+                        + "   JOIN partner pa ON pp.partner_pid = pa.pid "
+                        + "   WHERE pp.pid = pr.pid LIMIT 1) AS partner, "
+                        + "  l.namn AS land, pr.status, pr.startdatum, pr.slutdatum "
+                        + "FROM projekt pr "
+                        + "JOIN ans_proj ap ON pr.pid = ap.pid "
+                        + "JOIN land l ON pr.land = l.lid "
+                        + "WHERE ap.aid = '" + anvandarID + "' "
+                        + "AND pr.startdatum >= '" + startStr + "' "
+                        + "AND pr.slutdatum <= '" + slutStr + "'";
+            } else {
+                sql
+                        = "SELECT pr.pid AS pid, pr.projektnamn, "
+                        + "  (SELECT pa.namn FROM projekt_partner pp "
+                        + "   JOIN partner pa ON pp.partner_pid = pa.pid "
+                        + "   WHERE pp.pid = pr.pid LIMIT 1) AS partner, "
+                        + "  l.namn AS land, pr.status, pr.startdatum, pr.slutdatum "
+                        + "FROM projekt pr "
+                        + "JOIN ans_proj ap ON pr.pid = ap.pid "
+                        + "JOIN anstalld a ON ap.aid = a.aid "
+                        + "JOIN land l ON pr.land = l.lid "
+                        + "WHERE a.avdelning = '" + avdelning + "' "
+                        + "AND pr.startdatum >= '" + startStr + "' "
+                        + "AND pr.slutdatum <= '" + slutStr + "'";
+            }
 
             ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
 
+            HashSet<String> visadeProjekt = new HashSet<>();
             DefaultTableModel modell = new DefaultTableModel();
             modell.setColumnIdentifiers(new Object[]{
                 "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
             });
 
             for (HashMap<String, String> rad : resultat) {
-                modell.addRow(new Object[]{
-                    rad.get("projektnamn"),
-                    rad.get("partner"),
-                    rad.get("land"),
-                    rad.get("status"),
-                    rad.get("startdatum"),
-                    rad.get("slutdatum")
-                });
+                String pid = rad.get("pid"); // nu säkert eftersom vi aliasar pid i SQL
+                if (!visadeProjekt.contains(pid)) {
+                    visadeProjekt.add(pid);
+                    modell.addRow(new Object[]{
+                        rad.get("projektnamn"),
+                        rad.get("partner"),
+                        rad.get("land"),
+                        rad.get("status"),
+                        rad.get("startdatum"),
+                        rad.get("slutdatum")
+                    });
+                }
             }
 
             tblProjekt.setModel(modell);
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Kunde inte hämta projekt:\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Kunde inte filtrera projekt:\n" + e.getMessage());
         }
     }
+
+
+
+    
 
     
     
@@ -235,8 +271,10 @@ public class Menu1 extends javax.swing.JInternalFrame {
         btnSokDatum = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblProjekt = new javax.swing.JTable();
-        dcStartdatum = new com.toedter.calendar.JDateChooser();
-        dcSlutdatum = new com.toedter.calendar.JDateChooser();
+        jDateChooserStart = new com.toedter.calendar.JDateChooser();
+        jDateChooserSlut = new com.toedter.calendar.JDateChooser();
+        lbl2 = new javax.swing.JLabel();
+        lbl3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 255, 204));
         setPreferredSize(new java.awt.Dimension(860, 610));
@@ -280,7 +318,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
         });
 
         btnSokDatum.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        btnSokDatum.setText("Sök projekt efter datum");
+        btnSokDatum.setText("Sök projekt inom tidsperiod");
         btnSokDatum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSokDatumActionPerformed(evt);
@@ -306,6 +344,12 @@ public class Menu1 extends javax.swing.JInternalFrame {
         tblProjekt.setShowHorizontalLines(true);
         jScrollPane4.setViewportView(tblProjekt);
 
+        lbl2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl2.setText("Startdatum:");
+
+        lbl3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl3.setText("Slutdatum:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -314,25 +358,30 @@ public class Menu1 extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 50, 50))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnVisaPartners, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSokDatum)
+                                .addGap(31, 31, 31)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDateChooserStart, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl2))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dcStartdatum, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dcSlutdatum, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(135, 135, 135)))
-                        .addContainerGap())
+                                    .addComponent(lbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jDateChooserSlut, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnSokDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(195, 195, 195))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,20 +391,29 @@ public class Menu1 extends javax.swing.JInternalFrame {
                         .addGap(92, 92, 92)
                         .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(dcStartdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnVisaPartners)
-                                .addComponent(btnSokDatum))
-                            .addComponent(dcSlutdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(63, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jDateChooserSlut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jDateChooserStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(4, 4, 4)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnVisaPartners)
+                            .addComponent(btnSokDatum))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -423,9 +481,8 @@ public class Menu1 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnVisaPartnersActionPerformed
 
     private void btnSokDatumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSokDatumActionPerformed
-
-    sokProjektEfterDatum();
-    // använder metoden sokProjektEfterDatum när man klickar på knappen btnSokDatum
+                                     
+    visaProjektInomDatum();
         
     }//GEN-LAST:event_btnSokDatumActionPerformed
 
@@ -435,11 +492,13 @@ public class Menu1 extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnMinaProjekt;
     private javax.swing.JButton btnSokDatum;
     private javax.swing.JButton btnVisaPartners;
-    private com.toedter.calendar.JDateChooser dcSlutdatum;
-    private com.toedter.calendar.JDateChooser dcStartdatum;
     private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooserSlut;
+    private com.toedter.calendar.JDateChooser jDateChooserStart;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lbl1;
+    private javax.swing.JLabel lbl2;
+    private javax.swing.JLabel lbl3;
     private javax.swing.JTable tblProjekt;
     // End of variables declaration//GEN-END:variables
 }

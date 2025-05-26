@@ -23,7 +23,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
     private String inloggadAnvandare;
     private int anvandarID;
     
-    public HandläggareMeny(InfDB idb, int anvandarID, String inloggadAnvandare) {
+    public HandläggareMeny(InfDB idb, int anvandarID, String inloggadAnvandare, String roll) {
         initComponents();
         DefualtColor = new Color(0,102,102);
         ClickedColor = new Color (255,153,102);  

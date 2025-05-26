@@ -287,75 +287,70 @@ public class Inloggning extends javax.swing.JFrame {
 
     private void btnLoggaInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoggaInActionPerformed
 
+        
         String ePost = tfEpost.getText();
         String losen = tfLosenord.getText();
 
-        if (Validering.textFaltArTomt(ePost)|| Validering.textFaltArTomt(losen)){
+        if (Validering.textFaltArTomt(ePost) || Validering.textFaltArTomt(losen)) {
             lblFelMeddelande.setText("Du måste fylla i både E-postadress och Lösenord.");
             lblFelMeddelande.setVisible(true);
             return;
-            // Det kommer upp en annan felmeddelande ruta som påminner användaren om att man inte kan lämna någon av rutorna blanka
         }
 
-        if (!Validering.arStarktLosenord(losen)){
+        if (!Validering.arStarktLosenord(losen)) {
             lblFelMeddelande.setText("Lösenordet måste innehålla både bokstäver och siffror, minst 8 tecken.");
             lblFelMeddelande.setVisible(true);
-
+            return;
         }
 
-        try{
+        try {
             String sqlFraga = "SELECT losenord, aid FROM anstalld WHERE epost = '" + ePost + "'";
-            // Använd enkelfnutta för i helvete!! som i exemplet ovan
             HashMap<String, String> anstallData = idb.fetchRow(sqlFraga);
 
-            if (anstallData!= null){
+            if (anstallData != null) {
                 String dbLosen = anstallData.get("losenord");
-                int anvandarID = Integer.parseInt(anstallData.get("aid")); // hämta id
-                
+                int anvandarID = Integer.parseInt(anstallData.get("aid"));
 
-            if(losen.equals(dbLosen)){
-                // kolla om användaren finns i handläggare-tabellen
-                String handlaggarFraga = "Select aid From handlaggare Where aid = " + anvandarID;
-                HashMap<String, String> handlaggarData = idb.fetchRow(handlaggarFraga);
-                
-            
-                if (handlaggarData != null){
-                // Om personen är handläggare då skapas handlaggarmenyn
-                new HandläggareMeny(idb, anvandarID, ePost).setVisible(true);   
-            } else {
-                    String adminFraga = "Select behorighetsniva From admin Where aid = " + anvandarID;
+                if (losen.equals(dbLosen)) {
+
+                    // === Hämta roll ===
+                    String roll = "okand";
+
+                    // Kolla handläggare
+                    String handlaggarFraga = "SELECT aid FROM handlaggare WHERE aid = " + anvandarID;
+                    HashMap<String, String> handlaggarData = idb.fetchRow(handlaggarFraga);
+                    if (handlaggarData != null) {
+                        roll = "handlaggare";
+                    }
+
+                    // Kolla admin
+                    String adminFraga = "SELECT behorighetsniva FROM admin WHERE aid = " + anvandarID;
                     String behorighetsniva = idb.fetchSingle(adminFraga);
-                    
-                    if (behorighetsniva != null){
-                        switch (behorighetsniva){
-                        case "1":
-                        new AdminMeny(idb, ePost).setVisible(true);
-                        break;
-                        case "2":
-                        new SuperAdminMeny(idb, ePost).setVisible(true);
-                        break;
-                        default:
-                        JOptionPane.showMessageDialog(null, "Okänd behörighetsnivå: " + behorighetsniva);
+                    if (behorighetsniva != null) {
+                        if (behorighetsniva.equals("1")) {
+                            roll = "admin";
+                        } else if (behorighetsniva.equals("2")) {
+                            roll = "superadmin";
+                        }
                     }
-                } else {       
-                    JOptionPane.showMessageDialog(null, "Ingen roll kopplad till användaren.");
-                        
-                    }
-                    
-                    
+
+                    // === Starta meny ===
+                    new HandläggareMeny(idb, anvandarID, ePost, roll).setVisible(true);
+                    this.dispose(); // stäng inloggningsrutan
+                } else {
+                    lblFelMeddelande.setText("Fel lösenord.");
+                    lblFelMeddelande.setVisible(true);
                 }
-                    
-            }    
-                
-            this.dispose();
-            // stänger ned inloggningsrutan när användaren lyckats logga in
-            }
-            else{
+            } else {
+                lblFelMeddelande.setText("Ingen användare hittades med denna e-post.");
                 lblFelMeddelande.setVisible(true);
             }
-        }catch(InfException ex){
+
+        } catch (InfException ex) {
             System.out.println(ex.getMessage());
         }
+
+
     }//GEN-LAST:event_btnLoggaInActionPerformed
 
     private void tfLosenordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLosenordActionPerformed
