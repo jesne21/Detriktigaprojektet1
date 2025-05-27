@@ -40,8 +40,12 @@ public class HandläggareMeny extends javax.swing.JFrame {
         this.anvandarID = anvandarID;
         lblInloggadAnvandare.setText(inloggadAnvandare);
         this.roll = roll;
-
         
+        
+        //så att bara admins kan se menyn för admin redigering
+        if (!roll.equals("admin")) {
+            jLabel10.setVisible(false);
+        }
     }
 
     /**
