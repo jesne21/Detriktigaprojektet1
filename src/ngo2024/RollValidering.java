@@ -14,8 +14,8 @@ public class RollValidering {
         return roll.equalsIgnoreCase("admin");
     }
     
-    public static boolean ärProjektledare(String roll){
-        return roll.equalsIgnoreCase("projektledare");
+    public static boolean ärProjektchef(String roll){
+        return roll.equalsIgnoreCase("projektchef");
     }
     
     public static boolean ärHandläggare(String roll){
@@ -23,7 +23,7 @@ public class RollValidering {
     }
     
     public static boolean harBehörighetAttÄndraProjekt(String roll){
-        return ärAdmin(roll)|| ärProjektledare(roll);
+        return ärAdmin(roll)|| ärProjektchef(roll);
     }
     
 }

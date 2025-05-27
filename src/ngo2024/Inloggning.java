@@ -286,7 +286,7 @@ public class Inloggning extends javax.swing.JFrame {
     }//GEN-LAST:event_visaMousePressed
 
     private void btnLoggaInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoggaInActionPerformed
-
+        
         
         String ePost = tfEpost.getText();
         String losen = tfLosenord.getText();
@@ -298,7 +298,7 @@ public class Inloggning extends javax.swing.JFrame {
         }
 
         if (!Validering.arStarktLosenord(losen)) {
-            lblFelMeddelande.setText("Lösenordet måste innehålla både bokstäver och siffror, minst 8 tecken.");
+            lblFelMeddelande.setText("Lösenordet måste innehålla minst 8 tecken och en bokstav.");
             lblFelMeddelande.setVisible(true);
             return;
         }
@@ -312,25 +312,27 @@ public class Inloggning extends javax.swing.JFrame {
                 int anvandarID = Integer.parseInt(anstallData.get("aid"));
 
                 if (losen.equals(dbLosen)) {
+                    //  Hämta roll 
+                    String roll = "okänd";
 
-                    // === Hämta roll ===
-                    String roll = "okand";
-
-                    // Kolla handläggare
-                    String handlaggarFraga = "SELECT aid FROM handlaggare WHERE aid = " + anvandarID;
-                    HashMap<String, String> handlaggarData = idb.fetchRow(handlaggarFraga);
-                    if (handlaggarData != null) {
-                        roll = "handlaggare";
-                    }
-
-                    // Kolla admin
-                    String adminFraga = "SELECT behorighetsniva FROM admin WHERE aid = " + anvandarID;
-                    String behorighetsniva = idb.fetchSingle(adminFraga);
-                    if (behorighetsniva != null) {
-                        if (behorighetsniva.equals("1")) {
-                            roll = "projektledare";
-                        } else if (behorighetsniva.equals("2")) {
-                            roll = "admin";
+                    // Kolla om admin
+                    String adminFraga = "SELECT aid FROM admin WHERE aid = " + anvandarID;
+                    HashMap<String, String> adminData = idb.fetchRow(adminFraga);
+                    if (adminData != null && !adminData.isEmpty()) {
+                        roll = "admin";
+                    } else {
+                        // Kolla om projektchef
+                        String chefFraga = "SELECT pid FROM projekt WHERE projektchef = " + anvandarID + " LIMIT 1";
+                        String pid = idb.fetchSingle(chefFraga);
+                        if (pid != null) {
+                            roll = "projektchef";
+                        } else {
+                            // Kolla om handläggare
+                            String handlaggarFraga = "SELECT aid FROM handlaggare WHERE aid = " + anvandarID;
+                            HashMap<String, String> handlaggarData = idb.fetchRow(handlaggarFraga);
+                            if (handlaggarData != null) {
+                                roll = "handläggare";
+                            }
                         }
                     }
 
@@ -349,6 +351,7 @@ public class Inloggning extends javax.swing.JFrame {
         } catch (InfException ex) {
             System.out.println(ex.getMessage());
         }
+    
 
 
     }//GEN-LAST:event_btnLoggaInActionPerformed

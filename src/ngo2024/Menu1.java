@@ -40,8 +40,9 @@ public class Menu1 extends javax.swing.JInternalFrame {
         BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);
         this.roll = roll;
-        btnStatistik.setVisible(RollValidering.ärProjektledare(roll));
-        btnRedigeraUppgifter.setVisible(RollValidering.ärProjektledare(roll));
+        System.out.println("Inloggad som: " + roll);
+        btnStatistik.setVisible(RollValidering.ärProjektchef(roll));
+        btnRedigeraUppgifter.setVisible(RollValidering.ärProjektchef(roll));
         
         visaMinaProjekt(); // kör direkt 
         highlightKnapp(btnMinaProjekt); // Gör "mina projekt" knappen aktiv
