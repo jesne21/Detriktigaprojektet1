@@ -387,7 +387,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setBackground(new java.awt.Color(153, 255, 204));
+        setBackground(new java.awt.Color(0, 102, 102));
         setPreferredSize(new java.awt.Dimension(860, 610));
 
         lbl1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N

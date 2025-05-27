@@ -210,7 +210,8 @@ public class Menu5 extends javax.swing.JInternalFrame {
 
         jLabel3.setText("jLabel3");
 
-        setBackground(new java.awt.Color(102, 102, 102));
+        setBackground(new java.awt.Color(0, 102, 102));
+        setClosable(true);
 
         jblMinaUppgifter.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jblMinaUppgifter.setForeground(new java.awt.Color(204, 204, 204));

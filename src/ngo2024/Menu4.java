@@ -549,7 +549,7 @@ private void taBortAnstalld() {
         jBtnLaggTillLand = new javax.swing.JButton();
         jBtnTaBortAnstalld = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(153, 153, 255));
+        setBackground(new java.awt.Color(0, 102, 102));
 
         jLblRedigeringForAdmin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLblRedigeringForAdmin.setText("Redigering för Admin");
