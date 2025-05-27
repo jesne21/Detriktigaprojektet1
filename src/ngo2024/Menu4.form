@@ -168,7 +168,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jBtnTaBortAnstalld">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ta bor anst&#xe4;lld"/>
+        <Property name="text" type="java.lang.String" value="Ta bort anst&#xe4;lld"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnTaBortAnstalldActionPerformed"/>

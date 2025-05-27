@@ -610,7 +610,7 @@ private void taBortAnstalld() {
             }
         });
 
-        jBtnTaBortAnstalld.setText("Ta bor anställd");
+        jBtnTaBortAnstalld.setText("Ta bort anställd");
         jBtnTaBortAnstalld.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnTaBortAnstalldActionPerformed(evt);
