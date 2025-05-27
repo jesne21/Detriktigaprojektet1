@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class Menu1 extends javax.swing.JInternalFrame {
     
     private InfDB idb;
+    private boolean minaProjektValda = true;
     private int anvandarID;
     private String roll;
     private boolean redigeringsläge = false;
@@ -273,14 +274,82 @@ public class Menu1 extends javax.swing.JInternalFrame {
             return false;
         }
     }
-
-
-
-
     
+    private void visaProjektMedDatumfilter(boolean minaProjekt) {
+        try {
+            Date startDatum = jDateChooserStart.getDate();
+            Date slutDatum = jDateChooserSlut.getDate();
 
-    
-    
+            if (startDatum == null || slutDatum == null) {
+                JOptionPane.showMessageDialog(null, "Välj både start- och slutdatum.");
+                return;
+            }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String startStr = sdf.format(startDatum);
+            String slutStr = sdf.format(slutDatum);
+
+            String sql;
+
+            if (minaProjekt) {
+                sql = """
+                SELECT pr.projektnamn,
+                       (SELECT pa.namn
+                        FROM projekt_partner pp
+                        JOIN partner pa ON pp.partner_pid = pa.pid
+                        WHERE pp.pid = pr.pid LIMIT 1) AS partner,
+                       l.namn AS land,
+                       pr.status, pr.startdatum, pr.slutdatum
+                FROM projekt pr
+                JOIN ans_proj ap ON pr.pid = ap.pid
+                JOIN land l ON pr.land = l.lid
+                WHERE ap.aid = '%s'
+                AND pr.startdatum >= '%s' AND pr.slutdatum <= '%s'
+                """.formatted(anvandarID, startStr, slutStr);
+            } else {
+                String avdelning = idb.fetchSingle("SELECT avdelning FROM anstalld WHERE aid = '" + anvandarID + "'");
+                sql = """
+                SELECT DISTINCT pr.projektnamn,
+                       (SELECT pa.namn
+                        FROM projekt_partner pp
+                        JOIN partner pa ON pp.partner_pid = pa.pid
+                        WHERE pp.pid = pr.pid LIMIT 1) AS partner,
+                       l.namn AS land,
+                       pr.status, pr.startdatum, pr.slutdatum
+                FROM projekt pr
+                JOIN ans_proj ap ON pr.pid = ap.pid
+                JOIN anstalld a ON ap.aid = a.aid
+                JOIN land l ON pr.land = l.lid
+                WHERE a.avdelning = '%s'
+                AND pr.startdatum >= '%s' AND pr.slutdatum <= '%s'
+                """.formatted(avdelning, startStr, slutStr);
+            }
+
+            ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
+
+            DefaultTableModel modell = new DefaultTableModel();
+            modell.setColumnIdentifiers(new Object[]{
+                "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
+            });
+
+            for (HashMap<String, String> rad : resultat) {
+                modell.addRow(new Object[]{
+                    rad.get("projektnamn"),
+                    rad.get("partner"),
+                    rad.get("land"),
+                    rad.get("status"),
+                    rad.get("startdatum"),
+                    rad.get("slutdatum")
+                });
+            }
+
+            tblProjekt.setModel(modell);  // <- din JTable-komponent
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Fel vid sökning med datumfilter.");
+            e.printStackTrace();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -499,28 +568,30 @@ public class Menu1 extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-  
-    private void btnMinaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinaProjektActionPerformed
 
+    private void btnMinaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinaProjektActionPerformed
+        minaProjektValda = true;
         visaMinaProjekt();
         highlightKnapp(btnMinaProjekt);
-        
+
     }//GEN-LAST:event_btnMinaProjektActionPerformed
 
     private void btnAvdelningensProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvdelningensProjektActionPerformed
-     
+        minaProjektValda = false;
         visaAvdelningensProjekt();
         highlightKnapp(btnAvdelningensProjekt);
-        
+
     }//GEN-LAST:event_btnAvdelningensProjektActionPerformed
 
     private void btnMinaProjektMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinaProjektMouseClicked
 
+        
+
+        
     }//GEN-LAST:event_btnMinaProjektMouseClicked
 
     private void btnVisaPartnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisaPartnersActionPerformed
 
-   
         int rad = tblProjekt.getSelectedRow();
 
         if (rad == -1) {
@@ -563,7 +634,15 @@ public class Menu1 extends javax.swing.JInternalFrame {
 
     private void btnSokDatumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSokDatumActionPerformed
                                      
-    visaProjektInomDatum();
+    btnSokDatum.addActionListener(e -> {
+    
+    if (minaProjektValda) {  
+        visaProjektMedDatumfilter(true);
+    } else {
+        visaProjektMedDatumfilter(false);
+    }
+});
+
         
     }//GEN-LAST:event_btnSokDatumActionPerformed
 
