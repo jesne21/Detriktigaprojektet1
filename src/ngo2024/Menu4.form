@@ -40,10 +40,13 @@
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jBtnTaBortAnstalld" max="32767" attributes="0"/>
-                          <Component id="jBtnLaggTillAnstalld" pref="205" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jBtnLaggTillProjekt" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jBtnTaBortAnstalld" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jBtnLaggTillAnstalld" alignment="0" pref="205" max="32767" attributes="0"/>
+                          <Component id="jBtnTaBortProjekt" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jBtnRedigeraProjekt" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="211" max="-2" attributes="0"/>
                   </Group>
@@ -88,7 +91,13 @@
                       <Component id="jBtnLaggTillLand" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="262" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+              <Component id="jBtnLaggTillProjekt" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jBtnTaBortProjekt" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jBtnRedigeraProjekt" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="102" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -172,6 +181,30 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnTaBortAnstalldActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBtnLaggTillProjekt">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="L&#xe4;gg till projekt"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnLaggTillProjektActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBtnTaBortProjekt">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ta bort projekt"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnTaBortProjektActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBtnRedigeraProjekt">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Redigera projekt"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnRedigeraProjektActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

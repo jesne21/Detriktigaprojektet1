@@ -528,6 +528,204 @@ private void taBortAnstalld() {
     }
 }
 
+private void laggTillProjekt() {
+    try {
+        String maxPidStr = idb.fetchSingle("SELECT MAX(pid) FROM projekt");
+        int nyPid = (maxPidStr != null) ? Integer.parseInt(maxPidStr) + 1 : 1;
+
+        // Hämta alla projektchefer
+        List<HashMap<String, String>> chefer = idb.fetchRows("SELECT aid, fornamn, efternamn FROM anstalld");
+        Map<String, String> chefTillAid = new HashMap<>();
+        String[] chefAlternativ = new String[chefer.size()];
+        for (int i = 0; i < chefer.size(); i++) {
+            String namn = chefer.get(i).get("fornamn") + " " + chefer.get(i).get("efternamn");
+            String aid = chefer.get(i).get("aid");
+            chefAlternativ[i] = namn;
+            chefTillAid.put(namn, aid);
+        }
+
+        // Hämta alla länder
+        List<HashMap<String, String>> lander = idb.fetchRows("SELECT lid, namn FROM land");
+        Map<String, String> landTillLid = new HashMap<>();
+        String[] landAlternativ = new String[lander.size()];
+        for (int i = 0; i < lander.size(); i++) {
+            String namn = lander.get(i).get("namn");
+            String lid = lander.get(i).get("lid");
+            landAlternativ[i] = namn;
+            landTillLid.put(namn, lid);
+        }
+
+        JComboBox<String> cbChef = new JComboBox<>(chefAlternativ);
+        JComboBox<String> cbLand = new JComboBox<>(landAlternativ);
+
+        JTextField tfProjektnamn = new JTextField();
+        JTextField tfBeskrivning = new JTextField();
+        JTextField tfStartdatum = new JTextField();
+        JTextField tfSlutdatum = new JTextField();
+        JTextField tfKostnad = new JTextField();
+        JTextField tfStatus = new JTextField();
+        JTextField tfPrioritet = new JTextField();
+
+        Object[] fält = {
+            "Projektnamn:", tfProjektnamn,
+            "Beskrivning:", tfBeskrivning,
+            "Startdatum (YYYY-MM-DD):", tfStartdatum,
+            "Slutdatum (YYYY-MM-DD):", tfSlutdatum,
+            "Kostnad:", tfKostnad,
+            "Status:", tfStatus,
+            "Prioritet:", tfPrioritet,
+            "Projektchef:", cbChef,
+            "Land:", cbLand
+        };
+
+        int resultat = JOptionPane.showConfirmDialog(null, fält, "Lägg till projekt", JOptionPane.OK_CANCEL_OPTION);
+        if (resultat == JOptionPane.OK_OPTION) {
+            String sql = String.format("INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet, projektchef, land) " +
+                    "VALUES (%d, '%s', '%s', '%s', '%s', %s, '%s', '%s', %s, %s)",
+                    nyPid,
+                    tfProjektnamn.getText().trim(),
+                    tfBeskrivning.getText().trim(),
+                    tfStartdatum.getText().trim(),
+                    tfSlutdatum.getText().trim(),
+                    tfKostnad.getText().trim(),
+                    tfStatus.getText().trim(),
+                    tfPrioritet.getText().trim(),
+                    chefTillAid.get(cbChef.getSelectedItem()),
+                    landTillLid.get(cbLand.getSelectedItem()));
+
+            idb.insert(sql);
+            JOptionPane.showMessageDialog(null, "Projekt tillagt!");
+        }
+    } catch (InfException e) {
+        JOptionPane.showMessageDialog(null, "Fel vid tillägg: " + e.getMessage());
+    }
+}
+
+private void taBortProjekt() {
+    try {
+        List<HashMap<String, String>> projekt = idb.fetchRows("SELECT pid, projektnamn FROM projekt");
+        if (projekt == null || projekt.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Inga projekt finns i databasen.");
+            return;
+        }
+
+        Map<String, String> namnTillPid = new HashMap<>();
+        String[] projektNamnArray = new String[projekt.size()];
+        for (int i = 0; i < projekt.size(); i++) {
+            String namn = projekt.get(i).get("projektnamn");
+            String pid = projekt.get(i).get("pid");
+            projektNamnArray[i] = namn;
+            namnTillPid.put(namn, pid);
+        }
+
+        JComboBox<String> cbProjekt = new JComboBox<>(projektNamnArray);
+        int val = JOptionPane.showConfirmDialog(null, cbProjekt, "Välj projekt att ta bort", JOptionPane.OK_CANCEL_OPTION);
+        if (val == JOptionPane.OK_OPTION) {
+            String valtNamn = (String) cbProjekt.getSelectedItem();
+            String pid = namnTillPid.get(valtNamn);
+
+            idb.delete("DELETE FROM projekt WHERE pid = " + pid);
+            JOptionPane.showMessageDialog(null, "Projekt borttaget!");
+        }
+    } catch (InfException e) {
+        JOptionPane.showMessageDialog(null, "Fel vid borttagning: " + e.getMessage());
+    }
+}
+
+private void redigeraProjekt() {
+    try {
+        List<HashMap<String, String>> projektLista = idb.fetchRows("SELECT pid, projektnamn FROM projekt");
+        if (projektLista == null || projektLista.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Inga projekt finns att redigera.");
+            return;
+        }
+
+        Map<String, String> namnTillPID = new HashMap<>();
+        String[] projektAlternativ = new String[projektLista.size()];
+        for (int i = 0; i < projektLista.size(); i++) {
+            String namn = projektLista.get(i).get("projektnamn");
+            String pid = projektLista.get(i).get("pid");
+            projektAlternativ[i] = namn;
+            namnTillPID.put(namn, pid);
+        }
+
+        JComboBox<String> cbProjekt = new JComboBox<>(projektAlternativ);
+        int val = JOptionPane.showConfirmDialog(null, cbProjekt, "Välj projekt att redigera", JOptionPane.OK_CANCEL_OPTION);
+        if (val == JOptionPane.OK_OPTION) {
+            String valtNamn = (String) cbProjekt.getSelectedItem();
+            String pid = namnTillPID.get(valtNamn);
+
+            HashMap<String, String> projekt = idb.fetchRow("SELECT * FROM projekt WHERE pid = " + pid);
+
+            // Hämta projektchefer
+            List<HashMap<String, String>> chefer = idb.fetchRows("SELECT aid, fornamn, efternamn FROM anstalld");
+            Map<String, String> namnTillAID = new HashMap<>();
+            String[] chefAlternativ = new String[chefer.size()];
+            for (int i = 0; i < chefer.size(); i++) {
+                String namn = chefer.get(i).get("fornamn") + " " + chefer.get(i).get("efternamn");
+                String aid = chefer.get(i).get("aid");
+                chefAlternativ[i] = namn;
+                namnTillAID.put(namn, aid);
+            }
+            JComboBox<String> cbChef = new JComboBox<>(chefAlternativ);
+            cbChef.setSelectedItem(projekt.get("projektchef"));
+
+            // Hämta länder
+            List<HashMap<String, String>> länder = idb.fetchRows("SELECT lid, namn FROM land");
+            Map<String, String> namnTillLID = new HashMap<>();
+            String[] landAlternativ = new String[länder.size()];
+            for (int i = 0; i < länder.size(); i++) {
+                String namn = länder.get(i).get("namn");
+                String lid = länder.get(i).get("lid");
+                landAlternativ[i] = namn;
+                namnTillLID.put(namn, lid);
+            }
+            JComboBox<String> cbLand = new JComboBox<>(landAlternativ);
+            cbLand.setSelectedItem(projekt.get("land"));
+
+            JTextField tfNamn = new JTextField(projekt.get("projektnamn"));
+            JTextField tfBeskrivning = new JTextField(projekt.get("beskrivning"));
+            JTextField tfStartdatum = new JTextField(projekt.get("startdatum"));
+            JTextField tfSlutdatum = new JTextField(projekt.get("slutdatum"));
+            JTextField tfKostnad = new JTextField(projekt.get("kostnad"));
+            JTextField tfStatus = new JTextField(projekt.get("status"));
+            JTextField tfPrioritet = new JTextField(projekt.get("prioritet"));
+
+            Object[] fält = {
+                "Projektnamn:", tfNamn,
+                "Beskrivning:", tfBeskrivning,
+                "Startdatum:", tfStartdatum,
+                "Slutdatum:", tfSlutdatum,
+                "Kostnad:", tfKostnad,
+                "Status:", tfStatus,
+                "Prioritet:", tfPrioritet,
+                "Projektchef:", cbChef,
+                "Land:", cbLand
+            };
+
+            int resultat = JOptionPane.showConfirmDialog(null, fält, "Redigera projekt", JOptionPane.OK_CANCEL_OPTION);
+            if (resultat == JOptionPane.OK_OPTION) {
+                String sql = String.format(
+                    "UPDATE projekt SET projektnamn='%s', beskrivning='%s', startdatum='%s', slutdatum='%s', kostnad='%s', status='%s', prioritet='%s', projektchef='%s', land='%s' WHERE pid=%s",
+                    tfNamn.getText().trim(),
+                    tfBeskrivning.getText().trim(),
+                    tfStartdatum.getText().trim(),
+                    tfSlutdatum.getText().trim(),
+                    tfKostnad.getText().trim(),
+                    tfStatus.getText().trim(),
+                    tfPrioritet.getText().trim(),
+                    namnTillAID.get(cbChef.getSelectedItem()),
+                    namnTillLID.get(cbLand.getSelectedItem()),
+                    pid
+                );
+                idb.update(sql);
+                JOptionPane.showMessageDialog(null, "Projekt uppdaterat!");
+            }
+        }
+    } catch (InfException e) {
+        JOptionPane.showMessageDialog(null, "Fel vid redigering: " + e.getMessage());
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -548,6 +746,9 @@ private void taBortAnstalld() {
         jBtnLaggTillNyAvdelning = new javax.swing.JButton();
         jBtnLaggTillLand = new javax.swing.JButton();
         jBtnTaBortAnstalld = new javax.swing.JButton();
+        jBtnLaggTillProjekt = new javax.swing.JButton();
+        jBtnTaBortProjekt = new javax.swing.JButton();
+        jBtnRedigeraProjekt = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 102, 102));
 
@@ -617,6 +818,27 @@ private void taBortAnstalld() {
             }
         });
 
+        jBtnLaggTillProjekt.setText("Lägg till projekt");
+        jBtnLaggTillProjekt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnLaggTillProjektActionPerformed(evt);
+            }
+        });
+
+        jBtnTaBortProjekt.setText("Ta bort projekt");
+        jBtnTaBortProjekt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnTaBortProjektActionPerformed(evt);
+            }
+        });
+
+        jBtnRedigeraProjekt.setText("Redigera projekt");
+        jBtnRedigeraProjekt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRedigeraProjektActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -634,10 +856,13 @@ private void taBortAnstalld() {
                             .addComponent(jBtnLaggTillPartner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jBtnTaBortPartner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtnTaBortAnstalld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtnLaggTillAnstalld, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBtnLaggTillProjekt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtnTaBortAnstalld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtnLaggTillAnstalld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                            .addComponent(jBtnTaBortProjekt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtnRedigeraProjekt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(211, 211, 211)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jBtnLaggTillNyAvdelning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -671,7 +896,13 @@ private void taBortAnstalld() {
                         .addComponent(jBtnRedigeraLand)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtnLaggTillLand)))
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addGap(67, 67, 67)
+                .addComponent(jBtnLaggTillProjekt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBtnTaBortProjekt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBtnRedigeraProjekt)
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         pack();
@@ -772,17 +1003,32 @@ private void taBortAnstalld() {
         laggTillLand();
     }//GEN-LAST:event_jBtnLaggTillLandActionPerformed
 
+    private void jBtnLaggTillProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLaggTillProjektActionPerformed
+        laggTillProjekt();
+    }//GEN-LAST:event_jBtnLaggTillProjektActionPerformed
+
+    private void jBtnTaBortProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTaBortProjektActionPerformed
+        taBortProjekt();
+    }//GEN-LAST:event_jBtnTaBortProjektActionPerformed
+
+    private void jBtnRedigeraProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRedigeraProjektActionPerformed
+        redigeraProjekt();
+    }//GEN-LAST:event_jBtnRedigeraProjektActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnLaggTillAnstalld;
     private javax.swing.JButton jBtnLaggTillLand;
     private javax.swing.JButton jBtnLaggTillNyAvdelning;
     private javax.swing.JButton jBtnLaggTillPartner;
+    private javax.swing.JButton jBtnLaggTillProjekt;
     private javax.swing.JButton jBtnLaggaTillAndraEllerTaBortUppgifterOmPartner;
     private javax.swing.JButton jBtnRedigeraAvdelning;
     private javax.swing.JButton jBtnRedigeraLand;
+    private javax.swing.JButton jBtnRedigeraProjekt;
     private javax.swing.JButton jBtnTaBortAnstalld;
     private javax.swing.JButton jBtnTaBortPartner;
+    private javax.swing.JButton jBtnTaBortProjekt;
     private javax.swing.JLabel jLblRedigeringForAdmin;
     // End of variables declaration//GEN-END:variables
 }
