@@ -131,8 +131,8 @@ public class HandläggareMeny extends javax.swing.JFrame {
                 .addGap(81, 81, 81)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MenyNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(336, 336, 336)
+                .addComponent(MenyNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(134, 134, 134)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblInloggadAnvandare, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -425,7 +425,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
         Menu4.setBackground(DefualtColor);
         Menu5.setBackground(DefualtColor);
         
-        MenyNamn.setText("Meny 1");
+        MenyNamn.setText("Mina projekt");
 
     }//GEN-LAST:event_Menu1MousePressed
 
@@ -437,7 +437,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
         Menu4.setBackground(DefualtColor);
         Menu5.setBackground(DefualtColor);
         
-        MenyNamn.setText("Meny 2");
+        MenyNamn.setText("Hållbarhetsmål");
            
     }//GEN-LAST:event_Menu2MousePressed
 
@@ -449,7 +449,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
         Menu4.setBackground(DefualtColor);
         Menu5.setBackground(DefualtColor);
         
-        MenyNamn.setText("Meny 3");
+        MenyNamn.setText("Min avdelning");
         
         
     }//GEN-LAST:event_Menu3MousePressed
@@ -462,7 +462,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
         Menu4.setBackground(ClickedColor);
         Menu5.setBackground(DefualtColor);
         
-        MenyNamn.setText("Meny 4");
+        MenyNamn.setText("Admin redigering");
         
 
     }//GEN-LAST:event_Menu4MousePressed
@@ -475,7 +475,7 @@ public class HandläggareMeny extends javax.swing.JFrame {
         Menu4.setBackground(DefualtColor);
         Menu5.setBackground(ClickedColor);
         
-        MenyNamn.setText("Meny 5");
+        MenyNamn.setText("Mina uppgifter");
         
         
     }//GEN-LAST:event_Menu5MousePressed
