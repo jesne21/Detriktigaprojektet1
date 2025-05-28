@@ -40,6 +40,7 @@ public class Inloggning extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -55,7 +56,7 @@ public class Inloggning extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblStängner = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnGlomtLosenord = new javax.swing.JButton();
 
         jLabel5.setText("jLabel5");
 
@@ -158,13 +159,13 @@ public class Inloggning extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 153));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("Glömt lösenord ?");
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnGlomtLosenord.setBackground(new java.awt.Color(0, 153, 153));
+        btnGlomtLosenord.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnGlomtLosenord.setText("Glömt lösenord ?");
+        btnGlomtLosenord.setBorder(null);
+        btnGlomtLosenord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnGlomtLosenordActionPerformed(evt);
             }
         });
 
@@ -198,7 +199,7 @@ public class Inloggning extends javax.swing.JFrame {
                                         .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addGap(100, 100, 100)
-                                        .addComponent(jButton1))
+                                        .addComponent(btnGlomtLosenord))
                                     .addComponent(btnLoggaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addContainerGap()
@@ -230,7 +231,7 @@ public class Inloggning extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblFelMeddelande)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnGlomtLosenord)
                 .addGap(52, 52, 52))
         );
 
@@ -382,9 +383,9 @@ public class Inloggning extends javax.swing.JFrame {
         tfEpost.setText("");
     }//GEN-LAST:event_tfEpostFocusGained
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnGlomtLosenordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGlomtLosenordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnGlomtLosenordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -423,9 +424,10 @@ public class Inloggning extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGlomtLosenord;
     private javax.swing.JButton btnLoggaIn;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel göm;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

@@ -86,14 +86,65 @@ public class RedigeraProjektDialog extends JDialog {
 
     private void sparaProjekt() {
         try {
-            String sql = String.format("UPDATE projekt SET projektnamn='%s', status='%s', startdatum='%s', slutdatum='%s', beskrivning='%s', prioritet='%s' WHERE pid='%s'",
-                    tfNamn.getText().trim(), tfStatus.getText().trim(), tfStart.getText().trim(),
-                    tfSlut.getText().trim(), tfBeskrivning.getText().trim(), tfPrioritet.getText().trim(), pid);
+            // Hämta nuvarande (gamla) projektdata från databasen
+            HashMap<String, String> projekt = idb.fetchRow("SELECT * FROM projekt WHERE pid = '" + pid + "'");
+
+            // Hämta nya (inmatade) värden
+            String nyttNamn = tfNamn.getText().trim();
+            String nyStatus = tfStatus.getText().trim();
+            String nyttStart = tfStart.getText().trim();
+            String nyttSlut = tfSlut.getText().trim();
+            String nyBeskrivning = tfBeskrivning.getText().trim();
+            String nyPrioritet = tfPrioritet.getText().trim();
+
+            // Hämta gamla värden från databasen
+            String gammaltNamn = projekt.get("projektnamn");
+            String gammalStatus = projekt.get("status");
+            String gammaltStart = projekt.get("startdatum");
+            String gammaltSlut = projekt.get("slutdatum");
+            String gammalBeskrivning = projekt.get("beskrivning");
+            String gammalPrioritet = projekt.get("prioritet");
+
+            // VALIDERING endast på fält som ändrats
+            if (!nyttNamn.equals(gammaltNamn) && Validering.textFaltArTomt(nyttNamn)) {
+                JOptionPane.showMessageDialog(this, "Projektnamn får inte vara tomt.");
+                return;
+            }
+            if (!nyStatus.equals(gammalStatus) && Validering.textFaltArTomt(nyStatus)) {
+                JOptionPane.showMessageDialog(this, "Status får inte vara tom.");
+                return;
+            }
+            if (!nyttStart.equals(gammaltStart) && Validering.textFaltArTomt(nyttStart)) {
+                JOptionPane.showMessageDialog(this, "Startdatum får inte vara tomt.");
+                return;
+            }
+            if (!nyttSlut.equals(gammaltSlut) && Validering.textFaltArTomt(nyttSlut)) {
+                JOptionPane.showMessageDialog(this, "Slutdatum får inte vara tomt.");
+                return;
+            }
+            if (!nyBeskrivning.equals(gammalBeskrivning) && Validering.textFaltArTomt(nyBeskrivning)) {
+                JOptionPane.showMessageDialog(this, "Beskrivning får inte vara tom.");
+                return;
+            }
+            if (!nyPrioritet.equals(gammalPrioritet) && Validering.textFaltArTomt(nyPrioritet)) {
+                JOptionPane.showMessageDialog(this, "Prioritet får inte vara tom.");
+                return;
+            }
+
+            // Skapa SQL och uppdatera
+            String sql = String.format(
+                    "UPDATE projekt SET projektnamn='%s', status='%s', startdatum='%s', slutdatum='%s', beskrivning='%s', prioritet='%s' WHERE pid='%s'",
+                    nyttNamn, nyStatus, nyttStart, nyttSlut, nyBeskrivning, nyPrioritet, pid
+            );
+
             idb.update(sql);
             JOptionPane.showMessageDialog(this, "Projektet uppdaterat!");
             dispose();
+
         } catch (InfException e) {
             JOptionPane.showMessageDialog(this, "Fel vid uppdatering: " + e.getMessage());
         }
     }
+
+
 }

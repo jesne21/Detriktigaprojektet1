@@ -40,13 +40,13 @@ public class Menu1 extends javax.swing.JInternalFrame {
         this.idb = idb;
         this.anvandarID = anvandarID;
         initComponents();
-        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
-        ui.setNorthPane(null);
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)); // Design
+        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI(); // Design
+        ui.setNorthPane(null); // Design
         this.roll = roll;
-        System.out.println("Inloggad som: " + roll);
+        System.out.println("Inloggad som: " + roll); // säger vilken roll man är inloggad som, använt denna för att kunna se att rätt roll ser rätt saker
         cbStatusFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{
-            "Alla", "Planerat", "Pågående", "Avslutat"
+            "Alla", "Planerat", "Pågående", "Avslutat" // sätter in alternativen i comboboxen för filtrering
         }));
         btnStatistik.setVisible(RollValidering.ärProjektchef(roll));
         btnRedigeraUppgifter.setVisible(RollValidering.ärProjektchef(roll));
@@ -54,24 +54,30 @@ public class Menu1 extends javax.swing.JInternalFrame {
         btnTaBortPartner.setVisible(RollValidering.ärProjektchef(roll));
         btnLaggTillHandlaggare.setVisible(RollValidering.ärProjektchef(roll));
         btnTaBortHandlaggare.setVisible(RollValidering.ärProjektchef(roll));
-
-        visaMinaProjekt(); // kör direkt 
+       // knapparna ovan kan bara projektchefer se  
+       
+        visaMinaProjekt(); // gör så att så fort användaren kommer in på meny 1 klickas btnvisaminaprojekt i direkt
         highlightKnapp(btnMinaProjekt); // Gör "mina projekt" knappen aktiv
 
     }
-
+// ska visa projekt den inloggade personen är involverad i
     private void visaMinaProjekt() {
         try {
+            // SQL-fråga som ska hämta information om användarens projekt
             String sql = "SELECT pr.pid, pr.projektnamn, "
                     + "(SELECT pa.namn FROM projekt_partner pp JOIN partner pa ON pp.partner_pid = pa.pid WHERE pp.pid = pr.pid LIMIT 1) AS partner, "
                     + "l.namn AS land, pr.status, pr.startdatum, pr.slutdatum, pr.beskrivning, pr.prioritet "
                     + "FROM projekt pr JOIN ans_proj ap ON pr.pid = ap.pid JOIN land l ON pr.land = l.lid WHERE ap.aid = '" + anvandarID + "'";
-
+            
+            // Ska hämta raderna frånd databasen i form av en lista av nyckelvärde par
             ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
 
+            // Skapar en ny tabellmodell (tabellen som visas i GUI)
             DefaultTableModel modell = new DefaultTableModel();
+            // Anger kolumnnamn i tabellen
             modell.setColumnIdentifiers(new Object[]{"Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum", "Beskrivning", "Prioritet"});
 
+            // Här lägger vi till varje rad från resultatet till modellen
             for (HashMap<String, String> rad : resultat) {
                 modell.addRow(new Object[]{
                     rad.get("projektnamn"),
@@ -85,21 +91,27 @@ public class Menu1 extends javax.swing.JInternalFrame {
                 });
             }
 
+            // Kopplar modellen till tabellen som visas för användaren
             tblProjekt.setModel(modell);
         } catch (Exception e) {
+            // visar felmeddelande om något går fel i upphämtningen från databasen
             JOptionPane.showMessageDialog(null, "Kunde inte hämta mina projekt:\n" + e.getMessage());
         }
     }
 
+    // Metoden ska visa projekt där någon från den inloggade användarens avdelning är involverad i
     private void visaAvdelningensProjekt() {
         try {
+            // Hämtar användarens avdelning från databasen
             String avdelning = idb.fetchSingle("SELECT avdelning FROM anstalld WHERE aid = '" + anvandarID + "'");
+            // SQL fråga som hämtar alla unika projekt där någon i avdelningen är delaktig i
             String sql = "SELECT DISTINCT pr.pid, pr.projektnamn, "
                     + "(SELECT pa.namn FROM projekt_partner pp JOIN partner pa ON pp.partner_pid = pa.pid WHERE pp.pid = pr.pid LIMIT 1) AS partner, "
                     + "l.namn AS land, pr.status, pr.startdatum, pr.slutdatum, pr.beskrivning, pr.prioritet "
                     + "FROM projekt pr JOIN ans_proj ap ON pr.pid = ap.pid "
                     + "JOIN anstalld a ON ap.aid = a.aid JOIN land l ON pr.land = l.lid WHERE a.avdelning = '" + avdelning + "'";
-
+            
+            // hämtar resultaten
             ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
             HashSet<String> visadeProjekt = new HashSet<>();
 
@@ -107,6 +119,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
             modell.setColumnIdentifiers(new Object[]{"Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum", "Beskrivning", "Prioritet"});
 
             for (HashMap<String, String> rad : resultat) {
+                // Kontroll för att undvika att samma projekt visas flera gånger i vår jTable
                 if (!visadeProjekt.contains(rad.get("pid"))) {
                     visadeProjekt.add(rad.get("pid"));
                     modell.addRow(new Object[]{
@@ -123,41 +136,49 @@ public class Menu1 extends javax.swing.JInternalFrame {
             }
             tblProjekt.setModel(modell);
         } catch (Exception e) {
+            // Felmeddelande på samma sätt som i vår tidigare metod
             JOptionPane.showMessageDialog(null, "Kunde inte hämta avdelningens projekt:\n" + e.getMessage());
         }
     }
 
+    // Ändrar färgen på knapparna för att visa vilken som är vald
     private void highlightKnapp(JButton aktivKnapp) {
-        // Återställ båda knappar
+        // Återställ båda knapparnas bakgrundsfärg
         btnMinaProjekt.setBackground(null);
         btnAvdelningensProjekt.setBackground(null);
 
-        // Markera vald
+        // Markera vald knapp med ljusblå färg
         aktivKnapp.setBackground(new java.awt.Color(200, 230, 255)); // ljusblå
     }
 
+    // Metoden ska visa projekt inom ett valt datumintervall (start- och slutdatum)
     private void visaProjektInomDatum() {
         try {
+            // Hämta datum från två separata datechoosers när användaren klickat i dem
             Date startDatum = jDateChooserStart.getDate();
             Date slutDatum = jDateChooserSlut.getDate();
 
+            // Kontroll att datum är valda i båda datechooserna.
             if (startDatum == null || slutDatum == null) {
                 JOptionPane.showMessageDialog(null, "Välj både start- och slutdatum.");
                 return;
             }
 
+            // Formatera datum till formaten som SQL-databasen använder 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String startStr = sdf.format(startDatum);
             String slutStr = sdf.format(slutDatum);
 
-            // Hämta handläggarens avdelning
+            // Hämta den inloggade användarens avdelning från databasen
             String avdelningSql = "SELECT avdelning FROM anstalld WHERE aid = '" + anvandarID + "'";
             String avdelning = idb.fetchSingle(avdelningSql);
 
+            // Kontrollera om det är "mina projekt" som är aktiv 
             boolean minaProjektAktiv = btnMinaProjekt.getBackground() != null;
 
             String sql;
             if (minaProjektAktiv) {
+                // SQL fråga som hämtar användarens egna projekt inom valt datumintervall
                 sql
                         = "SELECT pr.pid AS pid, pr.projektnamn, "
                         + "  (SELECT pa.namn FROM projekt_partner pp "
@@ -171,6 +192,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
                         + "AND pr.startdatum >= '" + startStr + "' "
                         + "AND pr.slutdatum <= '" + slutStr + "'";
             } else {
+                // SQL-fråga för att hämta projekt där någon användarens avdelning deltar och inom datumintervallet
                 sql
                         = "SELECT pr.pid AS pid, pr.projektnamn, "
                         + "  (SELECT pa.namn FROM projekt_partner pp "
@@ -185,19 +207,23 @@ public class Menu1 extends javax.swing.JInternalFrame {
                         + "AND pr.startdatum >= '" + startStr + "' "
                         + "AND pr.slutdatum <= '" + slutStr + "'";
             }
-
+            // Kör SQL-frågan och hämta resultaten 
             ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
 
+            // Skapa en lista för att undvika dubbletter av projekt i jtablen
             HashSet<String> visadeProjekt = new HashSet<>();
             DefaultTableModel modell = new DefaultTableModel();
             modell.setColumnIdentifiers(new Object[]{
                 "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
             });
 
+            // Gå igenom varje rad i resultatet 
             for (HashMap<String, String> rad : resultat) {
-                String pid = rad.get("pid"); // nu säkert eftersom vi aliasar pid i SQL
+                String pid = rad.get("pid"); 
+                // Visa bara projektet om det inte redan visas
                 if (!visadeProjekt.contains(pid)) {
-                    visadeProjekt.add(pid);
+                    visadeProjekt.add(pid); // Lägg till i listan
+                    // Lägger till en rad i tabellen
                     modell.addRow(new Object[]{
                         rad.get("projektnamn"),
                         rad.get("partner"),
@@ -208,14 +234,16 @@ public class Menu1 extends javax.swing.JInternalFrame {
                     });
                 }
             }
-
+            // Kopplingen till tabellen så den visas för användaren
             tblProjekt.setModel(modell);
 
         } catch (Exception e) {
+            // visa felmeddelande om något går fel
             JOptionPane.showMessageDialog(null, "Kunde inte filtrera projekt:\n" + e.getMessage());
         }
     }
 
+    // hämtar projektID från projekt tabellen
     private String getProjektID(String projektnamn) {
         try {
             return idb.fetchSingle("SELECT pid FROM projekt WHERE projektnamn = '" + projektnamn + "'");
@@ -373,6 +401,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
 
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel1 = new javax.swing.JPanel();
+        jYearChooser1 = new com.toedter.calendar.JYearChooser();
         lbl1 = new javax.swing.JLabel();
         btnAvdelningensProjekt = new javax.swing.JButton();
         btnMinaProjekt = new javax.swing.JButton();
@@ -619,8 +648,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(41, 41, 41)
-                                .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24))
+                                .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnRedigeraUppgifter, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -638,8 +666,8 @@ public class Menu1 extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jDateChooserStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jDateChooserSlut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                    .addComponent(jDateChooserSlut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSokDatum)
                             .addComponent(cbStatusFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -650,7 +678,6 @@ public class Menu1 extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAvdelningensProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnVisaPartners, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
@@ -919,6 +946,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDateChooserStart;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane4;
+    private com.toedter.calendar.JYearChooser jYearChooser1;
     private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lbl2;
     private javax.swing.JLabel lbl3;
