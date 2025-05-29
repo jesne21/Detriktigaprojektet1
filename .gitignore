@@ -13,6 +13,6 @@ nb-configuration.xml
 *.class 
 # .class files kan behövas ta bort om vissa filer inte kan ses. Emanuel 2025-05-15 #
 # Package Files #
-*.jar
+
 *.war
 *.ear
