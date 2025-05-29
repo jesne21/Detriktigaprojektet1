@@ -7,6 +7,8 @@ package ngo2024;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import oru.inf.InfDB;
 import oru.inf.InfException;
+import javax.swing.JOptionPane;
+
 
 
 /**
@@ -837,8 +839,8 @@ public class Menu2 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRedigeraActionPerformed
 
     private void btnSparaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaActionPerformed
-            if (aktuellHID == null) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Inget hållbarhetsmål är valt.");
+    if (aktuellHID == null) {
+        JOptionPane.showMessageDialog(this, "Inget hållbarhetsmål är valt.");
         return;
     }
 
@@ -848,6 +850,14 @@ public class Menu2 extends javax.swing.JInternalFrame {
         String beskrivning = tfBeskrivning.getText().trim();
         String prioritet = tfPrioritet.getText().trim();
 
+        // ✅ Validering av målnummer (1–17)
+        if (!Validering.arNummerMellan1Till17(malnummer)) {
+            JOptionPane.showMessageDialog(this, "Målnummer måste vara ett heltal mellan 1 och 17.");
+            return;
+        }
+
+        // Du kan lägga till fler valideringar här om du vill...
+
         String sql = "UPDATE hallbarhetsmal SET " +
                      "namn = '" + namn + "', " +
                      "malnummer = '" + malnummer + "', " +
@@ -856,11 +866,12 @@ public class Menu2 extends javax.swing.JInternalFrame {
                      "WHERE hid = '" + aktuellHID + "'";
 
         idb.update(sql);
-
-        javax.swing.JOptionPane.showMessageDialog(this, "Målet har uppdaterats!");
+        JOptionPane.showMessageDialog(this, "Målet har uppdaterats!");
     } catch (InfException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Fel vid uppdatering: " + e.getMessage());
+        JOptionPane.showMessageDialog(this, "Fel vid uppdatering: " + e.getMessage());
     }
+
+    
     }//GEN-LAST:event_btnSparaActionPerformed
 
     private void btnAvbrytActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvbrytActionPerformed

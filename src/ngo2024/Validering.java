@@ -58,6 +58,15 @@ public class Validering {
         return baraSiffror.length() >= 7 && baraSiffror.length() <= 15;
     }
 
+    public static boolean arNummerMellan1Till17(String input) {
+    try {
+        int tal = Integer.parseInt(input.trim());
+        return tal >= 1 && tal <= 17;
+    } catch (NumberFormatException e) {
+        return false;
+    }
+}
+
     
     
 }
