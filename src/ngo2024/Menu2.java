@@ -8,6 +8,9 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+
 
 
 
@@ -251,29 +254,35 @@ public class Menu2 extends javax.swing.JInternalFrame {
         lblPrioritet.setText("Prioritet");
 
         jTextField1.setText("Tryck på ett mål för att visa mer");
+        jTextField1.setEnabled(false);
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
 
+        tfNamn.setEnabled(false);
         tfNamn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNamnActionPerformed(evt);
             }
         });
 
+        tfMålnummer.setEnabled(false);
         tfMålnummer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfMålnummerActionPerformed(evt);
             }
         });
 
+        tfPrioritet.setEnabled(false);
+
         tfBeskrivning.setColumns(20);
         tfBeskrivning.setLineWrap(true);
         tfBeskrivning.setRows(5);
         tfBeskrivning.setWrapStyleWord(true);
         tfBeskrivning.setAutoscrolls(false);
+        tfBeskrivning.setEnabled(false);
         jScrollPane1.setViewportView(tfBeskrivning);
 
         btnRedigera.setText("Redigera");
@@ -801,41 +810,43 @@ public class Menu2 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfNamnActionPerformed
 
     private void btnRedigeraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedigeraActionPerformed
-        // Förifyll med nuvarande värden
+    // Förifyll med nuvarande värden
     String nuvarandeNamn = tfNamn.getText();
     String nuvarandeMalnummer = tfMålnummer.getText();
     String nuvarandeBeskrivning = tfBeskrivning.getText();
     String nuvarandePrioritet = tfPrioritet.getText();
     
     // Spara ursprungliga värden ifall man väljer att trycka Avbryt
-    originalNamn = tfNamn.getText();
-    originalMalnummer = tfMålnummer.getText();
-    originalBeskrivning = tfBeskrivning.getText();
-    originalPrioritet = tfPrioritet.getText();
-
+    originalNamn = nuvarandeNamn;
+    originalMalnummer = nuvarandeMalnummer;
+    originalBeskrivning = nuvarandeBeskrivning;
+    originalPrioritet = nuvarandePrioritet;
 
     // Skapa inputfält för dialogen
-    javax.swing.JTextField fNamn = new javax.swing.JTextField(nuvarandeNamn);
-    javax.swing.JTextField fMalnummer = new javax.swing.JTextField(nuvarandeMalnummer);
-    javax.swing.JTextField fBeskrivning = new javax.swing.JTextField(nuvarandeBeskrivning);
-    javax.swing.JTextField fPrioritet = new javax.swing.JTextField(nuvarandePrioritet);
+    JTextField fNamn = new JTextField(nuvarandeNamn);
+    JTextField fMalnummer = new JTextField(nuvarandeMalnummer);
+    JTextField fBeskrivning = new JTextField(nuvarandeBeskrivning);
+    
+    String[] prioriteter = {"Hög", "Medel", "Låg"};
+    JComboBox<String> cbPrioritet = new JComboBox<>(prioriteter);
+    cbPrioritet.setSelectedItem(nuvarandePrioritet); // förifyll
 
     Object[] meddelande = {
         "Namn:", fNamn,
         "Målnummer:", fMalnummer,
         "Beskrivning:", fBeskrivning,
-        "Prioritet:", fPrioritet
+        "Prioritet:", cbPrioritet
     };
 
-    int val = javax.swing.JOptionPane.showConfirmDialog(null, meddelande, "Redigera hållbarhetsmål", javax.swing.JOptionPane.OK_CANCEL_OPTION);
+    int val = JOptionPane.showConfirmDialog(null, meddelande, "Redigera hållbarhetsmål", JOptionPane.OK_CANCEL_OPTION);
 
-    if (val == javax.swing.JOptionPane.OK_OPTION) {
-        // Sätt nya värden i textfälten
+    if (val == JOptionPane.OK_OPTION) {
         tfNamn.setText(fNamn.getText());
         tfMålnummer.setText(fMalnummer.getText());
         tfBeskrivning.setText(fBeskrivning.getText());
-        tfPrioritet.setText(fPrioritet.getText());
-    }        
+        tfPrioritet.setText((String) cbPrioritet.getSelectedItem());
+    }
+        
     }//GEN-LAST:event_btnRedigeraActionPerformed
 
     private void btnSparaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaActionPerformed

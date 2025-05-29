@@ -705,32 +705,43 @@ public class Menu1 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnMinaProjektMouseClicked
 
     private void btnVisaPartnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisaPartnersActionPerformed
+int rad = tblProjekt.getSelectedRow();
+if (rad == -1) {
+    JOptionPane.showMessageDialog(null, "Välj ett projekt först.");
+    return;
+}
 
-        int rad = tblProjekt.getSelectedRow();
-        if (rad == -1) {
-            JOptionPane.showMessageDialog(null, "Välj ett projekt först.");
-            return;
+String projektnamn = tblProjekt.getValueAt(rad, 0).toString();
+try {
+    String pid = idb.fetchSingle("SELECT pid FROM projekt WHERE projektnamn = '" + projektnamn + "'");
+
+    String sql =
+        "SELECT pa.namn, pa.kontaktperson, pa.kontaktepost, pa.telefon, pa.adress, pa.branch " +
+        "FROM projekt_partner pp " +
+        "JOIN partner pa ON pp.partner_pid = pa.pid " +
+        "WHERE pp.pid = " + pid;
+
+    ArrayList<HashMap<String, String>> partners = idb.fetchRows(sql);
+
+    StringBuilder sb = new StringBuilder("Partners i projektet \"" + projektnamn + "\":\n\n");
+    if (partners.isEmpty()) {
+        sb.append("Inga partners registrerade.");
+    } else {
+        for (HashMap<String, String> p : partners) {
+            sb.append("- Partner Namn: ").append(p.get("namn")).append("\n")
+              .append("  Kontaktperson: ").append(p.get("kontaktperson")).append("\n")
+              .append("  E-post: ").append(p.get("kontaktepost")).append("\n")
+              .append("  Telefon: ").append(p.get("telefon")).append("\n")
+              .append("  Adress: ").append(p.get("adress")).append("\n")
+              .append("  Branch: ").append(p.get("branch")).append("\n\n");
         }
+    }
 
-        String projektnamn = tblProjekt.getValueAt(rad, 0).toString();
-        try {
-            String pid = idb.fetchSingle("SELECT pid FROM projekt WHERE projektnamn = '" + projektnamn + "'");
-            String sql = "SELECT pa.namn FROM projekt_partner pp JOIN partner pa ON pp.partner_pid = pa.pid WHERE pp.pid = '" + pid + "'";
-            ArrayList<HashMap<String, String>> partners = idb.fetchRows(sql);
+    JOptionPane.showMessageDialog(null, sb.toString(), "Projektpartners", JOptionPane.INFORMATION_MESSAGE);
 
-            StringBuilder sb = new StringBuilder("Partners i projektet \"" + projektnamn + "\":\n\n");
-            for (HashMap<String, String> p : partners) {
-                sb.append("- ").append(p.get("namn")).append("\n");
-            }
-            if (partners.isEmpty()) {
-                sb.append("Inga partners registrerade.");
-            }
-            JOptionPane.showMessageDialog(null, sb.toString(), "Projektpartners", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (InfException ex) {
-            JOptionPane.showMessageDialog(null, "Kunde inte hämta partners:\n" + ex.getMessage());
-        }
-
+} catch (InfException ex) {
+    JOptionPane.showMessageDialog(null, "Kunde inte hämta partners:\n" + ex.getMessage());
+}
 
     }//GEN-LAST:event_btnVisaPartnersActionPerformed
 

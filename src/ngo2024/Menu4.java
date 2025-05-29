@@ -216,7 +216,7 @@ private void taBortPartner() {
             String[] avdNamnArray = new String[avdelningar.size()];
             for (int i = 0; i < avdelningar.size(); i++) {
                 String namn = avdelningar.get(i).get("namn");
-                String id = avdelningar.get(i).get("avid");
+                String id = avdelningar.get(i).get("avdid");
                 avdNamnArray[i] = namn;
                 avdNamnTillID.put(namn, id);
             }
@@ -230,7 +230,7 @@ private void taBortPartner() {
             //  Hämta vald avdelningsinformation
             String valtNamn = (String) cbAvdelning.getSelectedItem();
             String valtAvdID = avdNamnTillID.get(valtNamn);
-            HashMap<String, String> avd = idb.fetchRow("SELECT * FROM avdelning WHERE avid = " + valtAvdID);
+            HashMap<String, String> avd = idb.fetchRow("SELECT * FROM avdelning WHERE avdid = " + valtAvdID);
 
             //  Skapa textfält och fyll med befintliga värden
             JTextField tfNamn = new JTextField(avd.get("namn"));
@@ -309,7 +309,7 @@ private void taBortPartner() {
 
             //  Skapa SQL och uppdatera
             String sql = String.format(
-                    "UPDATE avdelning SET namn='%s', beskrivning='%s', adress='%s', epost='%s', telefon='%s', stad=%s, chef=%s WHERE avid=%s",
+                    "UPDATE avdelning SET namn='%s', beskrivning='%s', adress='%s', epost='%s', telefon='%s', stad=%s, chef=%s WHERE avdid=%s",
                     tfNamn.getText().trim(),
                     tfBeskrivning.getText().trim(),
                     tfAdress.getText().trim(),
@@ -408,7 +408,7 @@ private void taBortPartner() {
 
             //  SQL-insättning
             String sql = String.format(
-                    "INSERT INTO avdelning (avid, namn, beskrivning, adress, epost, telefon, stad, chef) VALUES (%d, '%s', '%s', '%s', '%s', '%s', %s, %s)",
+                    "INSERT INTO avdelning (avdid, namn, beskrivning, adress, epost, telefon, stad, chef) VALUES (%d, '%s', '%s', '%s', '%s', '%s', %s, %s)",
                     nyAvdID,
                     tfNamn.getText().trim(),
                     tfBeskrivning.getText().trim(),
@@ -616,7 +616,7 @@ private void taBortPartner() {
             String[] avdelningsNamn = new String[avdelningar.size()];
             for (int i = 0; i < avdelningar.size(); i++) {
                 String namn = avdelningar.get(i).get("namn");
-                String avid = avdelningar.get(i).get("avid");
+                String avid = avdelningar.get(i).get("avdid");
                 avdelningsNamn[i] = namn;
                 namnTillAvdID.put(namn, avid);
             }
