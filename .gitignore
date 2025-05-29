@@ -8,8 +8,6 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 
-#Ignorerar Jonas lokala lib filer
-lib/
 
 # Class Files #
 *.class 
