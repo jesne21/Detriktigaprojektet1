@@ -190,99 +190,87 @@ private void visaMinaProjekt() {
     }
 
     // Metoden ska visa projekt inom ett valt datumintervall (start- och slutdatum)
-private void visaProjektInomDatum() {
-    try {
-        System.out.println("Metod visaProjektInomDatum körs");
+    private void visaProjektInomDatum() {
+        try {
+            System.out.println("Metod visaProjektInomDatum körs");
 
-        Date startDatum = jDateChooserStart.getDate();
-        Date slutDatum = jDateChooserSlut.getDate();
+            Date startDatum = jDateChooserStart.getDate();
+            Date slutDatum = jDateChooserSlut.getDate();
 
-        if (startDatum == null || slutDatum == null) {
-            JOptionPane.showMessageDialog(null, "Välj både start- och slutdatum.");
-            return;
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String startStr = sdf.format(startDatum);
-        String slutStr = sdf.format(slutDatum);
-
-        String avdelningSql = "SELECT avdelning FROM anstalld WHERE aid = '" + anvandarID + "'";
-        String avdelning = idb.fetchSingle(avdelningSql);
-
-        boolean minaProjektAktiv = btnMinaProjekt.getBackground() != null;
-
-        String sql;
-        if (minaProjektAktiv) {
-            sql = "SELECT pr.pid AS pid, pr.projektnamn, "
-                + "(SELECT pa.namn FROM projekt_partner pp "
-                + "JOIN partner pa ON pp.partner_pid = pa.pid "
-                + "WHERE pp.pid = pr.pid LIMIT 1) AS partner, "
-                + "l.namn AS land, pr.status, pr.startdatum, pr.slutdatum "
-                + "FROM projekt pr "
-                + "JOIN ans_proj ap ON pr.pid = ap.pid "
-                + "JOIN land l ON pr.land = l.lid "
-                + "WHERE ap.aid = '" + anvandarID + "' "
-                + "AND pr.startdatum <= '" + startStr + "' "
-                + "AND pr.slutdatum >= '" + slutStr + "'";
-        } else {
-            sql = "SELECT pr.pid AS pid, pr.projektnamn, "
-                + "(SELECT pa.namn FROM projekt_partner pp "
-                + "JOIN partner pa ON pp.partner_pid = pa.pid "
-                + "WHERE pp.pid = pr.pid LIMIT 1) AS partner, "
-                + "l.namn AS land, pr.status, pr.startdatum, pr.slutdatum "
-                + "FROM projekt pr "
-                + "JOIN ans_proj ap ON pr.pid = ap.pid "
-                + "JOIN anstalld a ON ap.aid = a.aid "
-                + "JOIN land l ON pr.land = l.lid "
-                + "WHERE a.avdelning = '" + avdelning + "' "
-                + "AND pr.startdatum <= '" + startStr + "' "
-                + "AND pr.slutdatum >= '" + slutStr + "'";
-        }
-
-        System.out.println("SQL-fråga: " + sql);
-        ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
-
-        System.out.println("Antal träffar: " + resultat.size());
-
-        HashSet<String> visadeProjekt = new HashSet<>();
-        DefaultTableModel modell = new DefaultTableModel();
-        modell.setColumnIdentifiers(new Object[]{
-            "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
-        });
-
-        for (HashMap<String, String> rad : resultat) {
-            System.out.println("=== NY RAD ===");
-            for (Map.Entry<String, String> entry : rad.entrySet()) {
-                System.out.println(entry.getKey() + " => " + entry.getValue());
+            if (startDatum == null || slutDatum == null) {
+                JOptionPane.showMessageDialog(null, "Välj både start- och slutdatum.");
+                return;
             }
 
-            String pid = rad.get("pid");
-            if (visadeProjekt.contains(pid)) continue;
-            visadeProjekt.add(pid);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String startStr = sdf.format(startDatum);
+            String slutStr = sdf.format(slutDatum);
 
-            String partner = rad.get("partner") != null ? rad.get("partner") : "Ingen";
-            String land = rad.get("land") != null ? rad.get("land") : "Okänt";
-            String start = rad.get("startdatum") != null ? rad.get("startdatum") : "?";
-            String slut = rad.get("slutdatum") != null ? rad.get("slutdatum") : "?";
+            boolean minaProjektAktiv = minaProjektValda;
 
-            modell.addRow(new Object[]{
-                rad.get("projektnamn"),
-                partner,
-                land,
-                rad.get("status"),
-                start,
-                slut
+            String sql;
+
+            if (minaProjektAktiv) {
+                sql = "SELECT pr.pid AS pid, pr.projektnamn, "
+                        + "(SELECT pa.namn FROM projekt_partner pp JOIN partner pa ON pp.partner_pid = pa.pid "
+                        + "WHERE pp.pid = pr.pid LIMIT 1) AS partner, "
+                        + "l.namn AS land_namn, pr.status, pr.startdatum, pr.slutdatum "
+                        + "FROM projekt pr "
+                        + "JOIN ans_proj ap ON pr.pid = ap.pid "
+                        + "JOIN land l ON pr.land = l.lid "
+                        + "WHERE ap.aid = '" + anvandarID + "' "
+                        + "AND pr.startdatum >= '" + startStr + "' "
+                        + "AND pr.slutdatum <= '" + slutStr + "'";
+            } else {
+                String avdelning = idb.fetchSingle("SELECT avdelning FROM anstalld WHERE aid = '" + anvandarID + "'");
+                System.out.println("Din avdelning: " + avdelning);
+                sql = "SELECT DISTINCT pr.pid, pr.projektnamn, "
+                        + "(SELECT pa.namn FROM projekt_partner pp JOIN partner pa ON pp.partner_pid = pa.pid "
+                        + "WHERE pp.pid = pr.pid LIMIT 1) AS partner, "
+                        + "l.namn AS land_namn, pr.status, pr.startdatum, pr.slutdatum "
+                        + "FROM projekt pr "
+                        + "JOIN ans_proj ap ON pr.pid = ap.pid "
+                        + "JOIN anstalld a ON ap.aid = a.aid "
+                        + "JOIN land l ON pr.land = l.lid "
+                        + "WHERE a.avdelning = '" + avdelning + "' "
+                        + "AND pr.startdatum >= '" + startStr + "' "
+                        + "AND pr.slutdatum <= '" + slutStr + "'";
+            }
+
+            System.out.println("SQL-fråga: " + sql);
+            ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
+            System.out.println("Antal träffar: " + resultat.size());
+
+            HashSet<String> visadeProjekt = new HashSet<>();
+            DefaultTableModel modell = new DefaultTableModel();
+            modell.setColumnIdentifiers(new Object[]{
+                "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
             });
+
+            for (HashMap<String, String> rad : resultat) {
+                String pid = rad.get("pid");
+                if (visadeProjekt.contains(pid)) {
+                    continue;
+                }
+                visadeProjekt.add(pid);
+
+                modell.addRow(new Object[]{
+                    rad.get("projektnamn"),
+                    rad.get("partner") != null ? rad.get("partner") : "Ingen",
+                    rad.get("land") != null ? rad.get("land") : "Okänt",
+                    rad.get("status"),
+                    rad.get("startdatum"),
+                    rad.get("slutdatum")
+                });
+            }
+
+            tblProjekt.setModel(modell);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Kunde inte filtrera projekt:\n" + e.getMessage());
+            e.printStackTrace();
         }
-
-        tblProjekt.setModel(modell);
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Kunde inte filtrera projekt:\n" + e.getMessage());
-        e.printStackTrace();
     }
-}
-
 
 
     // hämtar projektID från projekt tabellen
@@ -303,79 +291,7 @@ private void visaProjektInomDatum() {
         }
     }
 
-    private void visaProjektMedDatumfilter(boolean minaProjekt) {
-    try {
-        Date startDatum = jDateChooserStart.getDate();
-        Date slutDatum = jDateChooserSlut.getDate();
 
-        if (startDatum == null || slutDatum == null) {
-            JOptionPane.showMessageDialog(null, "Välj både start- och slutdatum.");
-            return;
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String startStr = sdf.format(startDatum);
-        String slutStr = sdf.format(slutDatum);
-
-        String sql;
-
-        if (minaProjekt) {
-            sql = "SELECT pr.projektnamn, " +
-                  "       (SELECT pa.namn " +
-                  "        FROM projekt_partner pp " +
-                  "        JOIN partner pa ON pp.partner_pid = pa.pid " +
-                  "        WHERE pp.pid = pr.pid LIMIT 1) AS partner, " +
-                  "       l.namn AS land, " +
-                  "       pr.status, pr.startdatum, pr.slutdatum " +
-                  "FROM projekt pr " +
-                  "JOIN ans_proj ap ON pr.pid = ap.pid " +
-                  "JOIN land l ON pr.land = l.lid " +
-                  "WHERE ap.aid = '" + anvandarID + "' " +
-                  "AND pr.slutdatum >= '" + startStr + "' " +
-                  "AND pr.startdatum <= '" + slutStr + "'";
-        } else {
-            String avdelning = idb.fetchSingle("SELECT avdelning FROM anstalld WHERE aid = '" + anvandarID + "'");
-            sql = "SELECT DISTINCT pr.projektnamn, " +
-                  "       (SELECT pa.namn " +
-                  "        FROM projekt_partner pp " +
-                  "        JOIN partner pa ON pp.partner_pid = pa.pid " +
-                  "        WHERE pp.pid = pr.pid LIMIT 1) AS partner, " +
-                  "       l.namn AS land, " +
-                  "       pr.status, pr.startdatum, pr.slutdatum " +
-                  "FROM projekt pr " +
-                  "JOIN ans_proj ap ON pr.pid = ap.pid " +
-                  "JOIN anstalld a ON ap.aid = a.aid " +
-                  "JOIN land l ON pr.land = l.lid " +
-                  "WHERE a.avdelning = '" + avdelning + "' " +
-                  "AND pr.slutdatum >= '" + startStr + "' " +
-                  "AND pr.startdatum <= '" + slutStr + "'";
-        }
-
-        ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
-
-        DefaultTableModel modell = new DefaultTableModel();
-        modell.setColumnIdentifiers(new Object[]{
-            "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
-        });
-
-        for (HashMap<String, String> rad : resultat) {
-            modell.addRow(new Object[]{
-                rad.get("projektnamn"),
-                rad.get("partner"),
-                rad.get("land"),
-                rad.get("status"),
-                rad.get("startdatum"),
-                rad.get("slutdatum")
-            });
-        }
-
-        tblProjekt.setModel(modell);
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Fel vid sökning med datumfilter.");
-        e.printStackTrace();
-    }
-}
     
     private void filtreraProjektEfterStatus() {
         String valdStatus = (String) cbStatusFilter.getSelectedItem();
@@ -439,9 +355,7 @@ private void visaProjektInomDatum() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel1 = new javax.swing.JPanel();
-        jYearChooser1 = new com.toedter.calendar.JYearChooser();
         lbl1 = new javax.swing.JLabel();
         btnAvdelningensProjekt = new javax.swing.JButton();
         btnMinaProjekt = new javax.swing.JButton();
@@ -449,8 +363,6 @@ private void visaProjektInomDatum() {
         btnSokDatum = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblProjekt = new javax.swing.JTable();
-        jDateChooserStart = new com.toedter.calendar.JDateChooser();
-        jDateChooserSlut = new com.toedter.calendar.JDateChooser();
         lbl2 = new javax.swing.JLabel();
         lbl3 = new javax.swing.JLabel();
         btnRedigeraUppgifter = new javax.swing.JButton();
@@ -461,6 +373,8 @@ private void visaProjektInomDatum() {
         btnLaggTillHandlaggare = new javax.swing.JButton();
         cbStatusFilter = new javax.swing.JComboBox<>();
         btnFiltreraStatus = new javax.swing.JButton();
+        jDateChooserStart = new com.toedter.calendar.JDateChooser();
+        jDateChooserSlut = new com.toedter.calendar.JDateChooser();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -543,10 +457,6 @@ private void visaProjektInomDatum() {
         tblProjekt.setShowGrid(false);
         tblProjekt.setShowHorizontalLines(true);
         jScrollPane4.setViewportView(tblProjekt);
-
-        jDateChooserStart.setBackground(new java.awt.Color(153, 153, 153));
-
-        jDateChooserSlut.setBackground(new java.awt.Color(153, 153, 153));
 
         lbl2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl2.setText("Startdatum:");
@@ -667,15 +577,14 @@ private void visaProjektInomDatum() {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 848, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(btnSokDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbl2)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jDateChooserSlut, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(jDateChooserStart, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lbl2)
+                            .addGap(18, 18, 18)
+                            .addComponent(lbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jDateChooserStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jDateChooserSlut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -683,12 +592,13 @@ private void visaProjektInomDatum() {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(41, 41, 41)
-                                .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnMinaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnRedigeraUppgifter, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -703,11 +613,11 @@ private void visaProjektInomDatum() {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbl2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jDateChooserStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jDateChooserSlut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(11, 11, 11)
+                                    .addComponent(jDateChooserSlut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSokDatum)
                             .addComponent(cbStatusFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -992,12 +902,10 @@ try {
     private javax.swing.JButton btnTaBortPartner;
     private javax.swing.JButton btnVisaPartners;
     private javax.swing.JComboBox<String> cbStatusFilter;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooserSlut;
     private com.toedter.calendar.JDateChooser jDateChooserStart;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane4;
-    private com.toedter.calendar.JYearChooser jYearChooser1;
     private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lbl2;
     private javax.swing.JLabel lbl3;
