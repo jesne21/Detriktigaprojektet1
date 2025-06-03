@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.List;
 import javax.swing.*;
 import java.util.UUID;
+import java.util.AbstractMap;
 
 
 
@@ -250,7 +251,11 @@ private void taBortPartner() {
             cbStad.setSelectedItem(idb.fetchSingle("SELECT namn FROM stad WHERE sid = " + avd.get("stad")));
 
             //  Fyll chef-combobox
-            List<HashMap<String, String>> chefer = idb.fetchRows("SELECT aid, fornamn, efternamn FROM anstalld");
+            List<HashMap<String, String>> chefer = idb.fetchRows(
+                "SELECT DISTINCT a.aid, a.fornamn, a.efternamn " +
+                "FROM anstalld a " +
+                "JOIN avdelning avd ON a.aid = avd.chef"
+                );
             JComboBox<String> cbChef = new JComboBox<>();
             Map<String, String> chefTillAID = new HashMap<>();
             for (HashMap<String, String> chef : chefer) {
@@ -351,7 +356,11 @@ private void taBortPartner() {
             }
 
             //  Hämta chefer
-            List<HashMap<String, String>> chefer = idb.fetchRows("SELECT aid, fornamn, efternamn FROM anstalld");
+            List<HashMap<String, String>> chefer = idb.fetchRows(
+            "SELECT DISTINCT a.aid, a.fornamn, a.efternamn " +
+            "FROM anstalld a " +
+            "JOIN avdelning avd ON a.aid = avd.chef"
+            );
             JComboBox<String> cbChef = new JComboBox<>();
             Map<String, String> chefTillAID = new HashMap<>();
             for (HashMap<String, String> chef : chefer) {
@@ -487,8 +496,8 @@ private void taBortPartner() {
                 JOptionPane.showMessageDialog(null, "Språket får endast innehålla bokstäver.");
                 return;
             }
-            if (!Validering.baraBokstaver(tfValuta.getText())) {
-                JOptionPane.showMessageDialog(null, "Valutan får endast innehålla bokstäver.");
+            if (!Validering.baraSiffrorMedDecimal(tfValuta.getText())) {
+                JOptionPane.showMessageDialog(null, "Valutan får endast innehålla siffror.");
                 return;
             }
             if (Validering.textFaltArTomt(tfTidszon.getText())) {
@@ -563,8 +572,8 @@ private void taBortPartner() {
                 JOptionPane.showMessageDialog(null, "Språket får endast innehålla bokstäver.");
                 return;
             }
-            if (!Validering.baraBokstaver(tfValuta.getText())) {
-                JOptionPane.showMessageDialog(null, "Valutan får endast innehålla bokstäver.");
+            if (!Validering.baraSiffrorMedDecimal(tfValuta.getText())) {
+                JOptionPane.showMessageDialog(null, "Valutan får endast innehålla siffror.");
                 return;
             }
             if (Validering.textFaltArTomt(tfTidszon.getText())) {
@@ -740,8 +749,8 @@ private void taBortPartner() {
                 return;
             }
 
-            // (VALFRITT) Kontrollera beroenden
-            int kopplingar = Integer.parseInt(idb.fetchSingle("SELECT COUNT(*) FROM projekt WHERE ansvarig = " + aid));
+            //Kontrollerar beroenden och säkerställer att en projektansvarig inte tas bort utan att bara handläggare och admin kan tas bort
+            int kopplingar = Integer.parseInt(idb.fetchSingle("SELECT COUNT(*) FROM projekt WHERE projektchef = '" + aid +"'"));
             if (kopplingar > 0) {
                 JOptionPane.showMessageDialog(null, "Anställd är projektansvarig och kan inte tas bort.");
                 return;
@@ -757,122 +766,149 @@ private void taBortPartner() {
 
 
     private void laggTillProjekt() {
-        try {
-            // Nytt projekt-ID
-            String maxPidStr = idb.fetchSingle("SELECT MAX(pid) FROM projekt");
-            int nyPid = (maxPidStr != null) ? Integer.parseInt(maxPidStr) + 1 : 1;
+            try {
+        // Nytt projekt-ID
+        String maxPidStr = idb.fetchSingle("SELECT MAX(pid) FROM projekt");
+        int nyPid = (maxPidStr != null) ? Integer.parseInt(maxPidStr) + 1 : 1;
 
-            // Hämta projektchefer
-            List<HashMap<String, String>> chefer = idb.fetchRows("SELECT aid, fornamn, efternamn FROM anstalld");
-            Map<String, String> chefTillAid = new HashMap<>();
-            String[] chefAlternativ = new String[chefer.size()];
-            for (int i = 0; i < chefer.size(); i++) {
-                String namn = chefer.get(i).get("fornamn") + " " + chefer.get(i).get("efternamn");
-                String aid = chefer.get(i).get("aid");
-                chefAlternativ[i] = namn;
-                chefTillAid.put(namn, aid);
-            }
-
-            // Hämta länder
-            List<HashMap<String, String>> lander = idb.fetchRows("SELECT lid, namn FROM land");
-            Map<String, String> landTillLid = new HashMap<>();
-            String[] landAlternativ = new String[lander.size()];
-            for (int i = 0; i < lander.size(); i++) {
-                String namn = lander.get(i).get("namn");
-                String lid = lander.get(i).get("lid");
-                landAlternativ[i] = namn;
-                landTillLid.put(namn, lid);
-            }
-
-            JComboBox<String> cbChef = new JComboBox<>(chefAlternativ);
-            JComboBox<String> cbLand = new JComboBox<>(landAlternativ);
-
-            // Textfält
-            JTextField tfProjektnamn = new JTextField();
-            JTextField tfBeskrivning = new JTextField();
-            JTextField tfStartdatum = new JTextField();
-            JTextField tfSlutdatum = new JTextField();
-            JTextField tfKostnad = new JTextField();
-            JTextField tfStatus = new JTextField();
-            JTextField tfPrioritet = new JTextField();
-
-            Object[] fält = {
-                "Projektnamn:", tfProjektnamn,
-                "Beskrivning:", tfBeskrivning,
-                "Startdatum (YYYY-MM-DD):", tfStartdatum,
-                "Slutdatum (YYYY-MM-DD):", tfSlutdatum,
-                "Kostnad:", tfKostnad,
-                "Status:", tfStatus,
-                "Prioritet:", tfPrioritet,
-                "Projektchef:", cbChef,
-                "Land:", cbLand
-            };
-
-            int resultat = JOptionPane.showConfirmDialog(null, fält, "Lägg till projekt", JOptionPane.OK_CANCEL_OPTION);
-            if (resultat != JOptionPane.OK_OPTION) {
-                return;
-            }
-
-            // 🔍 VALIDERING
-            if (Validering.textFaltArTomt(tfProjektnamn.getText())) {
-                JOptionPane.showMessageDialog(null, "Fyll i projektnamn.");
-                return;
-            }
-            if (Validering.textFaltArTomt(tfBeskrivning.getText())) {
-                JOptionPane.showMessageDialog(null, "Fyll i beskrivning.");
-                return;
-            }
-            if (Validering.textFaltArTomt(tfStartdatum.getText())) {
-                JOptionPane.showMessageDialog(null, "Fyll i startdatum.");
-                return;
-            }
-            if (Validering.textFaltArTomt(tfSlutdatum.getText())) {
-                JOptionPane.showMessageDialog(null, "Fyll i slutdatum.");
-                return;
-            }
-            if (!Validering.baraSiffror(tfKostnad.getText())) {
-                JOptionPane.showMessageDialog(null, "Kostnad måste vara en siffra.");
-                return;
-            }
-            if (Validering.textFaltArTomt(tfStatus.getText())) {
-                JOptionPane.showMessageDialog(null, "Fyll i status.");
-                return;
-            }
-            if (Validering.textFaltArTomt(tfPrioritet.getText())) {
-                JOptionPane.showMessageDialog(null, "Fyll i prioritet.");
-                return;
-            }
-            if (cbChef.getSelectedIndex() == -1) {
-                JOptionPane.showMessageDialog(null, "Välj en projektchef.");
-                return;
-            }
-            if (cbLand.getSelectedIndex() == -1) {
-                JOptionPane.showMessageDialog(null, "Välj ett land.");
-                return;
-            }
-
-            // SQL
-            String sql = String.format("INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet, projektchef, land) "
-                    + "VALUES (%d, '%s', '%s', '%s', '%s', %s, '%s', '%s', %s, %s)",
-                    nyPid,
-                    tfProjektnamn.getText().trim(),
-                    tfBeskrivning.getText().trim(),
-                    tfStartdatum.getText().trim(),
-                    tfSlutdatum.getText().trim(),
-                    tfKostnad.getText().trim(),
-                    tfStatus.getText().trim(),
-                    tfPrioritet.getText().trim(),
-                    chefTillAid.get(cbChef.getSelectedItem()),
-                    landTillLid.get(cbLand.getSelectedItem())
-            );
-
-            idb.insert(sql);
-            JOptionPane.showMessageDialog(null, "Projekt tillagt!");
-
-        } catch (InfException e) {
-            JOptionPane.showMessageDialog(null, "Fel vid tillägg: " + e.getMessage());
+        // Hämta projektchefer
+        List<HashMap<String, String>> chefer = idb.fetchRows(
+              "SELECT DISTINCT a.aid, a.fornamn, a.efternamn " +
+              "FROM anstalld a " +
+              "JOIN projekt p ON a.aid = p.projektchef"
+           );
+        DefaultComboBoxModel<Map.Entry<String, String>> chefModel = new DefaultComboBoxModel<>();
+        for (HashMap<String, String> chef : chefer) {
+            String namn = chef.get("fornamn") + " " + chef.get("efternamn");
+            String aid = chef.get("aid");
+            chefModel.addElement(new AbstractMap.SimpleEntry<>(namn, aid));
         }
+        JComboBox<Map.Entry<String, String>> cbChef = new JComboBox<>(chefModel);
+
+        // Hämta länder
+        List<HashMap<String, String>> lander = idb.fetchRows("SELECT lid, namn FROM land");
+        DefaultComboBoxModel<Map.Entry<String, String>> landModel = new DefaultComboBoxModel<>();
+        for (HashMap<String, String> land : lander) {
+            String namn = land.get("namn");
+            String lid = land.get("lid");
+            landModel.addElement(new AbstractMap.SimpleEntry<>(namn, lid));
+        }
+        JComboBox<Map.Entry<String, String>> cbLand = new JComboBox<>(landModel);
+
+        // Textfält
+        JTextField tfProjektnamn = new JTextField();
+        JTextField tfBeskrivning = new JTextField();
+        JTextField tfStartdatum = new JTextField();
+        JTextField tfSlutdatum = new JTextField();
+        JTextField tfKostnad = new JTextField();
+        JTextField tfStatus = new JTextField();
+        JTextField tfPrioritet = new JTextField();
+
+        Object[] fält = {
+            "Projektnamn:", tfProjektnamn,
+            "Beskrivning:", tfBeskrivning,
+            "Startdatum (YYYY-MM-DD):", tfStartdatum,
+            "Slutdatum (YYYY-MM-DD):", tfSlutdatum,
+            "Kostnad:", tfKostnad,
+            "Status:", tfStatus,
+            "Prioritet:", tfPrioritet,
+            "Projektchef:", cbChef,
+            "Land:", cbLand
+        };
+
+        int resultat = JOptionPane.showConfirmDialog(null, fält, "Lägg till projekt", JOptionPane.OK_CANCEL_OPTION);
+        if (resultat != JOptionPane.OK_OPTION) {
+            return;
+        }
+
+        // Validering
+        if (Validering.textFaltArTomt(tfProjektnamn.getText())) {
+            JOptionPane.showMessageDialog(null, "Fyll i projektnamn.");
+            return;
+        }
+        if (Validering.textFaltArTomt(tfBeskrivning.getText())) {
+            JOptionPane.showMessageDialog(null, "Fyll i beskrivning.");
+            return;
+        }
+        if (Validering.textFaltArTomt(tfStartdatum.getText())) {
+            JOptionPane.showMessageDialog(null, "Fyll i startdatum.");
+            return;
+        }
+        if (Validering.textFaltArTomt(tfSlutdatum.getText())) {
+            JOptionPane.showMessageDialog(null, "Fyll i slutdatum.");
+            return;
+        }
+        if (!Validering.baraSiffror(tfKostnad.getText())) {
+            JOptionPane.showMessageDialog(null, "Kostnad måste vara en siffra.");
+            return;
+        }
+        if (Validering.textFaltArTomt(tfStatus.getText())) {
+            JOptionPane.showMessageDialog(null, "Fyll i status.");
+            return;
+        }
+        if (Validering.textFaltArTomt(tfPrioritet.getText())) {
+            JOptionPane.showMessageDialog(null, "Fyll i prioritet.");
+            return;
+        }
+        if (cbChef.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "Välj en projektchef.");
+            return;
+        }
+        if (cbLand.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "Välj ett land.");
+            return;
+        }
+
+        // Hämta valda ID:n
+        String chefAid = cbChef.getItemAt(cbChef.getSelectedIndex()).getValue();
+        String lid = cbLand.getItemAt(cbLand.getSelectedIndex()).getValue();
+
+        // Debug
+        System.out.println("chefAid = " + chefAid);
+        System.out.println("lid = " + lid);
+
+        // Kontrollera att chef och land finns i databasen
+        if (!idFinns("anstalld", "aid", chefAid)) {
+            JOptionPane.showMessageDialog(null, "Vald projektchef finns inte i systemet.");
+            return;
+        }
+        if (!idFinns("land", "lid", lid)) {
+            JOptionPane.showMessageDialog(null, "Valt land finns inte i systemet.");
+            return;
+        }
+
+        // SQL
+        String sql = String.format("INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet, projektchef, land) "
+                + "VALUES (%d, '%s', '%s', '%s', '%s', %s, '%s', '%s', %s, %s)",
+                nyPid,
+                tfProjektnamn.getText().trim(),
+                tfBeskrivning.getText().trim(),
+                tfStartdatum.getText().trim(),
+                tfSlutdatum.getText().trim(),
+                tfKostnad.getText().trim(),
+                tfStatus.getText().trim(),
+                tfPrioritet.getText().trim(),
+                chefAid,
+                lid
+        );
+
+        idb.insert(sql);
+        JOptionPane.showMessageDialog(null, "Projekt tillagt!");
+
+    } catch (InfException e) {
+        JOptionPane.showMessageDialog(null, "Fel vid tillägg: " + e.getMessage());
     }
+}
+    
+    // Hjälpmetod för att kolla om ID finns i en tabell
+private boolean idFinns(String tabell, String kolumn, String id) {
+    try {
+        String sql = "SELECT " + kolumn + " FROM " + tabell + " WHERE " + kolumn + " = " + id;
+        return idb.fetchSingle(sql) != null;
+    } catch (InfException e) {
+        return false;
+    }
+}
 
 
 private void taBortProjekt() {
@@ -937,7 +973,11 @@ private void taBortProjekt() {
             HashMap<String, String> projekt = idb.fetchRow("SELECT * FROM projekt WHERE pid = " + pid);
 
             // Projektchefer
-            List<HashMap<String, String>> chefer = idb.fetchRows("SELECT aid, fornamn, efternamn FROM anstalld");
+            List<HashMap<String, String>> chefer = idb.fetchRows(
+                "SELECT DISTINCT a.aid, a.fornamn, a.efternamn " +
+                "FROM anstalld a " +
+                "JOIN projekt p ON a.aid = p.projektchef"
+            );
             Map<String, String> namnTillAID = new HashMap<>();
             String[] chefAlternativ = new String[chefer.size()];
             for (int i = 0; i < chefer.size(); i++) {

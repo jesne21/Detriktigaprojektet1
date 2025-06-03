@@ -48,6 +48,16 @@ public class Validering {
         return text.matches("\\d+");
     }
     
+    
+    
+    //Kontroll av siffror som får innehålla decimaler (t.ex valuta)
+    public static boolean baraSiffrorMedDecimal(String text) {
+    if (textFaltArTomt(text)) {
+        return false;
+    }
+    return text.matches("\\d+(\\.|,)?\\d*");
+}
+    
     // Kontroll av telefonnummer (måste vara 7–15 siffror)
     public static boolean arTelefonnummer(String telefon) {
         if (textFaltArTomt(telefon)) {
