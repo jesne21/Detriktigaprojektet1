@@ -150,7 +150,7 @@ private void visaMinaProjekt() {
             String partner = rad.get("partner");
             if (partner == null) partner = "Ingen";
 
-            // // Hittar landets namn från rätt kolumn och ser till så att nyckeln inte har nåt annat alias än det vi skriver
+            // Hittar landets namn från rätt kolumn och ser till så att nyckeln inte har nåt annat alias än det vi skriver
             String land = "Okänt";
             for (String key : rad.keySet()) {
                 if ((key.toLowerCase().contains("namn") || key.toLowerCase().contains("land")) 
@@ -191,86 +191,100 @@ private void visaMinaProjekt() {
 
     // Metoden ska visa projekt inom ett valt datumintervall (start- och slutdatum)
     private void visaProjektInomDatum() {
-        try {
-            System.out.println("Metod visaProjektInomDatum körs");
+    try {
+        System.out.println("Metod visaProjektInomDatum körs");
 
-            Date startDatum = jDateChooserStart.getDate();
-            Date slutDatum = jDateChooserSlut.getDate();
+        Date startDatum = jDateChooserStart.getDate();
+        Date slutDatum = jDateChooserSlut.getDate();
 
-            if (startDatum == null || slutDatum == null) {
-                JOptionPane.showMessageDialog(null, "Välj både start- och slutdatum.");
-                return;
-            }
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String startStr = sdf.format(startDatum);
-            String slutStr = sdf.format(slutDatum);
-
-            boolean minaProjektAktiv = minaProjektValda;
-
-            String sql;
-
-            if (minaProjektAktiv) {
-                sql = "SELECT pr.pid AS pid, pr.projektnamn, "
-                        + "(SELECT pa.namn FROM projekt_partner pp JOIN partner pa ON pp.partner_pid = pa.pid "
-                        + "WHERE pp.pid = pr.pid LIMIT 1) AS partner, "
-                        + "l.namn AS land_namn, pr.status, pr.startdatum, pr.slutdatum "
-                        + "FROM projekt pr "
-                        + "JOIN ans_proj ap ON pr.pid = ap.pid "
-                        + "JOIN land l ON pr.land = l.lid "
-                        + "WHERE ap.aid = '" + anvandarID + "' "
-                        + "AND pr.startdatum >= '" + startStr + "' "
-                        + "AND pr.slutdatum <= '" + slutStr + "'";
-            } else {
-                String avdelning = idb.fetchSingle("SELECT avdelning FROM anstalld WHERE aid = '" + anvandarID + "'");
-                System.out.println("Din avdelning: " + avdelning);
-                sql = "SELECT DISTINCT pr.pid, pr.projektnamn, "
-                        + "(SELECT pa.namn FROM projekt_partner pp JOIN partner pa ON pp.partner_pid = pa.pid "
-                        + "WHERE pp.pid = pr.pid LIMIT 1) AS partner, "
-                        + "l.namn AS land_namn, pr.status, pr.startdatum, pr.slutdatum "
-                        + "FROM projekt pr "
-                        + "JOIN ans_proj ap ON pr.pid = ap.pid "
-                        + "JOIN anstalld a ON ap.aid = a.aid "
-                        + "JOIN land l ON pr.land = l.lid "
-                        + "WHERE a.avdelning = '" + avdelning + "' "
-                        + "AND pr.startdatum >= '" + startStr + "' "
-                        + "AND pr.slutdatum <= '" + slutStr + "'";
-            }
-
-            System.out.println("SQL-fråga: " + sql);
-            ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
-            System.out.println("Antal träffar: " + resultat.size());
-
-            HashSet<String> visadeProjekt = new HashSet<>();
-            DefaultTableModel modell = new DefaultTableModel();
-            modell.setColumnIdentifiers(new Object[]{
-                "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum"
-            });
-
-            for (HashMap<String, String> rad : resultat) {
-                String pid = rad.get("pid");
-                if (visadeProjekt.contains(pid)) {
-                    continue;
-                }
-                visadeProjekt.add(pid);
-
-                modell.addRow(new Object[]{
-                    rad.get("projektnamn"),
-                    rad.get("partner") != null ? rad.get("partner") : "Ingen",
-                    rad.get("land") != null ? rad.get("land") : "Okänt",
-                    rad.get("status"),
-                    rad.get("startdatum"),
-                    rad.get("slutdatum")
-                });
-            }
-
-            tblProjekt.setModel(modell);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Kunde inte filtrera projekt:\n" + e.getMessage());
-            e.printStackTrace();
+        if (startDatum == null || slutDatum == null) {
+            JOptionPane.showMessageDialog(null, "Välj både start- och slutdatum.");
+            return;
         }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String startStr = sdf.format(startDatum);
+        String slutStr = sdf.format(slutDatum);
+
+        boolean minaProjektAktiv = minaProjektValda;
+
+        String sql;
+
+        if (minaProjektAktiv) {
+            sql = "SELECT pr.pid AS pid, pr.projektnamn, "
+                    + "(SELECT pa.namn FROM projekt_partner pp JOIN partner pa ON pp.partner_pid = pa.pid "
+                    + "WHERE pp.pid = pr.pid LIMIT 1) AS partner, "
+                    + "l.namn AS land_namn, pr.status, pr.startdatum, pr.slutdatum, pr.prioritet "
+                    + "FROM projekt pr "
+                    + "JOIN ans_proj ap ON pr.pid = ap.pid "
+                    + "JOIN land l ON pr.land = l.lid "
+                    + "WHERE ap.aid = '" + anvandarID + "' "
+                    + "AND pr.startdatum >= '" + startStr + "' "
+                    + "AND pr.slutdatum <= '" + slutStr + "'";
+        } else {
+            String avdelning = idb.fetchSingle("SELECT avdelning FROM anstalld WHERE aid = '" + anvandarID + "'");
+            System.out.println("Din avdelning: " + avdelning);
+            sql = "SELECT DISTINCT pr.pid, pr.projektnamn, "
+                    + "(SELECT pa.namn FROM projekt_partner pp JOIN partner pa ON pp.partner_pid = pa.pid "
+                    + "WHERE pp.pid = pr.pid LIMIT 1) AS partner, "
+                    + "l.namn AS land_namn, pr.status, pr.startdatum, pr.slutdatum, pr.prioritet "
+                    + "FROM projekt pr "
+                    + "JOIN ans_proj ap ON pr.pid = ap.pid "
+                    + "JOIN anstalld a ON ap.aid = a.aid "
+                    + "JOIN land l ON pr.land = l.lid "
+                    + "WHERE a.avdelning = '" + avdelning + "' "
+                    + "AND pr.startdatum >= '" + startStr + "' "
+                    + "AND pr.slutdatum <= '" + slutStr + "'";
+        }
+
+        System.out.println("SQL-fråga: " + sql);
+        ArrayList<HashMap<String, String>> resultat = idb.fetchRows(sql);
+        System.out.println("Antal träffar: " + resultat.size());
+
+        HashSet<String> visadeProjekt = new HashSet<>();
+        DefaultTableModel modell = new DefaultTableModel();
+        modell.setColumnIdentifiers(new Object[]{
+            "Projektnamn", "Projektpartner", "Land", "Status", "Startdatum", "Slutdatum", "Prioritet"
+        });
+
+        for (HashMap<String, String> rad : resultat) {
+            String pid = rad.get("pid");
+            if (visadeProjekt.contains(pid)) {
+                continue;
+            }
+            visadeProjekt.add(pid);
+
+            String projektnamn = rad.get("projektnamn");
+            String partner = rad.get("partner") != null ? rad.get("partner") : "Ingen";
+
+            // Hittar landets namn från rätt kolumn och ser till så att nyckeln inte har nåt annat alias än det vi skriver
+            String land = "Okänt";
+            for (String key : rad.keySet()) {
+                if ((key.toLowerCase().contains("namn") || key.toLowerCase().contains("land"))
+                        && !key.equalsIgnoreCase("projektnamn") && !key.equalsIgnoreCase("partner")) {
+                    land = rad.get(key);
+                    break;
+                }
+            }
+
+            String status = rad.get("status");
+            String start = rad.get("startdatum");
+            String slut = rad.get("slutdatum");
+            String prioritet = rad.get("prioritet");
+
+            modell.addRow(new Object[]{
+                projektnamn, partner, land, status, start, slut, prioritet
+            });
+        }
+
+        tblProjekt.setModel(modell);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Kunde inte filtrera projekt:\n" + e.getMessage());
+        e.printStackTrace();
     }
+}
+
 
 
     // hämtar projektID från projekt tabellen
