@@ -40,7 +40,7 @@ public class Menu4 extends javax.swing.JInternalFrame {
         ui.setNorthPane(null);
     } else {
         JOptionPane.showMessageDialog(null, "Åtkomst nekad – endast admin kan se denna vy.");
-        this.setVisible(false); // eller dispose(); om du vill stänga fönstret helt
+        this.setVisible(false);
     }
         
     }
@@ -55,7 +55,7 @@ private void laggTillPartner() {
         }
 
         Map<String, String> stadNamnTillSID = new HashMap<>();
-        String[] stadAlternativ = new String[stader.size() + 1]; // +1 för "Ny stad"
+        String[] stadAlternativ = new String[stader.size() + 1];
 
         for (int i = 0; i < stader.size(); i++) {
             String namn = stader.get(i).get("namn");
@@ -415,7 +415,7 @@ private void taBortPartner() {
                 return;
             }
 
-            //  SQL-insättning
+            //  SQL
             String sql = String.format(
                     "INSERT INTO avdelning (avdid, namn, beskrivning, adress, epost, telefon, stad, chef) VALUES (%d, '%s', '%s', '%s', '%s', '%s', %s, %s)",
                     nyAvdID,

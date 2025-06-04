@@ -861,13 +861,11 @@ public class Menu2 extends javax.swing.JInternalFrame {
         String beskrivning = tfBeskrivning.getText().trim();
         String prioritet = tfPrioritet.getText().trim();
 
-        // ✅ Validering av målnummer (1–17)
+        // Validering av målnummer (1–17)
         if (!Validering.arNummerMellan1Till17(malnummer)) {
             JOptionPane.showMessageDialog(this, "Målnummer måste vara ett heltal mellan 1 och 17.");
             return;
         }
-
-        // Du kan lägga till fler valideringar här om du vill...
 
         String sql = "UPDATE hallbarhetsmal SET " +
                      "namn = '" + namn + "', " +

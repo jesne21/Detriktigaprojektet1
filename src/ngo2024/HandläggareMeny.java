@@ -13,10 +13,6 @@ import oru.inf.InfException;
  * @author Filip
  */
 public class HandläggareMeny extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Instrumentpanelen
-     */
     
     Color DefualtColor,ClickedColor;
     private InfDB idb;
