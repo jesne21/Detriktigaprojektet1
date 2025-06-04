@@ -60,7 +60,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
         highlightKnapp(btnMinaProjekt); // Gör "mina projekt" knappen aktiv
 
     }
-// ska visa projekt den inloggade personen är involverad i
+// ska visa projekt den inloggade personen är involverad i !
 private void visaMinaProjekt() {
     try {
         String sql = "SELECT DISTINCT pr.pid, pr.projektnamn, "
